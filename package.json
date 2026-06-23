@@ -13,11 +13,13 @@
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
     "images": "bun run scripts/optimize-images.ts",
-    "ncu": "ncu -u"
+    "ncu-check": "ncu",
+    "ncu-all": "ncu -u",
+    "ncu-minor": "ncu --target minor"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.19.11",
-    "lucide-react": "^1.17.0",
+    "lucide-react": "^1.21.0",
     "next": "16.2.9",
     "next-intl": "^4.13.0",
     "react": "^19.2.7",
@@ -26,16 +28,16 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^25.9.3",
+    "@types/node": "^25.9.4",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
-    "npm-check-updates": "^22.2.3",
+    "npm-check-updates": "^22.2.7",
     "prettier": "^3.8.4",
-    "sharp": "^0.35.0",
+    "sharp": "^0.35.2",
     "tailwindcss": "^4",
     "typescript": "^6.0.3",
-    "wrangler": "^4.99.0"
+    "wrangler": "^4.103.0"
   }
 }
