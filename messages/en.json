@@ -34,7 +34,8 @@
       },
       "yuejie": {
         "name": "Yue Jie Zhang",
-        "role": "Co-founder · AI Specialist"
+        "role": "Co-founder · AI Specialist",
+        "bio": "Software engineer with 2 years of experience operating Hospital Information Systems at enterprise scale — managing mission-critical infrastructure across hundreds of medical facilities with zero tolerance for downtime. That environment sharpened a deep instinct for building software that holds up in production. Now applying those same principles to design tailored solutions and AI-powered workflows that help businesses operate smarter."
       }
     }
   },

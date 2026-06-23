@@ -51,6 +51,9 @@ export default async function About({
               <p className="text-sm text-foreground/60">
                 {t(`members.${key}.role`)}
               </p>
+              <p className="text-sm text-foreground/70 mt-2 leading-relaxed">
+                {t(`members.${key}.bio`)}
+              </p>
             </div>
           </div>
         ))}
