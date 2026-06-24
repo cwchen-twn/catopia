@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
+type Status = "idle" | "sending" | "success" | "error";
+
 export function ContactForm() {
   const t = useTranslations("contact");
   const [form, setForm] = useState({
@@ -11,6 +13,7 @@ export function ContactForm() {
     subject: "",
     message: "",
   });
+  const [status, setStatus] = useState<Status>("idle");
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -18,14 +21,34 @@ export function ContactForm() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const body = `${t("name")}: ${form.name}\n${t("email")}: ${form.email}\n\n${form.message}`;
-    window.location.href = `mailto:catopia@chenantunez.com?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(body)}`;
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("success");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
   }
 
   const inputClass =
     "w-full rounded-lg border border-foreground/20 bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-foreground/25 transition-shadow";
+
+  if (status === "success") {
+    return (
+      <div className="rounded-lg border border-foreground/20 px-6 py-10 text-center flex flex-col gap-2">
+        <p className="font-medium">{t("successTitle")}</p>
+        <p className="text-sm text-foreground/60">{t("successMessage")}</p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -90,13 +113,18 @@ export function ContactForm() {
         />
       </div>
 
+      {status === "error" && (
+        <p className="text-sm text-red-500">{t("errorMessage")}</p>
+      )}
+
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-foreground/55">{t("hint")}</p>
         <button
           type="submit"
-          className="rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-80 transition-opacity cursor-pointer self-stretch sm:self-auto text-center"
+          disabled={status === "sending"}
+          className="rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-80 transition-opacity cursor-pointer self-stretch sm:self-auto text-center disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {t("send")}
+          {status === "sending" ? t("sending") : t("send")}
         </button>
       </div>
     </form>

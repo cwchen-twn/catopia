@@ -1,0 +1,8 @@
+# Load .env.development* files when running `wrangler dev`
+NEXTJS_ENV=development
+
+# Resend email service — set your real values before running `bun run set-secrets`
+RESEND_API_KEY=xxx
+RESEND_FROM=XXX <noreply@xxx.xxx.xxx>
+RESEND_SUBJECT_PREFIX=[xxx]
+RESEND_TO=xxx@xxx.xxx

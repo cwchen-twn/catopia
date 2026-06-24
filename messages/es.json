@@ -47,6 +47,10 @@
     "subject": "Asunto",
     "message": "Mensaje",
     "send": "Enviar mensaje",
-    "hint": "Esto abrirá tu cliente de correo ya completado."
+    "sending": "Enviando…",
+    "hint": "Te responderemos a la brevedad.",
+    "successTitle": "¡Mensaje enviado!",
+    "successMessage": "Recibimos tu mensaje y te responderemos pronto.",
+    "errorMessage": "Algo salió mal. Por favor, inténtalo de nuevo."
   }
 }

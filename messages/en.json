@@ -47,6 +47,10 @@
     "subject": "Subject",
     "message": "Message",
     "send": "Send message",
-    "hint": "This will open your email client pre-filled."
+    "sending": "Sending…",
+    "hint": "We'll get back to you shortly.",
+    "successTitle": "Message sent!",
+    "successMessage": "We received your message and will reply to your email soon.",
+    "errorMessage": "Something went wrong. Please try again."
   }
 }

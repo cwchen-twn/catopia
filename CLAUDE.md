@@ -47,6 +47,19 @@ bun run cf-typegen   # Regenerate cloudflare-env.d.ts after adding Wrangler bind
 - **`.dev.vars`** — local-only environment variables passed to the Wrangler dev runtime (equivalent of `.env` for Cloudflare).
 - Cloudflare bindings are accessible at runtime via `getCloudflareContext()` from `@opennextjs/cloudflare`. This also works in `bun dev` because `next.config.ts` calls `initOpenNextCloudflareForDev()`.
 
+### Validation
+
+Use **Zod** (`zod`) for all runtime schema validation — API route request bodies, external data, anything that crosses a trust boundary. Never use hand-rolled `if (!field)` checks in place of a schema.
+
+```ts
+import { z } from "zod";
+
+const schema = z.object({ ... });
+const parsed = schema.safeParse(await request.json());
+if (!parsed.success) return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+const { field } = parsed.data; // fully typed
+```
+
 ### Icons
 
 Use **Lucide React** (`lucide-react`) for all icons. Import named components directly: `import { IconName } from "lucide-react"`. Do not add SVG files or other icon libraries.
@@ -127,6 +140,16 @@ Both cases render **`src/app/not-found.tsx`** — a root-level 404 page that inc
 
 - **`public/robots.txt`** — static file served before Next.js routing. Allows all crawlers, disallows `/_next/` (build artifacts), and references the sitemap. Using a static file is critical: without it, `/robots.txt` is matched by the `[locale]` dynamic segment with locale `"robots.txt"`, rendering the app instead of a valid robots file.
 - **`src/app/sitemap.ts`** — generates `/sitemap.xml` at build time (`force-static`). Routes are auto-discovered via `process.env.APP_ROUTES` (see below). Locales come from `routing.locales`.
+
+### Contact Form & Email
+
+The `/contact` page submits to `src/app/api/contact/route.ts` via `fetch`. The route handler:
+
+- Reads `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_TO`, and `RESEND_SUBJECT_PREFIX` from `getCloudflareContext().env` (never from `process.env` or the client bundle)
+- Validates the request body with Zod before touching any field
+- Sets the client's email as `replyTo` so the team can reply directly
+
+Local secrets go in `.dev.vars` (loaded by both `bun dev` and `bun preview` via `initOpenNextCloudflareForDev`). Production secrets are pushed with `bun run set-secrets`, which reads `.dev.vars` and pipes each `RESEND_*` entry to `wrangler secret put`.
 
 ### Build-Time Filesystem Access (`next.config.ts`)
 

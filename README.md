@@ -8,6 +8,8 @@ Landing page for **Catopia de Chen Antúnez** — a software and AI solutions fi
 - **Cloudflare Workers** via [OpenNext](https://opennext.js.org/cloudflare)
 - **Tailwind CSS v4**
 - **next-intl** — i18n with `en` (en-US), `es` (es-PY), and `pt` (pt-BR) locales
+- **Zod** — runtime schema validation for all API routes
+- **Resend** — transactional email for the contact form
 - **Bun** as the package manager and runtime
 
 ## Development
@@ -70,6 +72,30 @@ open-next.config.ts  # OpenNext/Cloudflare adapter config
 - Dark/light toggle via `ThemeScript` in `<head>` (reads `localStorage`, falls back to `prefers-color-scheme`) and `ThemeToggle` component using `useSyncExternalStore`
 - Font size control (S / M / L → 16px / 18px / 20px root) via `FontSizeScript` + `FontSizeControl`; scales all `rem`-based Tailwind utilities automatically
 - Both preferences persist in `localStorage` and are restored before hydration (no flash) and on every route navigation via `ThemeRestorer`
+
+## Contact form
+
+The `/contact` page posts to `src/app/api/contact/route.ts`. The handler validates the body with Zod, then sends an email via Resend with the client's address as `Reply-To`.
+
+Secrets are read from `getCloudflareContext().env` — never from the client bundle.
+
+**Local development** — add to `.dev.vars` (loaded by both `bun dev` and `bun preview`):
+
+```
+RESEND_API_KEY=re_...
+RESEND_FROM=Catopia <noreply@catopia.chenantunez.com>
+RESEND_TO=catopia@chenantunez.com
+RESEND_SUBJECT_PREFIX=[CLIENT INQUIRY]
+```
+
+**Scripts:**
+
+```bash
+bun run test-email   # send a test email using .dev.vars values
+bun run set-secrets  # push all RESEND_* entries from .dev.vars to the Cloudflare Worker
+```
+
+`set-secrets` reads `.dev.vars` and pipes each `RESEND_*` value to `wrangler secret put`, so secrets never appear in the process list.
 
 ## SEO
 
