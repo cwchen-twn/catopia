@@ -35,7 +35,7 @@
       "yuejie": {
         "name": "Yue Jie Zhang",
         "role": "Co-founder · AI Specialist",
-        "bio": "Software engineer with 2 years of experience operating Hospital Information Systems at enterprise scale — managing mission-critical infrastructure across hundreds of medical facilities with zero tolerance for downtime. That environment sharpened a deep instinct for building software that holds up in production. Now applying those same principles to design tailored solutions and AI-powered workflows that help businesses operate smarter."
+        "bio": "Software engineer with 2+ years leading the development and operations of hospital OPD/ED systems across 93 servers in Paraguay — serving over one million patient visits every month. Built and maintained the core HIS stack (Java · PostgreSQL · Tomcat), then led a progressive frontend modernisation to Next.js (React + TypeScript), replacing legacy JSP with minimal disruption. Engineered deep integrations with LIS and PACS: bi-directional lab data exchange and DICOM-standard QIDO-RS queries that let clinicians access medical images directly in their workflow. Co-built the team's hiring process, coding standards, and documentation culture, and introduced AI-assisted development tools to accelerate knowledge transfer. Now applying that production-hardened instinct to design tailored software and AI workflows for businesses."
       }
     }
   },

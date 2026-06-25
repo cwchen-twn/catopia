@@ -35,7 +35,7 @@
       "yuejie": {
         "name": "Yue Jie Zhang",
         "role": "Co-fundadora · Especialista en IA",
-        "bio": "Ingeniero de software con 2 años de experiencia operando Sistemas de Información Hospitalaria a escala empresarial — gestionando infraestructura crítica en cientos de centros médicos con cero tolerancia al tiempo de inactividad. Ese entorno agudizó un profundo instinto para construir software que funciona en producción. Ahora aplica esos mismos principios para diseñar soluciones a medida y flujos de trabajo con IA que ayudan a las empresas a operar de forma más inteligente."
+        "bio": "Ingeniero de software con más de 2 años liderando el desarrollo y operación del sistema de admisión y urgencias en 93 servidores hospitalarios en Paraguay — atendiendo más de un millón de consultas al mes. Construyó y mantuvo el núcleo del HIS (Java · PostgreSQL · Tomcat) y lideró la modernización progresiva del frontend a Next.js (React + TypeScript), reemplazando la arquitectura JSP con mínima disrupción. Integró el sistema con LIS y PACS: intercambio bidireccional de datos de laboratorio y consultas QIDO-RS estándar DICOM para acceso directo a imágenes médicas. Cofundó el proceso de reclutamiento técnico, los estándares de desarrollo y la cultura de documentación del equipo, e introdujo herramientas de desarrollo asistidas por IA para acelerar la transferencia de conocimiento. Ahora aplica esa misma disciplina para diseñar software a medida y flujos de trabajo con IA para empresas."
       }
     }
   },
