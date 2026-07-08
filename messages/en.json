@@ -30,12 +30,36 @@
     "members": {
       "chunwei": {
         "name": "Chun Wei Chen",
-        "role": "Co-founder · Software Engineer"
+        "role": "Co-founder · Software Specialist",
+        "bio": [
+          "Technical Lead of Proyecto HIS — Taiwan ICDF's national hospital information system program in Paraguay — since January 2020.",
+          "Leads development of the inpatient system and operations across 90+ servers nationwide, serving roughly 30,000 healthcare workers and over 1.5 million patient visits every month.",
+          "Directed the application stack's evolution from a monolithic legacy HIS to a decoupled architecture: a Next.js frontend backed by a modernized Java REST API.",
+          "Guided the infrastructure's progression from a single-node setup to a highly available Kubernetes cluster — Terraform for IaC, Helm-based GitOps, and full observability — for resilient infrastructure with minimal operational overhead.",
+          "Introduced the HL7 FHIR standard alongside the existing system, enabling interoperability with international healthcare data formats without disrupting production stability.",
+          "Built the team's hiring pipeline, development process, and technical documentation, and introduced AI-assisted development workflows to sustain the technical department's long-term growth.",
+          "Now leading the design of AI-powered applications — natural-language-to-SQL, an AI support agent, and an AI-assisted code review cycle — extending the program's transformation from digital to AI."
+        ],
+        "tags": [
+          "Database Design",
+          "Systems Architecture",
+          "Software Engineering",
+          "Java",
+          "TypeScript",
+          "Kubernetes"
+        ]
       },
       "yuejie": {
-        "name": "Yue Jie Zhang",
-        "role": "Co-founder · AI Specialist",
-        "bio": "Software engineer with 2+ years leading the development and operations of hospital OPD/ED systems across 93 servers in Paraguay — serving over one million patient visits every month. Built and maintained the core HIS stack (Java · PostgreSQL · Tomcat), then led a progressive frontend modernisation to Next.js (React + TypeScript), replacing legacy JSP with minimal disruption. Engineered deep integrations with LIS and PACS: bi-directional lab data exchange and DICOM-standard QIDO-RS queries that let clinicians access medical images directly in their workflow. Co-built the team's hiring process, coding standards, and documentation culture, and introduced AI-assisted development tools to accelerate knowledge transfer. Now applying that production-hardened instinct to design tailored software and AI workflows for businesses."
+        "name": "Yun Jie Zhang",
+        "role": "Co-founder · Software Specialist",
+        "bio": [
+          "Software engineer with 2+ years leading the development and operations of hospital OPD/ED systems across 93 servers in Paraguay — serving over one million patient visits every month.",
+          "Built and maintained the core HIS stack (Java · PostgreSQL · Tomcat), then led a progressive frontend modernisation to Next.js (React + TypeScript), replacing legacy JSP with minimal disruption.",
+          "Engineered deep integrations with LIS and PACS: bi-directional lab data exchange and DICOM-standard QIDO-RS queries that let clinicians access medical images directly in their workflow.",
+          "Co-built the team's hiring process, coding standards, and documentation culture, and introduced AI-assisted development tools to accelerate knowledge transfer.",
+          "Now applying that production-hardened instinct to design tailored software and AI workflows for businesses."
+        ],
+        "tags": []
       }
     }
   },

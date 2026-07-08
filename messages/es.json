@@ -30,12 +30,36 @@
     "members": {
       "chunwei": {
         "name": "Chun Wei Chen",
-        "role": "Co-fundador · Ingeniero de Software"
+        "role": "Co-fundador · Especialista en Software",
+        "bio": [
+          "Líder técnico de Proyecto HIS — el programa de modernización del sistema de información hospitalaria de Taiwan ICDF en Paraguay — desde enero de 2020.",
+          "Lidera el desarrollo del sistema de hospitalización y la operación de más de 90 servidores distribuidos por todo el país, dando servicio a unos 30.000 trabajadores de la salud y más de 1,5 millones de consultas médicas al mes.",
+          "Dirigió la evolución de la arquitectura de aplicaciones desde un HIS monolítico heredado hacia una arquitectura desacoplada: un frontend en Next.js respaldado por una API REST en Java modernizada.",
+          "Guió la evolución de la infraestructura desde un único nodo hasta un clúster de Kubernetes de alta disponibilidad — Terraform para IaC, GitOps con Helm y observabilidad completa — logrando una infraestructura resiliente y de bajo mantenimiento.",
+          "Introdujo el estándar HL7 FHIR junto al sistema existente, habilitando la interoperabilidad con formatos de datos de salud internacionales sin afectar la estabilidad en producción.",
+          "Construyó el proceso de contratación del equipo, el flujo de desarrollo y la documentación técnica, e introdujo flujos de trabajo asistidos por IA para sostener el crecimiento del equipo técnico a largo plazo.",
+          "Actualmente lidera el diseño de aplicaciones con IA — lenguaje natural a SQL, un agente de soporte con IA y un ciclo de revisión de código asistido por IA — extendiendo la transformación del programa de lo digital a la IA."
+        ],
+        "tags": [
+          "Diseño de Bases de Datos",
+          "Arquitectura de Sistemas",
+          "Ingeniería de Software",
+          "Java",
+          "TypeScript",
+          "Kubernetes"
+        ]
       },
       "yuejie": {
-        "name": "Yue Jie Zhang",
-        "role": "Co-fundadora · Especialista en IA",
-        "bio": "Ingeniero de software con más de 2 años liderando el desarrollo y operación del sistema de admisión y urgencias en 93 servidores hospitalarios en Paraguay — atendiendo más de un millón de consultas al mes. Construyó y mantuvo el núcleo del HIS (Java · PostgreSQL · Tomcat) y lideró la modernización progresiva del frontend a Next.js (React + TypeScript), reemplazando la arquitectura JSP con mínima disrupción. Integró el sistema con LIS y PACS: intercambio bidireccional de datos de laboratorio y consultas QIDO-RS estándar DICOM para acceso directo a imágenes médicas. Cofundó el proceso de reclutamiento técnico, los estándares de desarrollo y la cultura de documentación del equipo, e introdujo herramientas de desarrollo asistidas por IA para acelerar la transferencia de conocimiento. Ahora aplica esa misma disciplina para diseñar software a medida y flujos de trabajo con IA para empresas."
+        "name": "Yun Jie Zhang",
+        "role": "Co-fundadora · Especialista en Software",
+        "bio": [
+          "Ingeniero de software con más de 2 años liderando el desarrollo y operación del sistema de admisión y urgencias en 93 servidores hospitalarios en Paraguay — atendiendo más de un millón de consultas al mes.",
+          "Construyó y mantuvo el núcleo del HIS (Java · PostgreSQL · Tomcat) y lideró la modernización progresiva del frontend a Next.js (React + TypeScript), reemplazando la arquitectura JSP con mínima disrupción.",
+          "Integró el sistema con LIS y PACS: intercambio bidireccional de datos de laboratorio y consultas QIDO-RS estándar DICOM para acceso directo a imágenes médicas.",
+          "Cofundó el proceso de reclutamiento técnico, los estándares de desarrollo y la cultura de documentación del equipo, e introdujo herramientas de desarrollo asistidas por IA para acelerar la transferencia de conocimiento.",
+          "Ahora aplica esa misma disciplina para diseñar software a medida y flujos de trabajo con IA para empresas."
+        ],
+        "tags": []
       }
     }
   },

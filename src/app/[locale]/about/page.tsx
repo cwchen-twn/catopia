@@ -35,28 +35,57 @@ export default async function About({
         <p className="text-foreground/60">{t("subtitle")}</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
-        {members.map(({ key, initials }) => (
-          <div
-            key={key}
-            className="flex flex-col gap-4 p-6 rounded-xl border border-foreground/10"
-          >
-            <div className="w-14 h-14 rounded-full bg-foreground/8 flex items-center justify-center">
-              <span className="text-lg font-semibold text-foreground/60">
-                {initials}
-              </span>
+      <div className="flex flex-col gap-6 max-w-3xl">
+        {members.map(({ key, initials }) => {
+          const bio = t.raw(`members.${key}.bio`) as string[];
+          const tags = t.raw(`members.${key}.tags`) as string[];
+
+          return (
+            <div
+              key={key}
+              className="flex flex-col sm:flex-row gap-5 sm:gap-8 p-6 sm:p-8 rounded-xl border border-foreground/10"
+            >
+              <div className="flex items-center gap-4 sm:flex-col sm:items-start sm:w-40 shrink-0">
+                <div className="w-14 h-14 rounded-full bg-foreground/8 flex items-center justify-center shrink-0">
+                  <span className="text-lg font-semibold text-foreground/60">
+                    {initials}
+                  </span>
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <p className="font-semibold">{t(`members.${key}.name`)}</p>
+                  <p className="text-sm text-foreground/60">
+                    {t(`members.${key}.role`)}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4 min-w-0">
+                <ul className="flex flex-col gap-2.5">
+                  {bio.map((point, i) => (
+                    <li
+                      key={i}
+                      className="text-sm text-foreground/70 leading-relaxed pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-foreground/30 before:font-bold"
+                    >
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+                {tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs px-2.5 py-1 rounded-full bg-foreground/8 text-foreground/60"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="flex flex-col gap-1">
-              <p className="font-semibold">{t(`members.${key}.name`)}</p>
-              <p className="text-sm text-foreground/60">
-                {t(`members.${key}.role`)}
-              </p>
-              <p className="text-sm text-foreground/70 mt-2 leading-relaxed">
-                {t(`members.${key}.bio`)}
-              </p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
