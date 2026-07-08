@@ -91,11 +91,29 @@ RESEND_SUBJECT_PREFIX=[CLIENT INQUIRY]
 **Scripts:**
 
 ```bash
-bun run test-email   # send a test email using .dev.vars values
-bun run set-secrets  # push all RESEND_* entries from .dev.vars to the Cloudflare Worker
+bun run test-email     # send a test email using .dev.vars values
+bun run set-cf-secrets # push all RESEND_* entries from .dev.vars to the Cloudflare Worker
 ```
 
-`set-secrets` reads `.dev.vars` and pipes each `RESEND_*` value to `wrangler secret put`, so secrets never appear in the process list.
+`set-cf-secrets` reads `.dev.vars` and pipes each `RESEND_*` value to `wrangler secret put`, so secrets never appear in the process list. If `.dev.vars` isn't present (e.g. in CI), it falls back to reading `RESEND_*` from already-exported environment variables instead.
+
+**CI/CD** — `.github/workflows/deploy.yml` runs on every `v*` tag push. It builds and deploys via `bun run deploy`, then runs `bun run set-cf-secrets` with `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_SUBJECT_PREFIX`, `RESEND_TO`, `CLOUDFLARE_API_TOKEN`, and `CLOUDFLARE_ACCOUNT_ID` all sourced from GitHub Actions repository secrets and passed via `env:`.
+
+Push those repository secrets with:
+
+```bash
+bun run set-gh-secrets  # gh secret set for RESEND_* (from .dev.vars) + CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID (prompted)
+```
+
+**SOP — updating a secret:**
+
+1. Update the value in `.dev.vars`.
+2. Run `bun run set-gh-secrets` — GitHub Actions secrets are the source of truth.
+3. Deploy via a version tag (`git tag vX.Y.Z && git push --tags`) — CI builds, deploys, and runs `set-cf-secrets` against the synced GitHub secrets automatically. Don't run `set-cf-secrets` yourself in this path.
+
+Only run `bun run set-cf-secrets` + `bun run deploy` manually when you need to push a Cloudflare change without a tagged CI deploy (CI down, local testing, etc). If you do, remember to also run `set-gh-secrets` with the same value — otherwise the next tagged deploy will silently overwrite Cloudflare back to the stale GitHub value.
+
+Requires the [`gh` CLI](https://cli.github.com/) authenticated (`gh auth login`). `RESEND_*` values come from `.dev.vars`; `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` aren't stored locally, so the script prompts for them (or reads them from your shell env if already exported).
 
 ## SEO
 

@@ -14,7 +14,8 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
     "images": "bun run scripts/optimize-images.ts",
     "test-email": "bun --env-file=.dev.vars scripts/test-email.ts",
-    "set-secrets": "bash scripts/set-secrets.sh",
+    "set-cf-secrets": "bash scripts/set-cf-secrets.sh",
+    "set-gh-secrets": "bash scripts/set-gh-secrets.sh",
     "ncu-check": "ncu",
     "ncu-all": "ncu -u",
     "ncu-minor": "ncu --target minor"

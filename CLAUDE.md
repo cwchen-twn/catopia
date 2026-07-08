@@ -149,7 +149,19 @@ The `/contact` page submits to `src/app/api/contact/route.ts` via `fetch`. The r
 - Validates the request body with Zod before touching any field
 - Sets the client's email as `replyTo` so the team can reply directly
 
-Local secrets go in `.dev.vars` (loaded by both `bun dev` and `bun preview` via `initOpenNextCloudflareForDev`). Production secrets are pushed with `bun run set-secrets`, which reads `.dev.vars` and pipes each `RESEND_*` entry to `wrangler secret put`.
+Local secrets go in `.dev.vars` (loaded by both `bun dev` and `bun preview` via `initOpenNextCloudflareForDev`). Production secrets are pushed with `bun run set-cf-secrets` (`scripts/set-cf-secrets.sh`), which pipes each `RESEND_*` entry to `wrangler secret put` — reading them from `.dev.vars` locally, or from already-exported `RESEND_*` env vars when `.dev.vars` isn't present (e.g. in CI).
+
+**CI (`.github/workflows/deploy.yml`)** — triggers on `v*` tag pushes. After `bun run deploy`, it runs `bun run set-cf-secrets` with `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and all four `RESEND_*` values injected via `env:` from GitHub Actions repository secrets (Settings → Secrets and variables → Actions). When adding a new secret-backed env var to `.dev.vars.example`, add a matching repo secret and an `env:` entry in that workflow step.
+
+`bun run set-gh-secrets` (`scripts/set-gh-secrets.sh`) pushes those repository secrets via `gh secret set`: `RESEND_*` values come from `.dev.vars`, while `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` (not present in `.dev.vars`) are read from the shell env if exported, otherwise prompted for interactively. Requires `gh auth login` first.
+
+**SOP for changing a secret value:** treat GitHub Actions secrets as the source of truth, not Cloudflare directly.
+
+1. Update `.dev.vars`.
+2. Run `bun run set-gh-secrets`.
+3. Deploy via a version tag (`git tag vX.Y.Z && git push --tags`) — CI's `set-cf-secrets` step syncs Cloudflare from the GitHub secrets automatically. Do not run `set-cf-secrets` manually in this path.
+
+Manual `bun run set-cf-secrets` + `bun run deploy` is only for pushing a Cloudflare-only change outside a tagged CI deploy (CI down, local testing). If you do this, also run `set-gh-secrets` with the same value — otherwise the next tagged deploy overwrites Cloudflare back to the stale GitHub-stored value.
 
 ### Build-Time Filesystem Access (`next.config.ts`)
 
