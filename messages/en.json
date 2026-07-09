@@ -69,17 +69,6 @@
         "Data management",
         "Integration challenges"
       ]
-    },
-    "consulting": {
-      "title": "Software Engineering Consulting",
-      "description": "Technical guidance for businesses that need experienced engineering support. Whether you need help improving an existing application or planning a new system, we provide practical engineering solutions.",
-      "includes": [
-        "Architecture reviews",
-        "Database optimization",
-        "Cloud infrastructure improvements",
-        "Performance troubleshooting",
-        "Software modernization"
-      ]
     }
   },
   "about": {

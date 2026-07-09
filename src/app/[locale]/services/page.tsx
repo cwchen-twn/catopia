@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import {
-  Globe,
-  Code2,
-  Bot,
-  HeartPulse,
-  Wrench,
-  CheckCircle,
-} from "lucide-react";
+import { Globe, Code2, Bot, HeartPulse, CheckCircle } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -27,7 +20,6 @@ const services = [
   { key: "software", icon: Code2, hasIdealFor: false },
   { key: "ai", icon: Bot, hasIdealFor: false },
   { key: "healthcare", icon: HeartPulse, hasIdealFor: false },
-  { key: "consulting", icon: Wrench, hasIdealFor: false },
 ] as const;
 
 export default async function Services({

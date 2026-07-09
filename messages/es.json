@@ -69,17 +69,6 @@
         "Gestión de datos",
         "Desafíos de integración"
       ]
-    },
-    "consulting": {
-      "title": "Consultoría en Ingeniería de Software",
-      "description": "Guía técnica para empresas que necesitan soporte de ingeniería experimentado. Ya sea que necesites mejorar una aplicación existente o planificar un nuevo sistema, ofrecemos soluciones de ingeniería prácticas.",
-      "includes": [
-        "Revisiones de arquitectura",
-        "Optimización de bases de datos",
-        "Mejoras de infraestructura en la nube",
-        "Resolución de problemas de rendimiento",
-        "Modernización de software"
-      ]
     }
   },
   "about": {

@@ -69,17 +69,6 @@
         "Gestão de dados",
         "Desafios de integração"
       ]
-    },
-    "consulting": {
-      "title": "Consultoria em Engenharia de Software",
-      "description": "Orientação técnica para empresas que precisam de suporte de engenharia experiente. Seja para melhorar uma aplicação existente ou planejar um novo sistema, oferecemos soluções de engenharia práticas.",
-      "includes": [
-        "Revisões de arquitetura",
-        "Otimização de banco de dados",
-        "Melhorias de infraestrutura em nuvem",
-        "Resolução de problemas de performance",
-        "Modernização de software"
-      ]
     }
   },
   "about": {

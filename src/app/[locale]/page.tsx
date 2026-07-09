@@ -1,14 +1,13 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Globe, Code2, Bot, HeartPulse, Wrench } from "lucide-react";
+import { Globe, Code2, Bot, HeartPulse } from "lucide-react";
 
 const services = [
   { key: "business", icon: Globe },
   { key: "software", icon: Code2 },
   { key: "ai", icon: Bot },
   { key: "healthcare", icon: HeartPulse },
-  { key: "consulting", icon: Wrench },
 ] as const;
 
 export const dynamic = "force-static";
@@ -62,7 +61,7 @@ export default async function Home({
       </section>
 
       {/* Services preview */}
-      <section className="border-t border-foreground/10 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="border-t border-foreground/10 py-16 grid grid-cols-1 sm:grid-cols-2 gap-6">
         {services.map(({ key, icon: Icon }) => (
           <div
             key={key}
