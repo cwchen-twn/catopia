@@ -29,6 +29,13 @@
       "service": "catopia",
     },
   ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "catopia-crm",
+      "database_id": "938adcf4-ef25-4e05-aa8a-b067171ce679",
+    },
+  ],
   "routes": [
     {
       "pattern": "catopia.chenantunez.com",
