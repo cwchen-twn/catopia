@@ -126,6 +126,22 @@ bun run d1-migrate                                  # apply to production (also 
 
 Migration files live in `migrations/`; create new ones with `wrangler d1 migrations create catopia-crm <name>`.
 
+**Querying production data:**
+
+```bash
+bun run d1-contacts                                             # list all submissions, newest first
+bun run d1-query -- "SELECT count(*) FROM contact_submissions"  # ad-hoc SQL (note the `--`)
+```
+
+**Rolling back a migration** — there's no "down migration" built in; once a migration file has run anywhere, treat it as immutable and roll forward instead of editing/deleting it.
+
+- **Full restore** (e.g. bad data): D1's Time Travel feature restores the whole database to any point in the last 30 days:
+  ```bash
+  wrangler d1 time-travel info catopia-crm                # grab a bookmark before anything risky
+  wrangler d1 time-travel restore catopia-crm --before-timestamp=<ISO8601>
+  ```
+- **Bad schema change**: write a new corrective migration (`wrangler d1 migrations create catopia-crm <name>`) that reverses it, then apply normally with `bun run d1-migrate`.
+
 ## SEO
 
 - `/robots.txt` — served from `public/robots.txt`; allows all crawlers, disallows `/_next/`, references the sitemap

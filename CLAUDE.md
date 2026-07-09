@@ -175,6 +175,23 @@ Contact form submissions persist to a D1 database named `catopia-crm` (named for
 - `src/app/api/contact/route.ts` writes to `env.DB` as a **best-effort, non-blocking** step — a D1 failure is logged but never prevents the Resend email from sending.
 - After adding/changing bindings in `wrangler.jsonc`, run `bun run cf-typegen` to refresh `cloudflare-env.d.ts`.
 
+**Querying production data:**
+
+```bash
+bun run d1-contacts                              # list all contact_submissions, newest first
+bun run d1-query -- "SELECT count(*) FROM contact_submissions"   # ad-hoc SQL (note the `--`)
+```
+
+**Rolling back a migration** — Wrangler has no "down migration" concept; treat every applied migration file as immutable history (once it's run anywhere, don't edit or delete it — it's tracked by filename in D1's own bookkeeping table). Two options, depending on what went wrong:
+
+1. **Bad data / need a full restore** — D1 Time Travel restores the whole database to any point in the last 30 days, no explicit backup needed:
+   ```bash
+   wrangler d1 time-travel info catopia-crm                 # get current bookmark before doing anything risky
+   wrangler d1 time-travel restore catopia-crm --before-timestamp=<ISO8601>
+   # or: wrangler d1 time-travel restore catopia-crm --bookmark=<bookmark-from-info>
+   ```
+2. **Bad schema (e.g. wrong column type)** — write a new corrective migration (`wrangler d1 migrations create catopia-crm <name>`) that reverses the change (`DROP TABLE`, `ALTER TABLE ... DROP COLUMN`, etc.) and apply it normally (`bun run d1-migrate` or let the next tagged deploy do it). Don't touch the original migration file.
+
 ### Build-Time Filesystem Access (`next.config.ts`)
 
 `process.cwd()` is **not** reliable inside `sitemap.ts` or other pre-rendered pages during `next build` — the compilation context does not guarantee the working directory is the project root. `fs.readdirSync` calls there fail silently.

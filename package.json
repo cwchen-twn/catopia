@@ -13,6 +13,8 @@
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
     "d1-migrate": "wrangler d1 migrations apply catopia-crm --remote",
+    "d1-query": "wrangler d1 execute catopia-crm --remote --command",
+    "d1-contacts": "wrangler d1 execute catopia-crm --remote --command \"SELECT id, name, email, subject, message, created_at FROM contact_submissions ORDER BY created_at DESC\"",
     "images": "bun run scripts/optimize-images.ts",
     "test-email": "bun --env-file=.dev.vars scripts/test-email.ts",
     "set-cf-secrets": "bash scripts/set-cf-secrets.sh",
