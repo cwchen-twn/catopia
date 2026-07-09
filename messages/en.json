@@ -49,6 +49,16 @@
         "System integrations"
       ]
     },
+    "ai": {
+      "title": "AI Agent Workflow Integration",
+      "description": "We embed intelligent AI agents into your existing workflows, automating repetitive tasks and enabling smarter, faster decision-making across your entire team.",
+      "includes": [
+        "Document & data processing agents",
+        "Customer-facing chatbots",
+        "Automated reporting pipelines",
+        "Multi-step AI workflow orchestration"
+      ]
+    },
     "healthcare": {
       "title": "Healthcare Software Solutions",
       "description": "Specialized experience building healthcare information systems. We understand the complexity of healthcare workflows and help healthcare organizations improve efficiency through reliable software solutions.",
@@ -120,10 +130,10 @@
         "name": "Chun Wei Chen",
         "role": "Co-founder · Software Specialist",
         "bio": [
+          "Designs AI-powered tools — natural-language data queries, support agents, and automated code review — bringing practical, production-ready AI into everyday business operations.",
           "Leads the technical side of Proyecto HIS, Paraguay's national hospital information system, since 2020 — software relied on by roughly 30,000 healthcare workers and over 1.5 million patient visits every month.",
           "Modernized the system from a legacy monolith into a decoupled Next.js + Java platform, and its infrastructure from a single server to a highly available Kubernetes cluster — delivering the kind of large-scale upgrade that keeps a business running without downtime while it grows.",
-          "Introduced the HL7 FHIR healthcare data standard so the system could securely exchange data with outside providers — adding new capability to a live, mission-critical system without disrupting the people who depend on it.",
-          "Now designs AI-powered tools — natural-language data queries, support agents, and automated code review — bringing practical, production-ready AI into everyday business operations."
+          "Introduced the HL7 FHIR healthcare data standard so the system could securely exchange data with outside providers — adding new capability to a live, mission-critical system without disrupting the people who depend on it."
         ],
         "tags": [
           "Database Design",
@@ -138,10 +148,10 @@
         "name": "Yun Jie Zhang",
         "role": "Co-founder · Software Specialist",
         "bio": [
+          "Applies production-hardened engineering experience to designing custom software and AI-powered workflows for businesses.",
           "Led development and operations of hospital outpatient and emergency department systems across 93 servers in Paraguay, supporting more than one million patient visits every month — experience building software that can't afford downtime.",
           "Modernized the platform's frontend to Next.js while the system stayed in daily use by hospital staff, proving that legacy software can be upgraded without disrupting the people who rely on it.",
-          "Built integrations with laboratory and medical imaging systems, letting clinical staff access lab results and images directly inside their existing workflow — the kind of system integration that saves real operational time.",
-          "Brings that production-tested experience to designing custom software and AI-powered workflows for businesses today."
+          "Built integrations with laboratory and medical imaging systems, letting clinical staff access lab results and images directly inside their existing workflow — the kind of system integration that saves real operational time."
         ],
         "tags": []
       }

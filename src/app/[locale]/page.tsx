@@ -1,7 +1,15 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Globe, Code2 } from "lucide-react";
+import { Globe, Code2, Bot, HeartPulse, Wrench } from "lucide-react";
+
+const services = [
+  { key: "business", icon: Globe },
+  { key: "software", icon: Code2 },
+  { key: "ai", icon: Bot },
+  { key: "healthcare", icon: HeartPulse },
+  { key: "consulting", icon: Wrench },
+] as const;
 
 export const dynamic = "force-static";
 
@@ -26,7 +34,7 @@ export default async function Home({
           priority
           className="rounded-2xl"
         />
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col items-center gap-3">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
             {t("home.hero.title")}
           </h1>
@@ -54,21 +62,19 @@ export default async function Home({
       </section>
 
       {/* Services preview */}
-      <section className="border-t border-foreground/10 py-16 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-3 p-6 rounded-xl border border-foreground/10 hover:border-foreground/20 transition-colors">
-          <Globe size={24} className="text-foreground/40" />
-          <h2 className="font-semibold">{t("services.business.title")}</h2>
-          <p className="text-sm text-foreground/60 leading-relaxed">
-            {t("services.business.description")}
-          </p>
-        </div>
-        <div className="flex flex-col gap-3 p-6 rounded-xl border border-foreground/10 hover:border-foreground/20 transition-colors">
-          <Code2 size={24} className="text-foreground/40" />
-          <h2 className="font-semibold">{t("services.software.title")}</h2>
-          <p className="text-sm text-foreground/60 leading-relaxed">
-            {t("services.software.description")}
-          </p>
-        </div>
+      <section className="border-t border-foreground/10 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map(({ key, icon: Icon }) => (
+          <div
+            key={key}
+            className="flex flex-col gap-3 p-6 rounded-xl border border-foreground/10 hover:border-foreground/20 transition-colors"
+          >
+            <Icon size={24} className="text-foreground/40" />
+            <h2 className="font-semibold">{t(`services.${key}.title`)}</h2>
+            <p className="text-sm text-foreground/60 leading-relaxed">
+              {t(`services.${key}.description`)}
+            </p>
+          </div>
+        ))}
       </section>
 
       {/* About blurb */}

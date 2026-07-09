@@ -49,6 +49,16 @@
         "Integraciones de sistemas"
       ]
     },
+    "ai": {
+      "title": "Integración de Agentes de IA",
+      "description": "Incorporamos agentes de inteligencia artificial en tus flujos de trabajo existentes, automatizando tareas repetitivas y habilitando decisiones más inteligentes y rápidas en todo tu equipo.",
+      "includes": [
+        "Agentes de procesamiento de documentos y datos",
+        "Chatbots para atención al cliente",
+        "Pipelines de reportes automatizados",
+        "Orquestación de flujos de trabajo con IA"
+      ]
+    },
     "healthcare": {
       "title": "Soluciones de Software para Salud",
       "description": "Experiencia especializada en la construcción de sistemas de información hospitalaria. Entendemos la complejidad de los flujos de trabajo en salud y ayudamos a las organizaciones de salud a mejorar su eficiencia mediante soluciones de software confiables.",
@@ -120,10 +130,10 @@
         "name": "Chun Wei Chen",
         "role": "Co-fundador · Especialista en Software",
         "bio": [
+          "Diseña herramientas con IA — consultas de datos en lenguaje natural, agentes de soporte y revisión de código automatizada — llevando IA práctica y lista para producción a la operación diaria de las empresas.",
           "Lidera el área técnica de Proyecto HIS, el sistema de información hospitalaria nacional de Paraguay, desde 2020 — software del que dependen unos 30.000 trabajadores de la salud y más de 1,5 millones de consultas médicas al mes.",
           "Modernizó el sistema desde un monolito heredado hacia una plataforma desacoplada en Next.js y Java, y su infraestructura desde un único servidor hasta un clúster de Kubernetes de alta disponibilidad — el tipo de actualización a gran escala que mantiene un negocio funcionando sin interrupciones mientras crece.",
-          "Introdujo el estándar de datos de salud HL7 FHIR para que el sistema pudiera intercambiar información de forma segura con otros proveedores — sumando nueva capacidad a un sistema en producción y crítico para el negocio, sin afectar a quienes dependen de él.",
-          "Actualmente diseña herramientas con IA — consultas de datos en lenguaje natural, agentes de soporte y revisión de código automatizada — llevando IA práctica y lista para producción a la operación diaria de las empresas."
+          "Introdujo el estándar de datos de salud HL7 FHIR para que el sistema pudiera intercambiar información de forma segura con otros proveedores — sumando nueva capacidad a un sistema en producción y crítico para el negocio, sin afectar a quienes dependen de él."
         ],
         "tags": [
           "Diseño de Bases de Datos",
@@ -138,10 +148,10 @@
         "name": "Yun Jie Zhang",
         "role": "Co-fundadora · Especialista en Software",
         "bio": [
+          "Aplica experiencia de ingeniería probada en producción para diseñar software a medida y flujos de trabajo con IA para empresas.",
           "Lideró el desarrollo y la operación de los sistemas de consulta externa y urgencias hospitalarias en 93 servidores en Paraguay, dando soporte a más de un millón de consultas médicas al mes — experiencia construyendo software que no puede permitirse tiempo de inactividad.",
           "Modernizó el frontend de la plataforma a Next.js mientras el sistema seguía en uso diario por el personal del hospital, demostrando que el software heredado puede actualizarse sin interrumpir a quienes dependen de él.",
-          "Construyó integraciones con sistemas de laboratorio e imágenes médicas, permitiendo que el personal clínico acceda a resultados e imágenes directamente dentro de su flujo de trabajo — el tipo de integración de sistemas que ahorra tiempo operativo real.",
-          "Hoy aplica esa experiencia probada en producción para diseñar software a medida y flujos de trabajo con IA para empresas."
+          "Construyó integraciones con sistemas de laboratorio e imágenes médicas, permitiendo que el personal clínico acceda a resultados e imágenes directamente dentro de su flujo de trabajo — el tipo de integración de sistemas que ahorra tiempo operativo real."
         ],
         "tags": []
       }
