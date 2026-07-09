@@ -19,8 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "sharp": ["./node_modules/sharp/lib/index.d.ts"]
+      "@/*": ["./src/*"]
     },
     "types": ["./cloudflare-env.d.ts", "node"]
   },
