@@ -1,6 +1,6 @@
 # Catopia
 
-Landing page for **Catopia de Chen Antúnez** — a software and AI solutions firm based in Paraguay. Built with Next.js 16 and deployed to Cloudflare Workers via the OpenNext adapter.
+Marketing site for **Catopia** — a software development company based in Paraguay helping businesses build reliable digital solutions, from professional websites to custom software and AI-powered automation. Built with Next.js 16 and deployed to Cloudflare Workers via the OpenNext adapter.
 
 ## Stack
 
@@ -41,7 +41,7 @@ src/
     not-found.tsx    # Root 404 page (self-contained with <html>/<body>)
     page.tsx         # Root redirect: / → /en
     sitemap.ts       # Auto-generated /sitemap.xml (routes via APP_ROUTES env)
-    [locale]/        # App Router pages (home, services, about, contact)
+    [locale]/        # App Router pages (home, services, case-studies, about, contact)
       layout.tsx     # Locale layout — guards invalid locales with notFound()
   components/        # Nav, Footer, ThemeToggle, LocaleSwitch, FontSizeControl,
                      # ThemeScript, FontSizeScript, ThemeRestorer
@@ -97,7 +97,7 @@ bun run set-cf-secrets # push all RESEND_* entries from .dev.vars to the Cloudfl
 
 `set-cf-secrets` reads `.dev.vars` and pipes each `RESEND_*` value to `wrangler secret put`, so secrets never appear in the process list. If `.dev.vars` isn't present (e.g. in CI), it falls back to reading `RESEND_*` from already-exported environment variables instead.
 
-**CI/CD** — `.github/workflows/deploy.yml` runs on every `v*` tag push. It builds and deploys via `bun run deploy`, then runs `bun run set-cf-secrets` with `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_SUBJECT_PREFIX`, `RESEND_TO`, `CLOUDFLARE_API_TOKEN`, and `CLOUDFLARE_ACCOUNT_ID` all sourced from GitHub Actions repository secrets and passed via `env:`.
+**CI/CD** — `.github/workflows/deploy.yml` runs on every `v*` tag push: applies pending D1 migrations (`bun run d1-migrate`), builds and deploys (`bun run deploy`), then runs `bun run set-cf-secrets` with `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_SUBJECT_PREFIX`, `RESEND_TO`, `CLOUDFLARE_API_TOKEN`, and `CLOUDFLARE_ACCOUNT_ID` all sourced from GitHub Actions repository secrets and passed via `env:`.
 
 Push those repository secrets with:
 
@@ -114,6 +114,17 @@ bun run set-gh-secrets  # gh secret set for RESEND_* (from .dev.vars) + CLOUDFLA
 Only run `bun run set-cf-secrets` + `bun run deploy` manually when you need to push a Cloudflare change without a tagged CI deploy (CI down, local testing, etc). If you do, remember to also run `set-gh-secrets` with the same value — otherwise the next tagged deploy will silently overwrite Cloudflare back to the stale GitHub value.
 
 Requires the [`gh` CLI](https://cli.github.com/) authenticated (`gh auth login`). `RESEND_*` values come from `.dev.vars`; `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` aren't stored locally, so the script prompts for them (or reads them from your shell env if already exported).
+
+## Contact submissions (D1)
+
+Every contact form submission also persists to a Cloudflare D1 database (`catopia-crm` — named for future CRM data generally, not contact-specific), bound as `env.DB`. This is a best-effort, non-blocking write: a D1 failure is logged but never blocks the Resend email.
+
+```bash
+wrangler d1 migrations apply catopia-crm --local   # apply to local dev DB
+bun run d1-migrate                                  # apply to production (also runs automatically in CI before deploy)
+```
+
+Migration files live in `migrations/`; create new ones with `wrangler d1 migrations create catopia-crm <name>`.
 
 ## SEO
 

@@ -151,7 +151,9 @@ The `/contact` page submits to `src/app/api/contact/route.ts` via `fetch`. The r
 
 Local secrets go in `.dev.vars` (loaded by both `bun dev` and `bun preview` via `initOpenNextCloudflareForDev`). Production secrets are pushed with `bun run set-cf-secrets` (`scripts/set-cf-secrets.sh`), which pipes each `RESEND_*` entry to `wrangler secret put` — reading them from `.dev.vars` locally, or from already-exported `RESEND_*` env vars when `.dev.vars` isn't present (e.g. in CI).
 
-**CI (`.github/workflows/deploy.yml`)** — triggers on `v*` tag pushes. After `bun run deploy`, it runs `bun run set-cf-secrets` with `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and all four `RESEND_*` values injected via `env:` from GitHub Actions repository secrets (Settings → Secrets and variables → Actions). When adding a new secret-backed env var to `.dev.vars.example`, add a matching repo secret and an `env:` entry in that workflow step.
+**CI (`.github/workflows/deploy.yml`)** — triggers on `v*` tag pushes. It runs, in order: `bun run d1-migrate` (applies pending D1 migrations to the remote database), `bun run deploy`, then `bun run set-cf-secrets` with `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and all four `RESEND_*` values injected via `env:` from GitHub Actions repository secrets (Settings → Secrets and variables → Actions). Migrations run before the deploy step so new code depending on new schema never ships ahead of the schema itself. When adding a new secret-backed env var to `.dev.vars.example`, add a matching repo secret and an `env:` entry in that workflow step.
+
+`CLOUDFLARE_API_TOKEN` needs a **D1 Edit** permission (account-level) in addition to Workers Scripts/KV Storage Write, or the `d1-migrate` CI step will fail with a permissions error.
 
 `bun run set-gh-secrets` (`scripts/set-gh-secrets.sh`) pushes those repository secrets via `gh secret set`: `RESEND_*` values come from `.dev.vars`, while `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` (not present in `.dev.vars`) are read from the shell env if exported, otherwise prompted for interactively. Requires `gh auth login` first.
 
@@ -162,6 +164,16 @@ Local secrets go in `.dev.vars` (loaded by both `bun dev` and `bun preview` via 
 3. Deploy via a version tag (`git tag vX.Y.Z && git push --tags`) — CI's `set-cf-secrets` step syncs Cloudflare from the GitHub secrets automatically. Do not run `set-cf-secrets` manually in this path.
 
 Manual `bun run set-cf-secrets` + `bun run deploy` is only for pushing a Cloudflare-only change outside a tagged CI deploy (CI down, local testing). If you do this, also run `set-gh-secrets` with the same value — otherwise the next tagged deploy overwrites Cloudflare back to the stale GitHub-stored value.
+
+### Cloudflare D1 (`catopia-crm`)
+
+Contact form submissions persist to a D1 database named `catopia-crm` (named for future CRM-related data generally, not contact-specific — additional tables can be added later via new migrations against the same database). Bound as `env.DB` in `wrangler.jsonc`.
+
+- `migrations/` — SQL migration files, managed via `wrangler d1 migrations create catopia-crm <name>`.
+- Apply locally: `wrangler d1 migrations apply catopia-crm --local` (writes to `.wrangler/state/v3/d1`, used by both `bun dev` and `bun preview`).
+- Apply to production: `bun run d1-migrate` (wraps `wrangler d1 migrations apply catopia-crm --remote`) — runs automatically in CI before every tagged deploy; only needed manually for an out-of-band Cloudflare-only change.
+- `src/app/api/contact/route.ts` writes to `env.DB` as a **best-effort, non-blocking** step — a D1 failure is logged but never prevents the Resend email from sending.
+- After adding/changing bindings in `wrangler.jsonc`, run `bun run cf-typegen` to refresh `cloudflare-env.d.ts`.
 
 ### Build-Time Filesystem Access (`next.config.ts`)
 
