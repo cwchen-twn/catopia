@@ -12,6 +12,9 @@
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
+    "d1-migrate": "wrangler d1 migrations apply catopia-crm --remote",
+    "d1-query": "wrangler d1 execute catopia-crm --remote --command",
+    "d1-contacts": "wrangler d1 execute catopia-crm --remote --command \"SELECT id, name, email, subject, message, created_at FROM contact_submissions ORDER BY created_at DESC\"",
     "images": "bun run scripts/optimize-images.ts",
     "test-email": "bun --env-file=.dev.vars scripts/test-email.ts",
     "set-cf-secrets": "bash scripts/set-cf-secrets.sh",
@@ -40,7 +43,7 @@
     "eslint-config-next": "16.2.9",
     "npm-check-updates": "^22.2.7",
     "prettier": "^3.8.4",
-    "sharp": "^0.35.2",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^6.0.3",
     "wrangler": "^4.103.0"

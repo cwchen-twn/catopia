@@ -2,6 +2,7 @@
   "nav": {
     "home": "Início",
     "services": "Serviços",
+    "caseStudies": "Casos de Sucesso",
     "about": "Sobre",
     "contact": "Contato"
   },
@@ -70,6 +71,29 @@
         "Desafios de integração"
       ]
     }
+  },
+  "caseStudies": {
+    "title": "Casos de Sucesso",
+    "subtitle": "Projetos reais, resultados de negócio reais",
+    "challengeLabel": "Desafio",
+    "solutionLabel": "Solução",
+    "technologyLabel": "Tecnologia",
+    "resultLabel": "Resultado",
+    "items": [
+      {
+        "title": "Modernização de um Sistema de Informação Hospitalar",
+        "challenge": "Um sistema de informação hospitalar nacional, com mais de 90 servidores, mais de 30.000 profissionais de saúde e mais de 1,5 milhão de atendimentos por mês, precisava modernizar sua arquitetura e infraestrutura — sem interromper as operações clínicas em andamento.",
+        "solution": "Reprojetamos a plataforma de um monólito legado para um frontend desacoplado em Next.js apoiado por uma API REST em Java modernizada, migramos a infraestrutura para um cluster Kubernetes de alta disponibilidade, e introduzimos o padrão HL7 FHIR para interoperabilidade com sistemas de saúde externos — tudo enquanto o sistema permanecia em uso contínuo em produção.",
+        "technology": [
+          "Java",
+          "TypeScript (Next.js)",
+          "PostgreSQL",
+          "Kubernetes",
+          "HL7 FHIR"
+        ],
+        "result": "Melhoramos a confiabilidade e a manutenibilidade do sistema em escala nacional, sem interromper as operações hospitalares que atendem mais de 30.000 profissionais de saúde, permitindo também interoperabilidade segura com sistemas de dados de saúde externos."
+      }
+    ]
   },
   "about": {
     "title": "Sobre a Catopia",

@@ -93,11 +93,20 @@ export async function generateMetadata({
       siteName: "Catopia",
       title: meta.title,
       description: meta.description,
+      images: [
+        {
+          url: "https://catopia.chenantunez.com/images/og-share.png",
+          width: 1200,
+          height: 630,
+          alt: "Catopia",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: meta.title,
       description: meta.description,
+      images: ["https://catopia.chenantunez.com/images/og-share.png"],
     },
     alternates: {
       canonical: `https://catopia.chenantunez.com/${locale}`,
