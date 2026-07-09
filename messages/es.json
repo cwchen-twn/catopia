@@ -120,13 +120,10 @@
         "name": "Chun Wei Chen",
         "role": "Co-fundador · Especialista en Software",
         "bio": [
-          "Líder técnico de Proyecto HIS — el programa de modernización del sistema de información hospitalaria de Taiwan ICDF en Paraguay — desde enero de 2020.",
-          "Lidera el desarrollo del sistema de hospitalización y la operación de más de 90 servidores distribuidos por todo el país, dando servicio a unos 30.000 trabajadores de la salud y más de 1,5 millones de consultas médicas al mes.",
-          "Dirigió la evolución de la arquitectura de aplicaciones desde un HIS monolítico heredado hacia una arquitectura desacoplada: un frontend en Next.js respaldado por una API REST en Java modernizada.",
-          "Guió la evolución de la infraestructura desde un único nodo hasta un clúster de Kubernetes de alta disponibilidad — Terraform para IaC, GitOps con Helm y observabilidad completa — logrando una infraestructura resiliente y de bajo mantenimiento.",
-          "Introdujo el estándar HL7 FHIR junto al sistema existente, habilitando la interoperabilidad con formatos de datos de salud internacionales sin afectar la estabilidad en producción.",
-          "Construyó el proceso de contratación del equipo, el flujo de desarrollo y la documentación técnica, e introdujo flujos de trabajo asistidos por IA para sostener el crecimiento del equipo técnico a largo plazo.",
-          "Actualmente lidera el diseño de aplicaciones con IA — lenguaje natural a SQL, un agente de soporte con IA y un ciclo de revisión de código asistido por IA — extendiendo la transformación del programa de lo digital a la IA."
+          "Lidera el área técnica de Proyecto HIS, el sistema de información hospitalaria nacional de Paraguay, desde 2020 — software del que dependen unos 30.000 trabajadores de la salud y más de 1,5 millones de consultas médicas al mes.",
+          "Modernizó el sistema desde un monolito heredado hacia una plataforma desacoplada en Next.js y Java, y su infraestructura desde un único servidor hasta un clúster de Kubernetes de alta disponibilidad — el tipo de actualización a gran escala que mantiene un negocio funcionando sin interrupciones mientras crece.",
+          "Introdujo el estándar de datos de salud HL7 FHIR para que el sistema pudiera intercambiar información de forma segura con otros proveedores — sumando nueva capacidad a un sistema en producción y crítico para el negocio, sin afectar a quienes dependen de él.",
+          "Actualmente diseña herramientas con IA — consultas de datos en lenguaje natural, agentes de soporte y revisión de código automatizada — llevando IA práctica y lista para producción a la operación diaria de las empresas."
         ],
         "tags": [
           "Diseño de Bases de Datos",
@@ -141,11 +138,10 @@
         "name": "Yun Jie Zhang",
         "role": "Co-fundadora · Especialista en Software",
         "bio": [
-          "Ingeniero de software con más de 2 años liderando el desarrollo y operación del sistema de admisión y urgencias en 93 servidores hospitalarios en Paraguay — atendiendo más de un millón de consultas al mes.",
-          "Construyó y mantuvo el núcleo del HIS (Java · PostgreSQL · Tomcat) y lideró la modernización progresiva del frontend a Next.js (React + TypeScript), reemplazando la arquitectura JSP con mínima disrupción.",
-          "Integró el sistema con LIS y PACS: intercambio bidireccional de datos de laboratorio y consultas QIDO-RS estándar DICOM para acceso directo a imágenes médicas.",
-          "Cofundó el proceso de reclutamiento técnico, los estándares de desarrollo y la cultura de documentación del equipo, e introdujo herramientas de desarrollo asistidas por IA para acelerar la transferencia de conocimiento.",
-          "Ahora aplica esa misma disciplina para diseñar software a medida y flujos de trabajo con IA para empresas."
+          "Lideró el desarrollo y la operación de los sistemas de consulta externa y urgencias hospitalarias en 93 servidores en Paraguay, dando soporte a más de un millón de consultas médicas al mes — experiencia construyendo software que no puede permitirse tiempo de inactividad.",
+          "Modernizó el frontend de la plataforma a Next.js mientras el sistema seguía en uso diario por el personal del hospital, demostrando que el software heredado puede actualizarse sin interrumpir a quienes dependen de él.",
+          "Construyó integraciones con sistemas de laboratorio e imágenes médicas, permitiendo que el personal clínico acceda a resultados e imágenes directamente dentro de su flujo de trabajo — el tipo de integración de sistemas que ahorra tiempo operativo real.",
+          "Hoy aplica esa experiencia probada en producción para diseñar software a medida y flujos de trabajo con IA para empresas."
         ],
         "tags": []
       }

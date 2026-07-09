@@ -120,13 +120,10 @@
         "name": "Chun Wei Chen",
         "role": "Co-fundador · Especialista em Software",
         "bio": [
-          "Líder técnico do Proyecto HIS — o programa de modernização do sistema de informação hospitalar da Taiwan ICDF no Paraguai — desde janeiro de 2020.",
-          "Lidera o desenvolvimento do sistema de internação e a operação de mais de 90 servidores distribuídos por todo o país, atendendo cerca de 30.000 profissionais de saúde e mais de 1,5 milhão de atendimentos por mês.",
-          "Conduziu a evolução da arquitetura de aplicações de um HIS monolítico legado para uma arquitetura desacoplada: um frontend em Next.js apoiado por uma API REST em Java modernizada.",
-          "Conduziu a evolução da infraestrutura de um único nó para um cluster Kubernetes de alta disponibilidade — Terraform para IaC, GitOps com Helm e observabilidade completa — construindo uma infraestrutura resiliente e de baixo custo de manutenção.",
-          "Introduziu o padrão HL7 FHIR junto ao sistema existente, permitindo interoperabilidade com formatos internacionais de dados de saúde sem comprometer a estabilidade em produção.",
-          "Construiu o processo de contratação da equipe, o fluxo de desenvolvimento e a documentação técnica, além de introduzir fluxos de trabalho assistidos por IA para sustentar o crescimento da equipe técnica a longo prazo.",
-          "Atualmente lidera o design de aplicações de IA — linguagem natural para SQL, um agente de suporte com IA e um ciclo de revisão de código assistido por IA — estendendo a transformação do programa do digital para a IA."
+          "Lidera a área técnica do Proyecto HIS, o sistema de informação hospitalar nacional do Paraguai, desde 2020 — software do qual dependem cerca de 30.000 profissionais de saúde e mais de 1,5 milhão de atendimentos por mês.",
+          "Modernizou o sistema de um monólito legado para uma plataforma desacoplada em Next.js e Java, e sua infraestrutura de um único servidor para um cluster Kubernetes de alta disponibilidade — o tipo de atualização em grande escala que mantém um negócio funcionando sem interrupções enquanto ele cresce.",
+          "Introduziu o padrão de dados de saúde HL7 FHIR para que o sistema pudesse trocar informações com segurança com outros provedores — adicionando nova capacidade a um sistema em produção e crítico para o negócio, sem interromper quem depende dele.",
+          "Atualmente projeta ferramentas com IA — consultas de dados em linguagem natural, agentes de suporte e revisão de código automatizada — levando IA prática e pronta para produção à operação diária das empresas."
         ],
         "tags": [
           "Design de Banco de Dados",
@@ -141,11 +138,10 @@
         "name": "Yun Jie Zhang",
         "role": "Co-fundadora · Especialista em Software",
         "bio": [
-          "Engenheiro de software com mais de 2 anos liderando o desenvolvimento e a operação do sistema de pronto-atendimento em 93 servidores hospitalares no Paraguai — atendendo mais de um milhão de consultas por mês.",
-          "Construiu e manteve o núcleo do HIS (Java · PostgreSQL · Tomcat) e liderou a modernização progressiva do frontend para Next.js (React + TypeScript), substituindo a arquitetura JSP com mínima disrupção.",
-          "Integrou o sistema com LIS e PACS: troca bidirecional de dados laboratoriais e consultas QIDO-RS no padrão DICOM para acesso direto a imagens médicas.",
-          "Cocriou o processo de recrutamento técnico, os padrões de desenvolvimento e a cultura de documentação da equipe, e introduziu ferramentas de desenvolvimento assistidas por IA para acelerar a transferência de conhecimento.",
-          "Agora aplica essa mesma disciplina para projetar software sob medida e fluxos de trabalho com IA para empresas."
+          "Liderou o desenvolvimento e a operação dos sistemas de ambulatório e pronto-socorro hospitalar em 93 servidores no Paraguai, atendendo mais de um milhão de consultas por mês — experiência construindo software que não pode ter tempo de inatividade.",
+          "Modernizou o frontend da plataforma para Next.js enquanto o sistema permanecia em uso diário pela equipe do hospital, provando que software legado pode ser atualizado sem interromper quem depende dele.",
+          "Construiu integrações com sistemas de laboratório e imagens médicas, permitindo que a equipe clínica acesse resultados e imagens diretamente dentro do seu fluxo de trabalho — o tipo de integração de sistemas que economiza tempo operacional real.",
+          "Hoje aplica essa experiência testada em produção para projetar software sob medida e fluxos de trabalho com IA para empresas."
         ],
         "tags": []
       }
