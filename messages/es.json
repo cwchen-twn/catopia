@@ -6,27 +6,115 @@
     "contact": "Contacto"
   },
   "home": {
-    "tagline": "Software a medida e inteligencia artificial para empresas en Latinoamérica",
-    "description": "Construimos soluciones de software a medida y flujos de trabajo con IA para empresas listas para transformar su forma de operar.",
-    "cta": "Ver nuestros servicios",
-    "whoTitle": "Quiénes somos",
-    "whoDesc": "Catopia de Chen Antúnez es una empresa de software y soluciones de IA con base en Paraguay, atendiendo clientes en toda Latinoamérica. Combinamos rigor técnico con conocimiento regional para entregar software que realmente se adapta."
+    "hero": {
+      "title": "Construyendo soluciones digitales confiables para empresas en crecimiento.",
+      "description": "Catopia ayuda a las empresas a convertir ideas y desafíos operativos en software práctico — desde sitios web profesionales hasta plataformas de negocio personalizadas y sistemas de automatización.",
+      "subDescription": "Con experiencia construyendo sistemas de información hospitalaria y plataformas backend escalables, nos enfocamos en crear software seguro, mantenible y pensado para necesidades reales.",
+      "primaryCta": "Hablemos de tu proyecto",
+      "secondaryCta": "Ver nuestros servicios"
+    },
+    "whoTitle": "Por qué las empresas confían en nosotros",
+    "whoDesc": "Combinamos una práctica de ingeniería de nivel empresarial — incluyendo sistemas de información hospitalaria y plataformas backend escalables — con un enfoque práctico centrado en el negocio, para que el software que construimos sea seguro, mantenible y se adapte a cómo realmente operas."
   },
   "services": {
     "title": "Servicios",
     "subtitle": "Lo que construimos para ti",
-    "software": {
-      "title": "Diseño de Software a Medida",
-      "description": "Diseñamos y desarrollamos software adaptado a tus procesos de negocio — desde herramientas internas hasta aplicaciones para clientes. Cada solución está construida para crecer contigo."
+    "business": {
+      "title": "Sitios Web para Empresas",
+      "description": "Sitios web profesionales diseñados para ayudar a las empresas a atraer clientes y generar credibilidad en línea. Creamos sitios rápidos, responsivos y optimizados para buscadores que representan tu marca y ayudan a los clientes a encontrarte, entenderte y contactarte.",
+      "includes": [
+        "Diseño de sitio web a medida",
+        "Experiencia optimizada para móviles",
+        "Optimización básica para buscadores (SEO)",
+        "Formularios de contacto e integraciones",
+        "Optimización de rendimiento",
+        "Soporte multi-idioma"
+      ],
+      "idealFor": [
+        "Pequeñas empresas",
+        "Servicios profesionales",
+        "Restaurantes",
+        "Clínicas",
+        "Startups"
+      ]
     },
-    "ai": {
-      "title": "Integración de Agentes de IA",
-      "description": "Incorporamos agentes de inteligencia artificial en tus flujos de trabajo existentes, automatizando tareas repetitivas y habilitando decisiones más inteligentes y rápidas en todo tu equipo."
+    "software": {
+      "title": "Software Empresarial a Medida",
+      "description": "Convierte tus procesos de negocio en flujos de trabajo digitales eficientes. Diseñamos y desarrollamos aplicaciones a medida que automatizan operaciones, reducen el trabajo manual y mejoran la productividad — construidas con prácticas de ingeniería profesional para una confiabilidad a largo plazo.",
+      "includes": [
+        "Sistemas de gestión interna",
+        "Portales de clientes",
+        "Plataformas de gestión de datos",
+        "Herramientas de automatización de negocio",
+        "Integraciones de sistemas"
+      ]
+    },
+    "healthcare": {
+      "title": "Soluciones de Software para Salud",
+      "description": "Experiencia especializada en la construcción de sistemas de información hospitalaria. Entendemos la complejidad de los flujos de trabajo en salud y ayudamos a las organizaciones de salud a mejorar su eficiencia mediante soluciones de software confiables.",
+      "includes": [
+        "Gestión de pacientes",
+        "Flujos clínicos",
+        "Operaciones hospitalarias",
+        "Gestión de datos",
+        "Desafíos de integración"
+      ]
+    },
+    "consulting": {
+      "title": "Consultoría en Ingeniería de Software",
+      "description": "Guía técnica para empresas que necesitan soporte de ingeniería experimentado. Ya sea que necesites mejorar una aplicación existente o planificar un nuevo sistema, ofrecemos soluciones de ingeniería prácticas.",
+      "includes": [
+        "Revisiones de arquitectura",
+        "Optimización de bases de datos",
+        "Mejoras de infraestructura en la nube",
+        "Resolución de problemas de rendimiento",
+        "Modernización de software"
+      ]
     }
   },
   "about": {
-    "title": "Nosotros",
-    "subtitle": "Las personas detrás de Catopia",
+    "title": "Sobre Catopia",
+    "subtitle": "Una empresa de software creada para resolver problemas de negocio reales",
+    "intro": [
+      "Catopia es una empresa de desarrollo de software enfocada en ayudar a las empresas a construir soluciones digitales confiables y prácticas.",
+      "Creemos que la tecnología debe resolver problemas de negocio reales — no crear complejidad innecesaria.",
+      "Nuestra experiencia proviene de construir sistemas de nivel empresarial, incluyendo plataformas de información hospitalaria, aplicaciones de negocio e infraestructuras backend escalables. Esto nos permite llevar prácticas de ingeniería profesional a empresas que necesitan soluciones personalizadas sin el costo y la complejidad de una gran agencia de software."
+    ],
+    "whatWeDo": {
+      "title": "Qué Hacemos",
+      "intro": "Ayudamos a las empresas a:",
+      "items": [
+        "Establecer una presencia profesional en línea",
+        "Automatizar flujos de trabajo repetitivos",
+        "Construir herramientas internas a medida",
+        "Integrar sistemas y servicios existentes",
+        "Mejorar la eficiencia operativa a través del software"
+      ]
+    },
+    "ourApproach": {
+      "title": "Nuestro Enfoque",
+      "intro": "Cada empresa es diferente. En lugar de ofrecer soluciones genéricas, primero entendemos tus objetivos, desafíos y procesos existentes. Luego diseñamos y construimos soluciones que son:",
+      "items": [
+        "Confiables",
+        "Fáciles de mantener",
+        "Escalables a medida que tu empresa crece",
+        "Enfocadas en un valor de negocio medible"
+      ]
+    },
+    "ourExperience": {
+      "title": "Nuestra Experiencia",
+      "intro": "Nuestro equipo tiene experiencia trabajando con:",
+      "items": [
+        "Sistemas de software empresarial",
+        "Sistemas de información hospitalaria",
+        "Infraestructura backend",
+        "Diseño de bases de datos",
+        "Despliegue en la nube",
+        "Tecnologías web modernas"
+      ],
+      "outro": "Combinamos experiencia en ingeniería con comprensión del negocio para entregar soluciones que funcionan en el mundo real."
+    },
+    "teamTitle": "Nuestro Equipo",
     "members": {
       "chunwei": {
         "name": "Chun Wei Chen",

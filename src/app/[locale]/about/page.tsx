@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { CheckCircle } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -27,6 +28,10 @@ export default async function About({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("about");
+  const intro = t.raw("intro") as string[];
+  const whatWeDoItems = t.raw("whatWeDo.items") as string[];
+  const ourApproachItems = t.raw("ourApproach.items") as string[];
+  const ourExperienceItems = t.raw("ourExperience.items") as string[];
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-16">
@@ -35,6 +40,74 @@ export default async function About({
         <p className="text-foreground/60">{t("subtitle")}</p>
       </div>
 
+      <div className="flex flex-col gap-4 max-w-2xl mb-12 md:mb-16">
+        {intro.map((paragraph, i) => (
+          <p key={i} className="text-foreground/70 text-sm leading-relaxed">
+            {paragraph}
+          </p>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12 md:mb-16">
+        <div className="flex flex-col gap-3">
+          <h2 className="font-semibold">{t("whatWeDo.title")}</h2>
+          <p className="text-sm text-foreground/60 leading-relaxed">
+            {t("whatWeDo.intro")}
+          </p>
+          <ul className="flex flex-col gap-2">
+            {whatWeDoItems.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-2 text-sm text-foreground/70"
+              >
+                <CheckCircle size={15} className="mt-0.5 shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <h2 className="font-semibold">{t("ourApproach.title")}</h2>
+          <p className="text-sm text-foreground/60 leading-relaxed">
+            {t("ourApproach.intro")}
+          </p>
+          <ul className="flex flex-col gap-2">
+            {ourApproachItems.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-2 text-sm text-foreground/70"
+              >
+                <CheckCircle size={15} className="mt-0.5 shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <h2 className="font-semibold">{t("ourExperience.title")}</h2>
+          <p className="text-sm text-foreground/60 leading-relaxed">
+            {t("ourExperience.intro")}
+          </p>
+          <ul className="flex flex-col gap-2">
+            {ourExperienceItems.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-2 text-sm text-foreground/70"
+              >
+                <CheckCircle size={15} className="mt-0.5 shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="text-sm text-foreground/60 leading-relaxed">
+            {t("ourExperience.outro")}
+          </p>
+        </div>
+      </div>
+
+      <h2 className="text-xl font-semibold mb-6">{t("teamTitle")}</h2>
       <div className="flex flex-col gap-6 max-w-3xl">
         {members.map(({ key, initials }) => {
           const bio = t.raw(`members.${key}.bio`) as string[];

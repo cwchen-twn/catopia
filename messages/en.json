@@ -6,27 +6,115 @@
     "contact": "Contact"
   },
   "home": {
-    "tagline": "Custom software and AI workflows for Latin American businesses",
-    "description": "We build tailored software solutions and AI-powered workflows for businesses ready to transform how they operate.",
-    "cta": "See our services",
-    "whoTitle": "Who we are",
-    "whoDesc": "Catopia de Chen Antúnez is a software and AI solutions firm based in Paraguay, serving clients across Latin America. We combine engineering rigour with deep regional understanding to deliver software that fits."
+    "hero": {
+      "title": "Building reliable digital solutions for growing businesses.",
+      "description": "Catopia helps businesses turn ideas and operational challenges into practical software — from professional websites to custom business platforms and automation systems.",
+      "subDescription": "With experience building healthcare information systems and scalable backend platforms, we focus on software that is secure, maintainable, and built for real-world needs.",
+      "primaryCta": "Talk to us about your project",
+      "secondaryCta": "See our services"
+    },
+    "whoTitle": "Why businesses work with us",
+    "whoDesc": "We combine enterprise-grade engineering practice — including healthcare information systems and scalable backend platforms — with a practical, business-first approach, so the software we build is secure, maintainable, and fits how you actually operate."
   },
   "services": {
     "title": "Services",
     "subtitle": "What we build for you",
-    "software": {
-      "title": "Custom Software Design",
-      "description": "We design and build software tailored to your business processes — from internal tools to customer-facing applications. Every solution is architected to scale with your growth."
+    "business": {
+      "title": "Business Websites",
+      "description": "Professional websites designed to help businesses attract customers and build credibility online. We create fast, responsive, and SEO-friendly websites that represent your brand and help customers find, understand, and contact you.",
+      "includes": [
+        "Custom website design",
+        "Mobile-friendly experience",
+        "Search engine optimization basics",
+        "Contact forms and integrations",
+        "Performance optimization",
+        "Multi-language support"
+      ],
+      "idealFor": [
+        "Small businesses",
+        "Professional services",
+        "Restaurants",
+        "Clinics",
+        "Startups"
+      ]
     },
-    "ai": {
-      "title": "AI Agent Workflow Integration",
-      "description": "We embed intelligent AI agents into your existing workflows, automating repetitive tasks and enabling smarter, faster decision-making across your entire team."
+    "software": {
+      "title": "Custom Business Software",
+      "description": "Turn your business processes into efficient digital workflows. We design and develop custom applications that automate operations, reduce manual work, and improve productivity — built with professional engineering practices for long-term reliability.",
+      "includes": [
+        "Internal management systems",
+        "Customer portals",
+        "Data management platforms",
+        "Business automation tools",
+        "System integrations"
+      ]
+    },
+    "healthcare": {
+      "title": "Healthcare Software Solutions",
+      "description": "Specialized experience building healthcare information systems. We understand the complexity of healthcare workflows and help healthcare organizations improve efficiency through reliable software solutions.",
+      "includes": [
+        "Patient management",
+        "Clinical workflows",
+        "Hospital operations",
+        "Data management",
+        "Integration challenges"
+      ]
+    },
+    "consulting": {
+      "title": "Software Engineering Consulting",
+      "description": "Technical guidance for businesses that need experienced engineering support. Whether you need help improving an existing application or planning a new system, we provide practical engineering solutions.",
+      "includes": [
+        "Architecture reviews",
+        "Database optimization",
+        "Cloud infrastructure improvements",
+        "Performance troubleshooting",
+        "Software modernization"
+      ]
     }
   },
   "about": {
-    "title": "About Us",
-    "subtitle": "The people behind Catopia",
+    "title": "About Catopia",
+    "subtitle": "A software company built for real business problems",
+    "intro": [
+      "Catopia is a software development company focused on helping businesses build reliable and practical digital solutions.",
+      "We believe technology should solve real business problems — not create unnecessary complexity.",
+      "Our experience comes from building enterprise-level systems, including healthcare information platforms, business applications, and scalable backend infrastructures. This allows us to bring professional engineering practices to companies that need customized solutions without the cost and complexity of a large software agency."
+    ],
+    "whatWeDo": {
+      "title": "What We Do",
+      "intro": "We help businesses:",
+      "items": [
+        "Establish a professional online presence",
+        "Automate repetitive workflows",
+        "Build custom internal tools",
+        "Integrate existing systems and services",
+        "Improve operational efficiency through software"
+      ]
+    },
+    "ourApproach": {
+      "title": "Our Approach",
+      "intro": "Every business is different. Instead of offering one-size-fits-all solutions, we first understand your goals, challenges, and existing processes. Then we design and build solutions that are:",
+      "items": [
+        "Reliable",
+        "Easy to maintain",
+        "Scalable as your business grows",
+        "Focused on measurable business value"
+      ]
+    },
+    "ourExperience": {
+      "title": "Our Experience",
+      "intro": "Our team has experience working with:",
+      "items": [
+        "Enterprise software systems",
+        "Healthcare information systems",
+        "Backend infrastructure",
+        "Database design",
+        "Cloud deployment",
+        "Modern web technologies"
+      ],
+      "outro": "We combine engineering expertise with business understanding to deliver solutions that work in the real world."
+    },
+    "teamTitle": "Our Team",
     "members": {
       "chunwei": {
         "name": "Chun Wei Chen",

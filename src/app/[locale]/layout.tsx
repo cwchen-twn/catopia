@@ -23,48 +23,50 @@ export function generateStaticParams() {
 
 const localeMeta = {
   en: {
-    title: "Catopia | Custom Software & AI Solutions for Latin America",
+    title:
+      "Custom Software Development & Web Solutions for Businesses | Catopia",
     description:
-      "Catopia empowers businesses in Paraguay and Latin America with custom software development, digital transformation, and AI-powered workflows.",
+      "Catopia helps businesses build modern websites, custom software systems, and digital tools that improve operations and customer experience.",
     keywords: [
-      "software development Paraguay",
-      "digital solutions LATAM",
-      "AI for business",
-      "workflow automation",
-      "digital transformation Paraguay",
-      "custom software",
-      "web development Paraguay",
+      "custom software development Paraguay",
+      "software development company Asuncion",
+      "business website development Paraguay",
+      "healthcare software development",
+      "business automation solutions",
+      "custom web application development",
+      "software consulting Paraguay",
     ],
     ogLocale: "en_US",
   },
   es: {
-    title: "Catopia | Software a Medida y Soluciones de IA para Latinoamérica",
+    title:
+      "Desarrollo de Software a Medida y Soluciones Web para Empresas | Catopia",
     description:
-      "Catopia impulsa empresas en Paraguay y Latinoamérica con desarrollo de software a medida, transformación digital y flujos de trabajo potenciados por inteligencia artificial.",
+      "Catopia ayuda a las empresas a construir sitios web modernos, sistemas de software a medida y herramientas digitales que mejoran las operaciones y la experiencia del cliente.",
     keywords: [
-      "desarrollo de software Paraguay",
-      "soluciones digitales LATAM",
-      "inteligencia artificial empresas",
-      "automatización de procesos",
-      "transformación digital Paraguay",
-      "software a medida",
-      "desarrollo web Paraguay",
+      "desarrollo de software a medida Paraguay",
+      "empresa de desarrollo de software Asunción",
+      "desarrollo de sitios web para empresas Paraguay",
+      "desarrollo de software para salud",
+      "soluciones de automatización empresarial",
+      "desarrollo de aplicaciones web a medida",
+      "consultoría de software Paraguay",
     ],
     ogLocale: "es_PY",
   },
   pt: {
     title:
-      "Catopia | Software Sob Medida e Soluções de IA para a América Latina",
+      "Desenvolvimento de Software Sob Medida e Soluções Web para Empresas | Catopia",
     description:
-      "A Catopia impulsiona empresas no Paraguai e na América Latina com desenvolvimento de software sob medida, transformação digital e fluxos de trabalho potencializados por inteligência artificial.",
+      "A Catopia ajuda empresas a construir sites modernos, sistemas de software sob medida e ferramentas digitais que melhoram as operações e a experiência do cliente.",
     keywords: [
-      "desenvolvimento de software Paraguai",
-      "soluções digitais América Latina",
-      "inteligência artificial empresas",
-      "automação de processos",
-      "transformação digital",
-      "software sob medida",
-      "desenvolvimento web",
+      "desenvolvimento de software sob medida Paraguai",
+      "empresa de desenvolvimento de software Assunção",
+      "desenvolvimento de sites para empresas Paraguai",
+      "desenvolvimento de software para saúde",
+      "soluções de automação empresarial",
+      "desenvolvimento de aplicações web sob medida",
+      "consultoria de software Paraguai",
     ],
     ogLocale: "pt_BR",
   },
@@ -120,6 +122,19 @@ export default async function LocaleLayout({
   if (!(routing.locales as readonly string[]).includes(locale)) notFound();
   setRequestLocale(locale);
   const messages = await getMessages();
+  const meta = localeMeta[locale as keyof typeof localeMeta] ?? localeMeta.en;
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Catopia",
+    description: meta.description,
+    url: `https://catopia.chenantunez.com/${locale}`,
+    founder: [
+      { "@type": "Person", name: "Chun Wei Chen" },
+      { "@type": "Person", name: "Yun Jie Zhang" },
+    ],
+    areaServed: "Paraguay",
+  };
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -129,6 +144,12 @@ export default async function LocaleLayout({
         <meta name="color-scheme" content="light dark" />
         <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
