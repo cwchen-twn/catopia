@@ -6,39 +6,123 @@
     "contact": "Contacto"
   },
   "home": {
-    "tagline": "Software a medida e inteligencia artificial para empresas en Latinoamérica",
-    "description": "Construimos soluciones de software a medida y flujos de trabajo con IA para empresas listas para transformar su forma de operar.",
-    "cta": "Ver nuestros servicios",
-    "whoTitle": "Quiénes somos",
-    "whoDesc": "Catopia de Chen Antúnez es una empresa de software y soluciones de IA con base en Paraguay, atendiendo clientes en toda Latinoamérica. Combinamos rigor técnico con conocimiento regional para entregar software que realmente se adapta."
+    "hero": {
+      "title": "Construyendo soluciones digitales confiables para empresas en crecimiento.",
+      "description": "Catopia ayuda a las empresas a convertir ideas y desafíos operativos en software práctico — desde sitios web profesionales hasta plataformas de negocio personalizadas y sistemas de automatización.",
+      "subDescription": "Con experiencia construyendo sistemas de información hospitalaria y plataformas backend escalables, nos enfocamos en crear software seguro, mantenible y pensado para necesidades reales.",
+      "primaryCta": "Hablemos de tu proyecto",
+      "secondaryCta": "Ver nuestros servicios"
+    },
+    "whoTitle": "Por qué las empresas confían en nosotros",
+    "whoDesc": "Combinamos una práctica de ingeniería de nivel empresarial — incluyendo sistemas de información hospitalaria y plataformas backend escalables — con un enfoque práctico centrado en el negocio, para que el software que construimos sea seguro, mantenible y se adapte a cómo realmente operas."
   },
   "services": {
     "title": "Servicios",
     "subtitle": "Lo que construimos para ti",
+    "business": {
+      "title": "Sitios Web para Empresas",
+      "description": "Sitios web profesionales diseñados para ayudar a las empresas a atraer clientes y generar credibilidad en línea. Creamos sitios rápidos, responsivos y optimizados para buscadores que representan tu marca y ayudan a los clientes a encontrarte, entenderte y contactarte.",
+      "includes": [
+        "Diseño de sitio web a medida",
+        "Experiencia optimizada para móviles",
+        "Optimización básica para buscadores (SEO)",
+        "Formularios de contacto e integraciones",
+        "Optimización de rendimiento",
+        "Soporte multi-idioma"
+      ],
+      "idealFor": [
+        "Pequeñas empresas",
+        "Servicios profesionales",
+        "Restaurantes",
+        "Clínicas",
+        "Startups"
+      ]
+    },
     "software": {
-      "title": "Diseño de Software a Medida",
-      "description": "Diseñamos y desarrollamos software adaptado a tus procesos de negocio — desde herramientas internas hasta aplicaciones para clientes. Cada solución está construida para crecer contigo."
+      "title": "Software Empresarial a Medida",
+      "description": "Convierte tus procesos de negocio en flujos de trabajo digitales eficientes. Diseñamos y desarrollamos aplicaciones a medida que automatizan operaciones, reducen el trabajo manual y mejoran la productividad — construidas con prácticas de ingeniería profesional para una confiabilidad a largo plazo.",
+      "includes": [
+        "Sistemas de gestión interna",
+        "Portales de clientes",
+        "Plataformas de gestión de datos",
+        "Herramientas de automatización de negocio",
+        "Integraciones de sistemas"
+      ]
     },
     "ai": {
       "title": "Integración de Agentes de IA",
-      "description": "Incorporamos agentes de inteligencia artificial en tus flujos de trabajo existentes, automatizando tareas repetitivas y habilitando decisiones más inteligentes y rápidas en todo tu equipo."
+      "description": "Incorporamos agentes de inteligencia artificial en tus flujos de trabajo existentes, automatizando tareas repetitivas y habilitando decisiones más inteligentes y rápidas en todo tu equipo.",
+      "includes": [
+        "Agentes de procesamiento de documentos y datos",
+        "Chatbots para atención al cliente",
+        "Pipelines de reportes automatizados",
+        "Orquestación de flujos de trabajo con IA"
+      ]
+    },
+    "healthcare": {
+      "title": "Soluciones de Software para Salud",
+      "description": "Experiencia especializada en la construcción de sistemas de información hospitalaria. Entendemos la complejidad de los flujos de trabajo en salud y ayudamos a las organizaciones de salud a mejorar su eficiencia mediante soluciones de software confiables.",
+      "includes": [
+        "Gestión de pacientes",
+        "Flujos clínicos",
+        "Operaciones hospitalarias",
+        "Gestión de datos",
+        "Desafíos de integración"
+      ]
     }
   },
   "about": {
-    "title": "Nosotros",
-    "subtitle": "Las personas detrás de Catopia",
+    "title": "Sobre Catopia",
+    "subtitle": "Una empresa de software creada para resolver problemas de negocio reales",
+    "intro": [
+      "Catopia es una empresa de desarrollo de software enfocada en ayudar a las empresas a construir soluciones digitales confiables y prácticas.",
+      "Creemos que la tecnología debe resolver problemas de negocio reales — no crear complejidad innecesaria.",
+      "Nuestra experiencia proviene de construir sistemas de nivel empresarial, incluyendo plataformas de información hospitalaria, aplicaciones de negocio e infraestructuras backend escalables. Esto nos permite llevar prácticas de ingeniería profesional a empresas que necesitan soluciones personalizadas sin el costo y la complejidad de una gran agencia de software."
+    ],
+    "whatWeDo": {
+      "title": "Qué Hacemos",
+      "intro": "Ayudamos a las empresas a:",
+      "items": [
+        "Establecer una presencia profesional en línea",
+        "Automatizar flujos de trabajo repetitivos",
+        "Construir herramientas internas a medida",
+        "Integrar sistemas y servicios existentes",
+        "Mejorar la eficiencia operativa a través del software"
+      ]
+    },
+    "ourApproach": {
+      "title": "Nuestro Enfoque",
+      "intro": "Cada empresa es diferente. En lugar de ofrecer soluciones genéricas, primero entendemos tus objetivos, desafíos y procesos existentes. Luego diseñamos y construimos soluciones que son:",
+      "items": [
+        "Confiables",
+        "Fáciles de mantener",
+        "Escalables a medida que tu empresa crece",
+        "Enfocadas en un valor de negocio medible"
+      ]
+    },
+    "ourExperience": {
+      "title": "Nuestra Experiencia",
+      "intro": "Nuestro equipo tiene experiencia trabajando con:",
+      "items": [
+        "Sistemas de software empresarial",
+        "Sistemas de información hospitalaria",
+        "Infraestructura backend",
+        "Diseño de bases de datos",
+        "Despliegue en la nube",
+        "Tecnologías web modernas"
+      ],
+      "outro": "Combinamos experiencia en ingeniería con comprensión del negocio para entregar soluciones que funcionan en el mundo real."
+    },
+    "teamTitle": "Nuestro Equipo",
     "members": {
       "chunwei": {
         "name": "Chun Wei Chen",
         "role": "Co-fundador · Especialista en Software",
         "bio": [
-          "Líder técnico de Proyecto HIS — el programa de modernización del sistema de información hospitalaria de Taiwan ICDF en Paraguay — desde enero de 2020.",
-          "Lidera el desarrollo del sistema de hospitalización y la operación de más de 90 servidores distribuidos por todo el país, dando servicio a unos 30.000 trabajadores de la salud y más de 1,5 millones de consultas médicas al mes.",
-          "Dirigió la evolución de la arquitectura de aplicaciones desde un HIS monolítico heredado hacia una arquitectura desacoplada: un frontend en Next.js respaldado por una API REST en Java modernizada.",
-          "Guió la evolución de la infraestructura desde un único nodo hasta un clúster de Kubernetes de alta disponibilidad — Terraform para IaC, GitOps con Helm y observabilidad completa — logrando una infraestructura resiliente y de bajo mantenimiento.",
-          "Introdujo el estándar HL7 FHIR junto al sistema existente, habilitando la interoperabilidad con formatos de datos de salud internacionales sin afectar la estabilidad en producción.",
-          "Construyó el proceso de contratación del equipo, el flujo de desarrollo y la documentación técnica, e introdujo flujos de trabajo asistidos por IA para sostener el crecimiento del equipo técnico a largo plazo.",
-          "Actualmente lidera el diseño de aplicaciones con IA — lenguaje natural a SQL, un agente de soporte con IA y un ciclo de revisión de código asistido por IA — extendiendo la transformación del programa de lo digital a la IA."
+          "Diseña herramientas con IA — consultas de datos en lenguaje natural, agentes de soporte y revisión de código automatizada — llevando IA práctica y lista para producción a la operación diaria de las empresas.",
+          "Lidera el área técnica de Proyecto HIS, el sistema de información hospitalaria nacional de Paraguay, desde 2020 — software del que dependen unos 30.000 trabajadores de la salud y más de 1,5 millones de consultas médicas al mes.",
+          "Modernizó el sistema desde un monolito heredado hacia una plataforma desacoplada en Next.js y Java, y su infraestructura desde un único servidor hasta un clúster de Kubernetes de alta disponibilidad — el tipo de actualización a gran escala que mantiene un negocio funcionando sin interrupciones mientras crece.",
+          "Introdujo el estándar de datos de salud HL7 FHIR para que el sistema pudiera intercambiar información de forma segura con otros proveedores — sumando nueva capacidad a un sistema en producción y crítico para el negocio, sin afectar a quienes dependen de él."
         ],
         "tags": [
           "Diseño de Bases de Datos",
@@ -53,11 +137,10 @@
         "name": "Yun Jie Zhang",
         "role": "Co-fundadora · Especialista en Software",
         "bio": [
-          "Ingeniero de software con más de 2 años liderando el desarrollo y operación del sistema de admisión y urgencias en 93 servidores hospitalarios en Paraguay — atendiendo más de un millón de consultas al mes.",
-          "Construyó y mantuvo el núcleo del HIS (Java · PostgreSQL · Tomcat) y lideró la modernización progresiva del frontend a Next.js (React + TypeScript), reemplazando la arquitectura JSP con mínima disrupción.",
-          "Integró el sistema con LIS y PACS: intercambio bidireccional de datos de laboratorio y consultas QIDO-RS estándar DICOM para acceso directo a imágenes médicas.",
-          "Cofundó el proceso de reclutamiento técnico, los estándares de desarrollo y la cultura de documentación del equipo, e introdujo herramientas de desarrollo asistidas por IA para acelerar la transferencia de conocimiento.",
-          "Ahora aplica esa misma disciplina para diseñar software a medida y flujos de trabajo con IA para empresas."
+          "Aplica experiencia de ingeniería probada en producción para diseñar software a medida y flujos de trabajo con IA para empresas.",
+          "Lideró el desarrollo y la operación de los sistemas de consulta externa y urgencias hospitalarias en 93 servidores en Paraguay, dando soporte a más de un millón de consultas médicas al mes — experiencia construyendo software que no puede permitirse tiempo de inactividad.",
+          "Modernizó el frontend de la plataforma a Next.js mientras el sistema seguía en uso diario por el personal del hospital, demostrando que el software heredado puede actualizarse sin interrumpir a quienes dependen de él.",
+          "Construyó integraciones con sistemas de laboratorio e imágenes médicas, permitiendo que el personal clínico acceda a resultados e imágenes directamente dentro de su flujo de trabajo — el tipo de integración de sistemas que ahorra tiempo operativo real."
         ],
         "tags": []
       }

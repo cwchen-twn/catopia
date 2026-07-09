@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Code2, Bot, CheckCircle } from "lucide-react";
+import { Globe, Code2, Bot, HeartPulse, CheckCircle } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -15,47 +15,12 @@ export async function generateMetadata({
   return { title: t("title") };
 }
 
-const softwarePoints = {
-  en: [
-    "Web & mobile applications",
-    "Internal business tools",
-    "API & system integrations",
-    "Legacy system modernisation",
-  ],
-  es: [
-    "Aplicaciones web y móvil",
-    "Herramientas internas de gestión",
-    "Integraciones de APIs y sistemas",
-    "Modernización de sistemas legados",
-  ],
-  pt: [
-    "Aplicativos web e mobile",
-    "Ferramentas internas de gestão",
-    "Integrações de APIs e sistemas",
-    "Modernização de sistemas legados",
-  ],
-};
-
-const aiPoints = {
-  en: [
-    "Document & data processing agents",
-    "Customer-facing chatbots",
-    "Automated reporting pipelines",
-    "Multi-step AI workflow orchestration",
-  ],
-  es: [
-    "Agentes de procesamiento de documentos y datos",
-    "Chatbots para atención al cliente",
-    "Pipelines de reportes automatizados",
-    "Orquestación de flujos de trabajo con IA",
-  ],
-  pt: [
-    "Agentes de processamento de documentos e dados",
-    "Chatbots para atendimento ao cliente",
-    "Pipelines de relatórios automatizados",
-    "Orquestração de fluxos de trabalho com IA",
-  ],
-};
+const services = [
+  { key: "business", icon: Globe, hasIdealFor: true },
+  { key: "software", icon: Code2, hasIdealFor: false },
+  { key: "ai", icon: Bot, hasIdealFor: false },
+  { key: "healthcare", icon: HeartPulse, hasIdealFor: false },
+] as const;
 
 export default async function Services({
   params,
@@ -65,7 +30,6 @@ export default async function Services({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("services");
-  const lang = locale === "es" ? "es" : locale === "pt" ? "pt" : "en";
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-16">
@@ -75,53 +39,52 @@ export default async function Services({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Custom Software */}
-        <div className="flex flex-col gap-5 p-5 sm:p-8 rounded-xl border border-foreground/10">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-foreground/5">
-              <Code2 size={22} />
-            </div>
-            <h2 className="text-lg font-semibold">{t("software.title")}</h2>
-          </div>
-          <p className="text-sm text-foreground/65 leading-relaxed">
-            {t("software.description")}
-          </p>
-          <ul className="flex flex-col gap-2">
-            {softwarePoints[lang].map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-2 text-sm text-foreground/60"
-              >
-                <CheckCircle size={15} className="mt-0.5 shrink-0" />
-                {point}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {services.map(({ key, icon: Icon, hasIdealFor }) => {
+          const includes = t.raw(`${key}.includes`) as string[];
+          const idealFor = hasIdealFor
+            ? (t.raw(`${key}.idealFor`) as string[])
+            : null;
 
-        {/* AI Workflows */}
-        <div className="flex flex-col gap-5 p-5 sm:p-8 rounded-xl border border-foreground/10">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-foreground/5">
-              <Bot size={22} />
+          return (
+            <div
+              key={key}
+              className="flex flex-col gap-5 p-5 sm:p-8 rounded-xl border border-foreground/10"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-foreground/5">
+                  <Icon size={22} />
+                </div>
+                <h2 className="text-lg font-semibold">{t(`${key}.title`)}</h2>
+              </div>
+              <p className="text-sm text-foreground/65 leading-relaxed">
+                {t(`${key}.description`)}
+              </p>
+              <ul className="flex flex-col gap-2">
+                {includes.map((point) => (
+                  <li
+                    key={point}
+                    className="flex items-start gap-2 text-sm text-foreground/60"
+                  >
+                    <CheckCircle size={15} className="mt-0.5 shrink-0" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+              {idealFor && (
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {idealFor.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs px-2.5 py-1 rounded-full bg-foreground/8 text-foreground/60"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
-            <h2 className="text-lg font-semibold">{t("ai.title")}</h2>
-          </div>
-          <p className="text-sm text-foreground/65 leading-relaxed">
-            {t("ai.description")}
-          </p>
-          <ul className="flex flex-col gap-2">
-            {aiPoints[lang].map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-2 text-sm text-foreground/60"
-              >
-                <CheckCircle size={15} className="mt-0.5 shrink-0" />
-                {point}
-              </li>
-            ))}
-          </ul>
-        </div>
+          );
+        })}
       </div>
     </div>
   );

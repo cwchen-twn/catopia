@@ -6,39 +6,123 @@
     "contact": "Contact"
   },
   "home": {
-    "tagline": "Custom software and AI workflows for Latin American businesses",
-    "description": "We build tailored software solutions and AI-powered workflows for businesses ready to transform how they operate.",
-    "cta": "See our services",
-    "whoTitle": "Who we are",
-    "whoDesc": "Catopia de Chen Antúnez is a software and AI solutions firm based in Paraguay, serving clients across Latin America. We combine engineering rigour with deep regional understanding to deliver software that fits."
+    "hero": {
+      "title": "Building reliable digital solutions for growing businesses.",
+      "description": "Catopia helps businesses turn ideas and operational challenges into practical software — from professional websites to custom business platforms and automation systems.",
+      "subDescription": "With experience building healthcare information systems and scalable backend platforms, we focus on software that is secure, maintainable, and built for real-world needs.",
+      "primaryCta": "Talk to us about your project",
+      "secondaryCta": "See our services"
+    },
+    "whoTitle": "Why businesses work with us",
+    "whoDesc": "We combine enterprise-grade engineering practice — including healthcare information systems and scalable backend platforms — with a practical, business-first approach, so the software we build is secure, maintainable, and fits how you actually operate."
   },
   "services": {
     "title": "Services",
     "subtitle": "What we build for you",
+    "business": {
+      "title": "Business Websites",
+      "description": "Professional websites designed to help businesses attract customers and build credibility online. We create fast, responsive, and SEO-friendly websites that represent your brand and help customers find, understand, and contact you.",
+      "includes": [
+        "Custom website design",
+        "Mobile-friendly experience",
+        "Search engine optimization basics",
+        "Contact forms and integrations",
+        "Performance optimization",
+        "Multi-language support"
+      ],
+      "idealFor": [
+        "Small businesses",
+        "Professional services",
+        "Restaurants",
+        "Clinics",
+        "Startups"
+      ]
+    },
     "software": {
-      "title": "Custom Software Design",
-      "description": "We design and build software tailored to your business processes — from internal tools to customer-facing applications. Every solution is architected to scale with your growth."
+      "title": "Custom Business Software",
+      "description": "Turn your business processes into efficient digital workflows. We design and develop custom applications that automate operations, reduce manual work, and improve productivity — built with professional engineering practices for long-term reliability.",
+      "includes": [
+        "Internal management systems",
+        "Customer portals",
+        "Data management platforms",
+        "Business automation tools",
+        "System integrations"
+      ]
     },
     "ai": {
       "title": "AI Agent Workflow Integration",
-      "description": "We embed intelligent AI agents into your existing workflows, automating repetitive tasks and enabling smarter, faster decision-making across your entire team."
+      "description": "We embed intelligent AI agents into your existing workflows, automating repetitive tasks and enabling smarter, faster decision-making across your entire team.",
+      "includes": [
+        "Document & data processing agents",
+        "Customer-facing chatbots",
+        "Automated reporting pipelines",
+        "Multi-step AI workflow orchestration"
+      ]
+    },
+    "healthcare": {
+      "title": "Healthcare Software Solutions",
+      "description": "Specialized experience building healthcare information systems. We understand the complexity of healthcare workflows and help healthcare organizations improve efficiency through reliable software solutions.",
+      "includes": [
+        "Patient management",
+        "Clinical workflows",
+        "Hospital operations",
+        "Data management",
+        "Integration challenges"
+      ]
     }
   },
   "about": {
-    "title": "About Us",
-    "subtitle": "The people behind Catopia",
+    "title": "About Catopia",
+    "subtitle": "A software company built for real business problems",
+    "intro": [
+      "Catopia is a software development company focused on helping businesses build reliable and practical digital solutions.",
+      "We believe technology should solve real business problems — not create unnecessary complexity.",
+      "Our experience comes from building enterprise-level systems, including healthcare information platforms, business applications, and scalable backend infrastructures. This allows us to bring professional engineering practices to companies that need customized solutions without the cost and complexity of a large software agency."
+    ],
+    "whatWeDo": {
+      "title": "What We Do",
+      "intro": "We help businesses:",
+      "items": [
+        "Establish a professional online presence",
+        "Automate repetitive workflows",
+        "Build custom internal tools",
+        "Integrate existing systems and services",
+        "Improve operational efficiency through software"
+      ]
+    },
+    "ourApproach": {
+      "title": "Our Approach",
+      "intro": "Every business is different. Instead of offering one-size-fits-all solutions, we first understand your goals, challenges, and existing processes. Then we design and build solutions that are:",
+      "items": [
+        "Reliable",
+        "Easy to maintain",
+        "Scalable as your business grows",
+        "Focused on measurable business value"
+      ]
+    },
+    "ourExperience": {
+      "title": "Our Experience",
+      "intro": "Our team has experience working with:",
+      "items": [
+        "Enterprise software systems",
+        "Healthcare information systems",
+        "Backend infrastructure",
+        "Database design",
+        "Cloud deployment",
+        "Modern web technologies"
+      ],
+      "outro": "We combine engineering expertise with business understanding to deliver solutions that work in the real world."
+    },
+    "teamTitle": "Our Team",
     "members": {
       "chunwei": {
         "name": "Chun Wei Chen",
         "role": "Co-founder · Software Specialist",
         "bio": [
-          "Technical Lead of Proyecto HIS — Taiwan ICDF's national hospital information system program in Paraguay — since January 2020.",
-          "Leads development of the inpatient system and operations across 90+ servers nationwide, serving roughly 30,000 healthcare workers and over 1.5 million patient visits every month.",
-          "Directed the application stack's evolution from a monolithic legacy HIS to a decoupled architecture: a Next.js frontend backed by a modernized Java REST API.",
-          "Guided the infrastructure's progression from a single-node setup to a highly available Kubernetes cluster — Terraform for IaC, Helm-based GitOps, and full observability — for resilient infrastructure with minimal operational overhead.",
-          "Introduced the HL7 FHIR standard alongside the existing system, enabling interoperability with international healthcare data formats without disrupting production stability.",
-          "Built the team's hiring pipeline, development process, and technical documentation, and introduced AI-assisted development workflows to sustain the technical department's long-term growth.",
-          "Now leading the design of AI-powered applications — natural-language-to-SQL, an AI support agent, and an AI-assisted code review cycle — extending the program's transformation from digital to AI."
+          "Designs AI-powered tools — natural-language data queries, support agents, and automated code review — bringing practical, production-ready AI into everyday business operations.",
+          "Leads the technical side of Proyecto HIS, Paraguay's national hospital information system, since 2020 — software relied on by roughly 30,000 healthcare workers and over 1.5 million patient visits every month.",
+          "Modernized the system from a legacy monolith into a decoupled Next.js + Java platform, and its infrastructure from a single server to a highly available Kubernetes cluster — delivering the kind of large-scale upgrade that keeps a business running without downtime while it grows.",
+          "Introduced the HL7 FHIR healthcare data standard so the system could securely exchange data with outside providers — adding new capability to a live, mission-critical system without disrupting the people who depend on it."
         ],
         "tags": [
           "Database Design",
@@ -53,11 +137,10 @@
         "name": "Yun Jie Zhang",
         "role": "Co-founder · Software Specialist",
         "bio": [
-          "Software engineer with 2+ years leading the development and operations of hospital OPD/ED systems across 93 servers in Paraguay — serving over one million patient visits every month.",
-          "Built and maintained the core HIS stack (Java · PostgreSQL · Tomcat), then led a progressive frontend modernisation to Next.js (React + TypeScript), replacing legacy JSP with minimal disruption.",
-          "Engineered deep integrations with LIS and PACS: bi-directional lab data exchange and DICOM-standard QIDO-RS queries that let clinicians access medical images directly in their workflow.",
-          "Co-built the team's hiring process, coding standards, and documentation culture, and introduced AI-assisted development tools to accelerate knowledge transfer.",
-          "Now applying that production-hardened instinct to design tailored software and AI workflows for businesses."
+          "Applies production-hardened engineering experience to designing custom software and AI-powered workflows for businesses.",
+          "Led development and operations of hospital outpatient and emergency department systems across 93 servers in Paraguay, supporting more than one million patient visits every month — experience building software that can't afford downtime.",
+          "Modernized the platform's frontend to Next.js while the system stayed in daily use by hospital staff, proving that legacy software can be upgraded without disrupting the people who rely on it.",
+          "Built integrations with laboratory and medical imaging systems, letting clinical staff access lab results and images directly inside their existing workflow — the kind of system integration that saves real operational time."
         ],
         "tags": []
       }
