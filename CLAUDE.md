@@ -212,4 +212,9 @@ const nextConfig: NextConfig = {
 const routes = JSON.parse(process.env.APP_ROUTES ?? '[""]') as string[];
 ```
 
+### CI Workflows (`.github/workflows/`)
+
+- **`deploy.yml`** — triggers on `v*` tag pushes. Applies pending D1 migrations, builds + deploys via OpenNext, then syncs Cloudflare Worker secrets. See "Cloudflare D1" and "Contact Form & Email" above.
+- **`update-deps.yml`** — runs weekly (`ncu-minor`), opens a PR only if there's an actual diff. **Gotcha:** `ncu` without `-u`/`--upgrade` only prints available updates — it does not write to `package.json`. Any `ncu-*` script meant to run non-interactively in CI must include `-u`, or the step will silently no-op (this broke `ncu-minor` for weeks with no visible error, since `bun install` finding "no changes" is not a failure).
+
 Apply this pattern for any build-time data that requires filesystem access.

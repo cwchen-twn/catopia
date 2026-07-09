@@ -21,31 +21,31 @@
     "set-gh-secrets": "bash scripts/set-gh-secrets.sh",
     "ncu-check": "ncu",
     "ncu-all": "ncu -u",
-    "ncu-minor": "ncu --target minor"
+    "ncu-minor": "ncu --target minor -u"
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "^1.19.11",
-    "lucide-react": "^1.21.0",
-    "next": "16.2.9",
-    "next-intl": "^4.13.0",
+    "@opennextjs/cloudflare": "^1.20.1",
+    "lucide-react": "^1.24.0",
+    "next": "16.2.10",
+    "next-intl": "^4.13.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "resend": "^6.14.0",
+    "resend": "^6.17.2",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^25.9.4",
+    "@types/node": "^25.9.5",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9",
-    "eslint-config-next": "16.2.9",
-    "npm-check-updates": "^22.2.7",
-    "prettier": "^3.8.4",
+    "eslint-config-next": "16.2.10",
+    "npm-check-updates": "^22.2.9",
+    "prettier": "^3.9.5",
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^6.0.3",
-    "wrangler": "^4.103.0"
+    "wrangler": "^4.110.0"
   }
 }
