@@ -33,6 +33,10 @@ bun run format       # prettier --write (auto-fix formatting)
 bun run deploy       # build with OpenNext and deploy to Cloudflare
 ```
 
+Deploys automatically on every `v*` tag push via `.github/workflows/deploy.yml` (applies D1 migrations, builds, deploys, syncs secrets).
+
+`.github/workflows/update-deps.yml` runs weekly and opens a PR for minor dependency updates (`bun run ncu-minor`) — only when there's actually something to update. If you add another `ncu-*` script meant to run non-interactively, remember `ncu` needs `-u`/`--upgrade` to write changes; without it, it just prints available updates and nothing gets committed.
+
 ## Project structure
 
 ```
