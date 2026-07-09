@@ -12,6 +12,7 @@ import { FontSizeControl } from "./font-size-control";
 const links = [
   { href: "/", key: "home" },
   { href: "/services", key: "services" },
+  { href: "/case-studies", key: "caseStudies" },
   { href: "/about", key: "about" },
   { href: "/contact", key: "contact" },
 ] as const;
