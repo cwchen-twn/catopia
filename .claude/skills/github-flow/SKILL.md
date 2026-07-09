@@ -13,7 +13,11 @@ This repo uses standard [GitHub Flow](https://docs.github.com/en/get-started/usi
 2. **Commit** — imperative subject with type prefix; body explains _why_, not what the diff already shows. Trailer `Part of #N` if the tracking issue stays open after this lands, `Fixes #N` if this PR resolves it.
 3. **Open a PR** — one PR per branch. Body: `## Summary` (what/why) + `## Test plan` (checkboxes only for what was actually verified — `bun run lint` / `bun run build` at minimum, plus a runtime check for anything with a runtime surface). Verify _before_ opening, not after.
 4. **Merge** — once it's ready. No force-push, no amending already-pushed commits, no skipping hooks.
-5. **Release** — tag `main` as `vX.Y.Z-rcN` (`git tag -a vX.Y.Z-rcN -m "..." && git push origin vX.Y.Z-rcN`), which triggers `deploy.yml`. Then `gh release create <tag> --prerelease --notes-file <file>`: `## Catopia vX.Y.Z-rcN` header, themed `###` sections, ending with a `**Full set of changes:**` compare link to the previous tag. Watch the triggered run through to completion before calling it done.
+5. **Release** — tag `main` (`git tag -a <tag> -m "<tag>" && git push origin <tag>`), which triggers `deploy.yml`. Then `gh release create <tag> --notes-file <file>` [+ `--prerelease`, see below]: `## Catopia <tag>` header, themed `###` sections, ending with a `**Full set of changes:**` compare link to the previous tag. Watch the triggered run through to completion before calling it done.
+
+   - **Still stabilizing (current phase)**: tag `v1.0.0-rcN`, incrementing N per deploy-worthy batch, and pass `--prerelease` — that's what's shipped so far (rc1 through rc3).
+   - **Cutting the first official release**: tag `v1.0.0` (no `-rcN`) and create it _without_ `--prerelease` — that's what marks it "Latest" on GitHub and signals production-ready rather than a candidate. This is a real signal change, not just a version bump — confirm with the user before doing it the first time.
+   - **After that**: follow semver — `vX.Y.Z`, patch for fixes, minor for features, major for breaking changes. Only reach for an `-rcN` + `--prerelease` again if a future release genuinely needs a candidate/testing phase before going final.
 
 ## Issues
 
