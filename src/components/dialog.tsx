@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 
 export function Dialog({
   open,
@@ -22,7 +23,12 @@ export function Dialog({
 
   if (!open) return null;
 
-  return (
+  // Rendered via a portal directly under <body> rather than in place: the
+  // site header uses backdrop-blur, and backdrop-filter (like transform or
+  // filter) creates a new containing block for `position: fixed`
+  // descendants — so without the portal, this overlay would be confined to
+  // the header's box instead of covering the full viewport.
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -35,6 +41,7 @@ export function Dialog({
       >
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
