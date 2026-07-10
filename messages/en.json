@@ -186,6 +186,8 @@
     "subject": "Subject",
     "message": "Message",
     "inquiringAboutLabel": "Inquiring about:",
+    "localeChangeWarning": "Switching language will clear what you've typed in the contact form. Continue?",
+    "localeChangeConfirm": "Continue",
     "send": "Send message",
     "sending": "Sending…",
     "hint": "We'll get back to you shortly.",

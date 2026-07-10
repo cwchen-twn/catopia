@@ -186,6 +186,8 @@
     "subject": "Asunto",
     "message": "Mensaje",
     "inquiringAboutLabel": "Consultando sobre:",
+    "localeChangeWarning": "Cambiar de idioma borrará lo que has escrito en el formulario de contacto. ¿Continuar?",
+    "localeChangeConfirm": "Continuar",
     "send": "Enviar mensaje",
     "sending": "Enviando…",
     "hint": "Te responderemos a la brevedad.",
