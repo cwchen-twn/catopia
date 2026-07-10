@@ -3,6 +3,7 @@
     "home": "Home",
     "services": "Services",
     "caseStudies": "Case Studies",
+    "blog": "Blog",
     "about": "About",
     "contact": "Contact"
   },
@@ -79,6 +80,11 @@
       ],
       "quoteTemplate": "Tell us what you need help with:\n\n- What's the current system or challenge?\n- Are you looking for a one-time review or ongoing support?\n- Any timeline in mind?"
     }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights on software, AI, and healthcare technology",
+    "emptyState": "We're working on our first posts — check back soon."
   },
   "caseStudies": {
     "title": "Case Studies",

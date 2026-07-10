@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { SERVICE_SLUGS } from "@/lib/services";
+import { getBlogPosts } from "@/lib/blog";
 
 export const dynamic = "force-static";
 
@@ -21,6 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}/${locale}${route}`,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...getBlogPosts(locale).map((post) => ({
+      url: `${base}/${locale}/blog/${post.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ]);
 }

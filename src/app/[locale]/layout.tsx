@@ -9,6 +9,7 @@ import { FontSizeScript } from "@/components/font-size-script";
 import { ThemeRestorer } from "@/components/theme-restorer";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { getBlogPosts } from "@/lib/blog";
 import "../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -132,6 +133,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
   const meta = localeMeta[locale as keyof typeof localeMeta] ?? localeMeta.en;
+  const hasBlogPosts = getBlogPosts(locale).length > 0;
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -165,7 +167,7 @@ export default async function LocaleLayout({
       >
         <ThemeRestorer />
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Nav />
+          <Nav hasBlogPosts={hasBlogPosts} />
           <main className="flex-1">{children}</main>
           <Footer />
         </NextIntlClientProvider>
