@@ -58,10 +58,10 @@
       "quoteTemplate": "Tell us about your healthcare software needs:\n\n- What system(s) are you currently using?\n- What workflow or process needs improvement?\n- Any compliance or interoperability requirements (e.g. HL7 FHIR)?",
       "expanded": {
         "title": "Deeper Healthcare Expertise",
-        "patientManagementTitle": "Patient Management",
-        "patientManagementBody": "From admissions to discharge, we build systems that keep patient records accurate, accessible, and secure across departments.",
-        "clinicalWorkflowsTitle": "Clinical Workflows",
-        "clinicalWorkflowsBody": "We design software around how clinical staff actually work — reducing friction in day-to-day hospital and clinic operations rather than adding to it.",
+        "emrTitle": "EMR for Inpatient and Outpatient Care",
+        "emrBody": "We build electronic medical record systems that support both inpatient and outpatient workflows in one platform, keeping clinical data consistent as patients move between hospital admission and ongoing outpatient care.",
+        "patientAppTitle": "Patient-Centric App with Appointment Services",
+        "patientAppBody": "We design patient-facing apps that make it easy to book, reschedule, and manage appointments — reducing front-desk workload while giving patients a more direct line to their care.",
         "interoperabilityTitle": "Integration & Interoperability",
         "interoperabilityBody": "We have hands-on experience with the HL7 FHIR standard, enabling secure data exchange with labs, imaging systems, and other healthcare providers without disrupting production stability.",
         "caseStudyCta": "See our healthcare work"

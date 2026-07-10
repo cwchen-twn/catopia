@@ -58,10 +58,10 @@
       "quoteTemplate": "Cuéntanos sobre tus necesidades de software para salud:\n\n- ¿Qué sistema(s) utilizas actualmente?\n- ¿Qué flujo de trabajo o proceso necesita mejorar?\n- ¿Tienes requisitos de cumplimiento o interoperabilidad (por ejemplo, HL7 FHIR)?",
       "expanded": {
         "title": "Experiencia Profunda en Salud",
-        "patientManagementTitle": "Gestión de Pacientes",
-        "patientManagementBody": "Desde la admisión hasta el alta, construimos sistemas que mantienen los registros de pacientes precisos, accesibles y seguros en todos los departamentos.",
-        "clinicalWorkflowsTitle": "Flujos Clínicos",
-        "clinicalWorkflowsBody": "Diseñamos software en torno a cómo trabaja realmente el personal clínico — reduciendo la fricción en las operaciones diarias de hospitales y clínicas en lugar de aumentarla.",
+        "emrTitle": "Historia Clínica Electrónica para Hospitalización y Ambulatorio",
+        "emrBody": "Construimos sistemas de historia clínica electrónica que dan soporte tanto a los flujos de hospitalización como de consulta ambulatoria en una sola plataforma, manteniendo los datos clínicos consistentes a medida que los pacientes pasan de la internación a la atención ambulatoria continua.",
+        "patientAppTitle": "Aplicación Centrada en el Paciente con Servicios de Citas",
+        "patientAppBody": "Diseñamos aplicaciones orientadas al paciente que facilitan reservar, reprogramar y gestionar citas — reduciendo la carga de trabajo en recepción y dando a los pacientes una vía más directa hacia su atención.",
         "interoperabilityTitle": "Integración e Interoperabilidad",
         "interoperabilityBody": "Tenemos experiencia práctica con el estándar HL7 FHIR, habilitando el intercambio seguro de datos con laboratorios, sistemas de imágenes y otros proveedores de salud sin afectar la estabilidad en producción.",
         "caseStudyCta": "Ver nuestro trabajo en salud"

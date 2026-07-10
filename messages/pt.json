@@ -58,10 +58,10 @@
       "quoteTemplate": "Conte-nos sobre suas necessidades de software para saúde:\n\n- Qual(is) sistema(s) você usa atualmente?\n- Qual fluxo de trabalho ou processo precisa melhorar?\n- Você tem requisitos de conformidade ou interoperabilidade (por exemplo, HL7 FHIR)?",
       "expanded": {
         "title": "Experiência Profunda em Saúde",
-        "patientManagementTitle": "Gestão de Pacientes",
-        "patientManagementBody": "Da admissão à alta, construímos sistemas que mantêm os registros dos pacientes precisos, acessíveis e seguros em todos os departamentos.",
-        "clinicalWorkflowsTitle": "Fluxos Clínicos",
-        "clinicalWorkflowsBody": "Projetamos software em torno de como a equipe clínica realmente trabalha — reduzindo o atrito nas operações diárias de hospitais e clínicas em vez de aumentá-lo.",
+        "emrTitle": "Prontuário Eletrônico para Internação e Ambulatório",
+        "emrBody": "Construímos sistemas de prontuário eletrônico que oferecem suporte tanto aos fluxos de internação quanto de atendimento ambulatorial em uma única plataforma, mantendo os dados clínicos consistentes à medida que os pacientes transitam entre a internação hospitalar e o atendimento ambulatorial contínuo.",
+        "patientAppTitle": "Aplicativo Centrado no Paciente com Serviços de Agendamento",
+        "patientAppBody": "Projetamos aplicativos voltados para o paciente que facilitam marcar, remarcar e gerenciar consultas — reduzindo a carga de trabalho da recepção e dando aos pacientes uma via mais direta para o seu atendimento.",
         "interoperabilityTitle": "Integração e Interoperabilidade",
         "interoperabilityBody": "Temos experiência prática com o padrão HL7 FHIR, permitindo troca segura de dados com laboratórios, sistemas de imagem e outros provedores de saúde sem comprometer a estabilidade em produção.",
         "caseStudyCta": "Veja nosso trabalho em saúde"

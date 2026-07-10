@@ -94,19 +94,19 @@ export default async function ServiceDetail({
 
           <div className="flex flex-col gap-1.5">
             <h3 className="text-sm font-semibold text-foreground/80">
-              {t("healthcare.expanded.patientManagementTitle")}
+              {t("healthcare.expanded.emrTitle")}
             </h3>
             <p className="text-sm text-foreground/65 leading-relaxed">
-              {t("healthcare.expanded.patientManagementBody")}
+              {t("healthcare.expanded.emrBody")}
             </p>
           </div>
 
           <div className="flex flex-col gap-1.5">
             <h3 className="text-sm font-semibold text-foreground/80">
-              {t("healthcare.expanded.clinicalWorkflowsTitle")}
+              {t("healthcare.expanded.patientAppTitle")}
             </h3>
             <p className="text-sm text-foreground/65 leading-relaxed">
-              {t("healthcare.expanded.clinicalWorkflowsBody")}
+              {t("healthcare.expanded.patientAppBody")}
             </p>
           </div>
 
