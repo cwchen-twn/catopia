@@ -79,7 +79,7 @@ open-next.config.ts  # OpenNext/Cloudflare adapter config
 
 ## Contact form
 
-The `/contact` page posts to `src/app/api/contact/route.ts`. The handler validates the body with Zod, then sends an email via Resend with the client's address as `Reply-To`.
+The `/contact` page posts to `src/app/api/contact/route.ts`. In order: rate-limit check, Zod validation, Turnstile verification, best-effort D1 write, then an email via Resend with the client's address as `Reply-To`.
 
 Secrets are read from `getCloudflareContext().env` — never from the client bundle.
 
@@ -90,23 +90,27 @@ RESEND_API_KEY=re_...
 RESEND_FROM=Catopia <noreply@catopia.chenantunez.com>
 RESEND_TO=catopia@chenantunez.com
 RESEND_SUBJECT_PREFIX=[CLIENT INQUIRY]
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
 ```
+
+(The Turnstile values above are Cloudflare's published always-pass test keypair — safe for local dev. Create a real widget at Cloudflare dashboard → Turnstile before deploying.)
 
 **Scripts:**
 
 ```bash
 bun run test-email     # send a test email using .dev.vars values
-bun run set-cf-secrets # push all RESEND_* entries from .dev.vars to the Cloudflare Worker
+bun run set-cf-secrets # push runtime secrets (Resend + Turnstile secret key) from .dev.vars to the Cloudflare Worker
 ```
 
-`set-cf-secrets` reads `.dev.vars` and pipes each `RESEND_*` value to `wrangler secret put`, so secrets never appear in the process list. If `.dev.vars` isn't present (e.g. in CI), it falls back to reading `RESEND_*` from already-exported environment variables instead.
+`set-cf-secrets` reads `.dev.vars` and pipes each tracked runtime secret to `wrangler secret put`, so secrets never appear in the process list. If `.dev.vars` isn't present (e.g. in CI), it falls back to reading them from already-exported environment variables instead. `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is intentionally excluded — it's a public value inlined into the client bundle at build time (via `next.config.ts`, see "Bot & abuse protection" below), not a Worker runtime secret.
 
-**CI/CD** — `.github/workflows/deploy.yml` runs on every `v*` tag push: applies pending D1 migrations (`bun run d1-migrate`), builds and deploys (`bun run deploy`), then runs `bun run set-cf-secrets` with `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_SUBJECT_PREFIX`, `RESEND_TO`, `CLOUDFLARE_API_TOKEN`, and `CLOUDFLARE_ACCOUNT_ID` all sourced from GitHub Actions repository secrets and passed via `env:`.
+**CI/CD** — `.github/workflows/deploy.yml` runs on every `v*` tag push: applies pending D1 migrations (`bun run d1-migrate`), builds and deploys (`bun run deploy`, with `NEXT_PUBLIC_TURNSTILE_SITE_KEY` passed as a build-time `env:`), then runs `bun run set-cf-secrets` with `RESEND_*`, `TURNSTILE_SECRET_KEY`, `CLOUDFLARE_API_TOKEN`, and `CLOUDFLARE_ACCOUNT_ID` all sourced from GitHub Actions repository secrets and passed via `env:`.
 
 Push those repository secrets with:
 
 ```bash
-bun run set-gh-secrets  # gh secret set for RESEND_* (from .dev.vars) + CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID (prompted)
+bun run set-gh-secrets  # gh secret set for tracked .dev.vars keys + CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID (prompted)
 ```
 
 **SOP — updating a secret:**
@@ -118,6 +122,16 @@ bun run set-gh-secrets  # gh secret set for RESEND_* (from .dev.vars) + CLOUDFLA
 Only run `bun run set-cf-secrets` + `bun run deploy` manually when you need to push a Cloudflare change without a tagged CI deploy (CI down, local testing, etc). If you do, remember to also run `set-gh-secrets` with the same value — otherwise the next tagged deploy will silently overwrite Cloudflare back to the stale GitHub value.
 
 Requires the [`gh` CLI](https://cli.github.com/) authenticated (`gh auth login`). `RESEND_*` values come from `.dev.vars`; `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` aren't stored locally, so the script prompts for them (or reads them from your shell env if already exported).
+
+## Bot & abuse protection
+
+Three independent layers on the contact form, checked in this order in `src/app/api/contact/route.ts`:
+
+1. **Rate limiting** — a Workers Rate Limiting binding (`ratelimits` in `wrangler.jsonc`), keyed by IP, 5 requests/60s. Purely declarative, no external resource to provision.
+2. **Cloudflare Turnstile** — a CAPTCHA widget verified server-side via `siteverify`. Complementary to rate limiting, not redundant: Turnstile checks "is this a real browser," rate limiting caps volume from anything that passes it (a human clicking repeatedly, a paid solving service, etc).
+3. **Duplicate-email confirmation** (UX, not security) — `src/app/api/contact/check-email/route.ts` checks if an email already has a submission on file; if so, the form asks the visitor to confirm before sending again.
+
+`NEXT_PUBLIC_TURNSTILE_SITE_KEY` is a public value that has to be inlined into the client bundle at _build_ time — Next's automatic `NEXT_PUBLIC_*` handling doesn't pick it up from `.dev.vars` here (that file only feeds the Cloudflare runtime context via `initOpenNextCloudflareForDev()`, not Node's `process.env`), so `next.config.ts` reads `.dev.vars` directly and bakes it into `nextConfig.env`, same as `APP_ROUTES`/`APP_VERSION`.
 
 ## Contact submissions (D1)
 
