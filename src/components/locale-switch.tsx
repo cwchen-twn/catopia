@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
+import { Dialog } from "@/components/dialog";
 
 const locales = [
   { code: "en", flag: "🇺🇸", label: "EN" },
@@ -70,39 +71,32 @@ export function LocaleSwitch() {
         />
       </div>
 
-      {pendingLocale && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
-        >
-          <div className="w-full max-w-sm rounded-xl border border-foreground/10 bg-background p-6 flex flex-col gap-4 shadow-xl">
-            <p className="text-sm text-foreground/80">
-              {t("localeChangeWarning")}
-            </p>
-            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-              <button
-                type="button"
-                onClick={() => setPendingLocale(null)}
-                className="rounded-lg border border-foreground/20 px-5 py-2.5 text-sm font-medium hover:bg-foreground/5 transition-colors cursor-pointer"
-              >
-                {t("cancel")}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  const nextLocale = pendingLocale;
-                  setPendingLocale(null);
-                  navigate(nextLocale);
-                }}
-                className="rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-80 transition-opacity cursor-pointer"
-              >
-                {t("localeChangeConfirm")}
-              </button>
-            </div>
-          </div>
+      <Dialog
+        open={pendingLocale !== null}
+        onClose={() => setPendingLocale(null)}
+      >
+        <p className="text-sm text-foreground/80">{t("localeChangeWarning")}</p>
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          <button
+            type="button"
+            onClick={() => setPendingLocale(null)}
+            className="rounded-lg border border-foreground/20 px-5 py-2.5 text-sm font-medium hover:bg-foreground/5 transition-colors cursor-pointer"
+          >
+            {t("cancel")}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              const nextLocale = pendingLocale;
+              setPendingLocale(null);
+              if (nextLocale) navigate(nextLocale);
+            }}
+            className="rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-80 transition-opacity cursor-pointer"
+          >
+            {t("localeChangeConfirm")}
+          </button>
         </div>
-      )}
+      </Dialog>
     </>
   );
 }
