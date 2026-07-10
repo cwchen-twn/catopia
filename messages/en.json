@@ -182,6 +182,11 @@
     "hint": "We'll get back to you shortly.",
     "successTitle": "Message sent!",
     "successMessage": "We received your message and will reply to your email soon.",
-    "errorMessage": "Something went wrong. Please try again."
+    "errorMessage": "Something went wrong. Please try again.",
+    "captchaErrorMessage": "Captcha verification failed. Please try again.",
+    "rateLimitMessage": "Too many requests. Please wait a moment and try again.",
+    "duplicateMessage": "It looks like you've already contacted us with this email. Would you like to send another message?",
+    "confirmSend": "Yes, send",
+    "cancel": "Cancel"
   }
 }
