@@ -49,7 +49,7 @@ src/
       services/[slug]/ # Dedicated per-service page (own SEO metadata)
       layout.tsx     # Locale layout — guards invalid locales with notFound()
   components/        # Nav, Footer, ThemeToggle, LocaleSwitch, FontSizeControl,
-                     # ThemeScript, FontSizeScript, ThemeRestorer
+                     # ThemeScript, FontSizeScript, ThemeRestorer, Dialog
   lib/
     services.ts      # SERVICE_SLUGS — single source of truth for slug↔key,
                      # used by homepage, services index, [slug] page, sitemap

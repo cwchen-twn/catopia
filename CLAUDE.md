@@ -91,7 +91,8 @@ Both preferences are persisted in `localStorage` and restored before hydration v
 - **`src/components/theme-restorer.tsx`** — Client component using `useLayoutEffect` + `usePathname`. Re-applies both theme class and font size from `localStorage` before each paint on route change (React reconciliation clears externally-set attributes during soft navigation).
 - **`src/components/theme-toggle.tsx`** — `useSyncExternalStore` watching a `MutationObserver` on `document.documentElement` class; writes to `localStorage` on click.
 - **`src/components/font-size-control.tsx`** — same pattern, watching `style` attribute; three `A` buttons (fixed `px` display sizes so the control stays visually consistent regardless of current root size).
-- **`src/components/locale-switch.tsx`** — `appearance-none` `<select>` with `bg-background`/`text-foreground` and a `ChevronDown` icon overlay; uses `useRouter`/`usePathname` from `@/i18n/navigation` for locale-aware switching.
+- **`src/components/locale-switch.tsx`** — `appearance-none` `<select>` with `bg-background`/`text-foreground` and a `ChevronDown` icon overlay; uses `useRouter`/`usePathname` from `@/i18n/navigation` for locale-aware switching. On `/contact`, switching locale opens the shared `Dialog` (below) to confirm first, since the page remounts on locale-prefixed navigation and would otherwise silently clear typed form content.
+- **`src/components/dialog.tsx`** — generic, reusable modal: centered overlay with `backdrop-blur-sm` and a pop-in animation (`dialog-overlay-in`/`dialog-pop-in` keyframes in `globals.css`), closes on backdrop click or Escape. Takes `open`, `onClose`, and arbitrary `children` — no built-in message/buttons, so callers compose their own content. Intentionally not `window.confirm()` — this project has no other modal system, so any future confirmation/alert need should reuse this rather than re-inventing overlay markup.
 
 ### Rendering Strategy
 
