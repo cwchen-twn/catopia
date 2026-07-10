@@ -19,6 +19,7 @@
     "d1-set-status": "bash scripts/mark-client-status.sh",
     "images": "bun run scripts/optimize-images.ts",
     "og-image": "bun run scripts/generate-og-image.ts",
+    "new-post": "bun run scripts/new-blog-post.ts",
     "test-email": "bun --env-file=.dev.vars scripts/test-email.ts",
     "set-cf-secrets": "bash scripts/set-cf-secrets.sh",
     "set-gh-secrets": "bash scripts/set-gh-secrets.sh",

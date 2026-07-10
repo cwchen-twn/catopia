@@ -196,7 +196,7 @@ bun run d1-query -- "SELECT count(*) FROM contact_submissions"  # ad-hoc SQL (no
 
 Markdown-file-based, statically rendered at build time — ships with zero posts, no code changes needed to add one.
 
-- Add a post: create `content/blog/<slug>/<locale>.md` (see `content/blog/README.md` for the exact frontmatter format). A locale file is optional per post.
-- `next.config.ts`'s `discoverBlogPosts()` scans `content/blog/` at build time (parses frontmatter with `gray-matter`, renders markdown with `marked`) and bakes the result into `process.env.BLOG_POSTS`, read by `src/lib/blog.ts` (`getBlogPosts`/`getBlogPost`).
+- Add a post: `bun run new-post <slug>` scaffolds `content/blog/<slug>/{en,es,pt}.md` with default frontmatter (title-cased from the slug, today's date, `published: false`) and placeholder template content per locale. Edit the content, set `published: true` when ready (see `content/blog/README.md` for the exact frontmatter format). A locale file is optional per post.
+- `next.config.ts`'s `discoverBlogPosts()` scans `content/blog/` at build time (parses frontmatter with `gray-matter`, renders markdown with `marked`) and bakes the result into `process.env.BLOG_POSTS`, read by `src/lib/blog.ts` (`getBlogPosts`/`getBlogPost`). Posts with `published: false` are excluded from this in a production build (`bun preview`/`bun run deploy`) — they only render under `bun dev`, for local preview.
 - `/blog` (index, shows an empty state with zero posts) and `/blog/<slug>` (post page, 404s on an unknown slug/locale) live under `src/app/[locale]/blog/`. Both are `force-static`.
 - `/blog` in the nav, and `/blog`/`/blog/<slug>` in the sitemap, both come along for free — `/blog` via the existing `APP_ROUTES` route auto-discovery, `/blog/<slug>` explicitly from `getBlogPosts()` in `sitemap.ts`.
