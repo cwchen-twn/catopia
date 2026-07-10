@@ -95,7 +95,7 @@ export async function generateMetadata({
       description: meta.description,
       images: [
         {
-          url: "https://catopia.chenantunez.com/images/og-share.png",
+          url: `https://catopia.chenantunez.com/images/og-share-${locale}.png`,
           width: 1200,
           height: 630,
           alt: "Catopia",
@@ -106,7 +106,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: meta.title,
       description: meta.description,
-      images: ["https://catopia.chenantunez.com/images/og-share.png"],
+      images: [`https://catopia.chenantunez.com/images/og-share-${locale}.png`],
     },
     alternates: {
       canonical: `https://catopia.chenantunez.com/${locale}`,
