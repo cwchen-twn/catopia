@@ -3,6 +3,7 @@
     "home": "Inicio",
     "services": "Servicios",
     "caseStudies": "Casos de Éxito",
+    "blog": "Blog",
     "about": "Nosotros",
     "contact": "Contacto"
   },
@@ -79,6 +80,11 @@
       ],
       "quoteTemplate": "Cuéntanos en qué necesitas ayuda:\n\n- ¿Cuál es el sistema o desafío actual?\n- ¿Buscas una revisión puntual o soporte continuo?\n- ¿Tienes algún plazo en mente?"
     }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Ideas sobre software, IA y tecnología para el sector salud",
+    "emptyState": "Estamos preparando nuestras primeras publicaciones — vuelve pronto."
   },
   "caseStudies": {
     "title": "Casos de Éxito",

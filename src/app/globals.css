@@ -46,3 +46,51 @@ body {
     transform: scale(1);
   }
 }
+
+/* Minimal typography for blog post bodies rendered from markdown (Tailwind's
+   preflight strips default heading/list/link styles) */
+.blog-content h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-content h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-content p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.blog-content ul {
+  list-style: disc;
+}
+
+.blog-content ol {
+  list-style: decimal;
+}
+
+.blog-content a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.blog-content code {
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  font-family: var(--font-geist-mono);
+  font-size: 0.875em;
+}

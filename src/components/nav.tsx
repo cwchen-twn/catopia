@@ -13,6 +13,7 @@ const links = [
   { href: "/", key: "home" },
   { href: "/services", key: "services" },
   { href: "/case-studies", key: "caseStudies" },
+  { href: "/blog", key: "blog" },
   { href: "/about", key: "about" },
   { href: "/contact", key: "contact" },
 ] as const;
