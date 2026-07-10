@@ -9,7 +9,7 @@
   "home": {
     "hero": {
       "title": "Construyendo soluciones digitales confiables para empresas en crecimiento.",
-      "description": "Catopia ayuda a las empresas a convertir ideas y desafíos operativos en software práctico — desde sitios web profesionales hasta plataformas de negocio personalizadas y sistemas de automatización.",
+      "description": "Catopia ayuda a las empresas a convertir ideas y desafíos operativos en software práctico — desde plataformas de negocio personalizadas y automatización con IA hasta sistemas de salud y soporte de ingeniería experto.",
       "subDescription": "Con experiencia construyendo sistemas de información hospitalaria y plataformas backend escalables, nos enfocamos en crear software seguro, mantenible y pensado para necesidades reales.",
       "primaryCta": "Hablemos de tu proyecto",
       "secondaryCta": "Ver nuestros servicios"
@@ -20,25 +20,8 @@
   "services": {
     "title": "Servicios",
     "subtitle": "Lo que construimos para ti",
-    "business": {
-      "title": "Sitios Web para Empresas",
-      "description": "Sitios web profesionales diseñados para ayudar a las empresas a atraer clientes y generar credibilidad en línea. Creamos sitios rápidos, responsivos y optimizados para buscadores que representan tu marca y ayudan a los clientes a encontrarte, entenderte y contactarte.",
-      "includes": [
-        "Diseño de sitio web a medida",
-        "Experiencia optimizada para móviles",
-        "Optimización básica para buscadores (SEO)",
-        "Formularios de contacto e integraciones",
-        "Optimización de rendimiento",
-        "Soporte multi-idioma"
-      ],
-      "idealFor": [
-        "Pequeñas empresas",
-        "Servicios profesionales",
-        "Restaurantes",
-        "Clínicas",
-        "Startups"
-      ]
-    },
+    "getQuoteCta": "Solicitar Cotización",
+    "learnMore": "Ver más",
     "software": {
       "title": "Software Empresarial a Medida",
       "description": "Convierte tus procesos de negocio en flujos de trabajo digitales eficientes. Diseñamos y desarrollamos aplicaciones a medida que automatizan operaciones, reducen el trabajo manual y mejoran la productividad — construidas con prácticas de ingeniería profesional para una confiabilidad a largo plazo.",
@@ -48,7 +31,8 @@
         "Plataformas de gestión de datos",
         "Herramientas de automatización de negocio",
         "Integraciones de sistemas"
-      ]
+      ],
+      "quoteTemplate": "Cuéntanos sobre tu proyecto:\n\n- ¿Qué proceso de negocio buscas mejorar o automatizar?\n- ¿Con qué herramientas o sistemas debe integrarse?\n- ¿Tienes algún plazo en mente?"
     },
     "ai": {
       "title": "Integración de Agentes de IA",
@@ -58,7 +42,8 @@
         "Chatbots para atención al cliente",
         "Pipelines de reportes automatizados",
         "Orquestación de flujos de trabajo con IA"
-      ]
+      ],
+      "quoteTemplate": "Cuéntanos sobre tus objetivos de automatización:\n\n- ¿Qué tarea o flujo de trabajo repetitivo te gustaría que un agente de IA maneje?\n- ¿A qué sistemas o datos necesitaría acceder?\n- ¿Tienes algún plazo en mente?"
     },
     "healthcare": {
       "title": "Soluciones de Software para Salud",
@@ -69,7 +54,30 @@
         "Operaciones hospitalarias",
         "Gestión de datos",
         "Desafíos de integración"
-      ]
+      ],
+      "quoteTemplate": "Cuéntanos sobre tus necesidades de software para salud:\n\n- ¿Qué sistema(s) utilizas actualmente?\n- ¿Qué flujo de trabajo o proceso necesita mejorar?\n- ¿Tienes requisitos de cumplimiento o interoperabilidad (por ejemplo, HL7 FHIR)?",
+      "expanded": {
+        "title": "Experiencia Profunda en Salud",
+        "patientManagementTitle": "Gestión de Pacientes",
+        "patientManagementBody": "Desde la admisión hasta el alta, construimos sistemas que mantienen los registros de pacientes precisos, accesibles y seguros en todos los departamentos.",
+        "clinicalWorkflowsTitle": "Flujos Clínicos",
+        "clinicalWorkflowsBody": "Diseñamos software en torno a cómo trabaja realmente el personal clínico — reduciendo la fricción en las operaciones diarias de hospitales y clínicas en lugar de aumentarla.",
+        "interoperabilityTitle": "Integración e Interoperabilidad",
+        "interoperabilityBody": "Tenemos experiencia práctica con el estándar HL7 FHIR, habilitando el intercambio seguro de datos con laboratorios, sistemas de imágenes y otros proveedores de salud sin afectar la estabilidad en producción.",
+        "caseStudyCta": "Ver nuestro trabajo en salud"
+      }
+    },
+    "consulting": {
+      "title": "Consultoría en Ingeniería de Software",
+      "description": "Guía técnica para empresas que necesitan soporte de ingeniería experimentado. Ya sea que necesites mejorar una aplicación existente o planificar un nuevo sistema, ofrecemos soluciones de ingeniería prácticas.",
+      "includes": [
+        "Revisiones de arquitectura",
+        "Optimización de bases de datos",
+        "Mejoras de infraestructura en la nube",
+        "Resolución de problemas de rendimiento",
+        "Modernización de software"
+      ],
+      "quoteTemplate": "Cuéntanos en qué necesitas ayuda:\n\n- ¿Cuál es el sistema o desafío actual?\n- ¿Buscas una revisión puntual o soporte continuo?\n- ¿Tienes algún plazo en mente?"
     }
   },
   "caseStudies": {
@@ -107,10 +115,10 @@
       "title": "Qué Hacemos",
       "intro": "Ayudamos a las empresas a:",
       "items": [
-        "Establecer una presencia profesional en línea",
-        "Automatizar flujos de trabajo repetitivos",
-        "Construir herramientas internas a medida",
-        "Integrar sistemas y servicios existentes",
+        "Construir software a medida y herramientas internas",
+        "Automatizar flujos de trabajo con agentes de IA",
+        "Dar soporte a necesidades tecnológicas específicas del sector salud",
+        "Brindar orientación experta en ingeniería para sistemas existentes",
         "Mejorar la eficiencia operativa a través del software"
       ]
     },
@@ -177,6 +185,7 @@
     "email": "Correo electrónico",
     "subject": "Asunto",
     "message": "Mensaje",
+    "inquiringAboutLabel": "Consultando sobre:",
     "send": "Enviar mensaje",
     "sending": "Enviando…",
     "hint": "Te responderemos a la brevedad.",

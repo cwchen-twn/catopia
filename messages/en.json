@@ -9,7 +9,7 @@
   "home": {
     "hero": {
       "title": "Building reliable digital solutions for growing businesses.",
-      "description": "Catopia helps businesses turn ideas and operational challenges into practical software — from professional websites to custom business platforms and automation systems.",
+      "description": "Catopia helps businesses turn ideas and operational challenges into practical software — from custom business platforms and AI-powered automation to healthcare systems and expert engineering support.",
       "subDescription": "With experience building healthcare information systems and scalable backend platforms, we focus on software that is secure, maintainable, and built for real-world needs.",
       "primaryCta": "Talk to us about your project",
       "secondaryCta": "See our services"
@@ -20,25 +20,8 @@
   "services": {
     "title": "Services",
     "subtitle": "What we build for you",
-    "business": {
-      "title": "Business Websites",
-      "description": "Professional websites designed to help businesses attract customers and build credibility online. We create fast, responsive, and SEO-friendly websites that represent your brand and help customers find, understand, and contact you.",
-      "includes": [
-        "Custom website design",
-        "Mobile-friendly experience",
-        "Search engine optimization basics",
-        "Contact forms and integrations",
-        "Performance optimization",
-        "Multi-language support"
-      ],
-      "idealFor": [
-        "Small businesses",
-        "Professional services",
-        "Restaurants",
-        "Clinics",
-        "Startups"
-      ]
-    },
+    "getQuoteCta": "Get a Quote",
+    "learnMore": "Learn more",
     "software": {
       "title": "Custom Business Software",
       "description": "Turn your business processes into efficient digital workflows. We design and develop custom applications that automate operations, reduce manual work, and improve productivity — built with professional engineering practices for long-term reliability.",
@@ -48,7 +31,8 @@
         "Data management platforms",
         "Business automation tools",
         "System integrations"
-      ]
+      ],
+      "quoteTemplate": "Tell us about your project:\n\n- What business process are you looking to improve or automate?\n- What tools or systems does it need to work with?\n- Any timeline in mind?"
     },
     "ai": {
       "title": "AI Agent Workflow Integration",
@@ -58,7 +42,8 @@
         "Customer-facing chatbots",
         "Automated reporting pipelines",
         "Multi-step AI workflow orchestration"
-      ]
+      ],
+      "quoteTemplate": "Tell us about your automation goals:\n\n- What repetitive task or workflow would you like an AI agent to handle?\n- What systems or data would it need access to?\n- Any timeline in mind?"
     },
     "healthcare": {
       "title": "Healthcare Software Solutions",
@@ -69,7 +54,30 @@
         "Hospital operations",
         "Data management",
         "Integration challenges"
-      ]
+      ],
+      "quoteTemplate": "Tell us about your healthcare software needs:\n\n- What system(s) are you currently using?\n- What workflow or process needs improvement?\n- Any compliance or interoperability requirements (e.g. HL7 FHIR)?",
+      "expanded": {
+        "title": "Deeper Healthcare Expertise",
+        "patientManagementTitle": "Patient Management",
+        "patientManagementBody": "From admissions to discharge, we build systems that keep patient records accurate, accessible, and secure across departments.",
+        "clinicalWorkflowsTitle": "Clinical Workflows",
+        "clinicalWorkflowsBody": "We design software around how clinical staff actually work — reducing friction in day-to-day hospital and clinic operations rather than adding to it.",
+        "interoperabilityTitle": "Integration & Interoperability",
+        "interoperabilityBody": "We have hands-on experience with the HL7 FHIR standard, enabling secure data exchange with labs, imaging systems, and other healthcare providers without disrupting production stability.",
+        "caseStudyCta": "See our healthcare work"
+      }
+    },
+    "consulting": {
+      "title": "Software Engineering Consulting",
+      "description": "Technical guidance for businesses that need experienced engineering support. Whether you need help improving an existing application or planning a new system, we provide practical engineering solutions.",
+      "includes": [
+        "Architecture reviews",
+        "Database optimization",
+        "Cloud infrastructure improvements",
+        "Performance troubleshooting",
+        "Software modernization"
+      ],
+      "quoteTemplate": "Tell us what you need help with:\n\n- What's the current system or challenge?\n- Are you looking for a one-time review or ongoing support?\n- Any timeline in mind?"
     }
   },
   "caseStudies": {
@@ -107,10 +115,10 @@
       "title": "What We Do",
       "intro": "We help businesses:",
       "items": [
-        "Establish a professional online presence",
-        "Automate repetitive workflows",
-        "Build custom internal tools",
-        "Integrate existing systems and services",
+        "Build custom software and internal tools",
+        "Automate workflows with AI-powered agents",
+        "Support specialized healthcare technology needs",
+        "Get expert engineering guidance for existing systems",
         "Improve operational efficiency through software"
       ]
     },
@@ -177,6 +185,7 @@
     "email": "Email",
     "subject": "Subject",
     "message": "Message",
+    "inquiringAboutLabel": "Inquiring about:",
     "send": "Send message",
     "sending": "Sending…",
     "hint": "We'll get back to you shortly.",
