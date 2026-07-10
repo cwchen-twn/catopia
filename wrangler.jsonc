@@ -36,6 +36,15 @@
       "database_id": "938adcf4-ef25-4e05-aa8a-b067171ce679",
     },
   ],
+  "ratelimits": [
+    {
+      // 5 contact-form submissions per IP per 60s — no external resource to
+      // provision, namespace_id is just an arbitrary unique identifier
+      "name": "CONTACT_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 5, "period": 60 },
+    },
+  ],
   "routes": [
     {
       "pattern": "catopia.chenantunez.com",

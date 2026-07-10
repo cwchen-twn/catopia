@@ -182,6 +182,11 @@
     "hint": "Entraremos em contato em breve.",
     "successTitle": "Mensagem enviada!",
     "successMessage": "Recebemos sua mensagem e responderemos em breve.",
-    "errorMessage": "Algo deu errado. Por favor, tente novamente."
+    "errorMessage": "Algo deu errado. Por favor, tente novamente.",
+    "captchaErrorMessage": "A verificação captcha falhou. Por favor, tente novamente.",
+    "rateLimitMessage": "Muitas solicitações. Por favor, aguarde um momento e tente novamente.",
+    "duplicateMessage": "Parece que você já entrou em contato conosco com este e-mail. Deseja enviar outra mensagem?",
+    "confirmSend": "Sim, enviar",
+    "cancel": "Cancelar"
   }
 }

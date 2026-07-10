@@ -8,10 +8,18 @@ const contactSchema = z.object({
   email: z.email(),
   subject: z.string().min(1),
   message: z.string().min(1),
+  turnstileToken: z.string().min(1),
 });
 
 export async function POST(request: Request) {
   const { env } = getCloudflareContext();
+  const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
+
+  const { success: withinRateLimit } = await env.CONTACT_RATE_LIMITER.limit({
+    key: ip,
+  });
+  if (!withinRateLimit)
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
 
   const apiKey = env.RESEND_API_KEY;
   if (!apiKey)
@@ -24,7 +32,26 @@ export async function POST(request: Request) {
   if (!parsed.success)
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
 
-  const { name, email, subject, message } = parsed.data;
+  const { name, email, subject, message, turnstileToken } = parsed.data;
+
+  const turnstileRes = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        secret: env.TURNSTILE_SECRET_KEY,
+        response: turnstileToken,
+        remoteip: ip,
+      }),
+    },
+  );
+  const turnstileResult = (await turnstileRes.json()) as { success: boolean };
+  if (!turnstileResult.success)
+    return NextResponse.json(
+      { error: "Captcha verification failed" },
+      { status: 403 },
+    );
 
   try {
     await env.DB.prepare(

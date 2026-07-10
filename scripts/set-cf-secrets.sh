@@ -1,15 +1,27 @@
 #!/usr/bin/env bash
-# Uploads RESEND_* Cloudflare Worker secrets.
+# Uploads Cloudflare Worker runtime secrets (Resend + Turnstile secret key).
 # Locally, reads them from .dev.vars. In CI (no .dev.vars present), reads
-# them from already-exported RESEND_* environment variables instead.
+# them from already-exported environment variables instead.
+#
+# NEXT_PUBLIC_TURNSTILE_SITE_KEY is intentionally NOT pushed here — it's a
+# public value baked into the client bundle at build time (see deploy.yml's
+# "Build and deploy" step), not a Worker runtime secret.
 set -euo pipefail
 
 VARS_FILE=".dev.vars"
-RESEND_KEYS=(RESEND_API_KEY RESEND_FROM RESEND_SUBJECT_PREFIX RESEND_TO)
+SECRET_KEYS=(RESEND_API_KEY RESEND_FROM RESEND_SUBJECT_PREFIX RESEND_TO TURNSTILE_SECRET_KEY)
 
 set_secret() {
   echo "Setting secret: $1"
   printf '%s' "$2" | wrangler secret put "$1"
+}
+
+is_tracked_key() {
+  local key="$1" k
+  for k in "${SECRET_KEYS[@]}"; do
+    [[ "$key" == "$k" ]] && return 0
+  done
+  return 1
 }
 
 if [[ -f "$VARS_FILE" ]]; then
@@ -17,15 +29,15 @@ if [[ -f "$VARS_FILE" ]]; then
     [[ -z "$line" || "$line" == \#* ]] && continue
     key="${line%%=*}"
     value="${line#*=}"
-    [[ "$key" != RESEND_* ]] && continue
+    is_tracked_key "$key" || continue
     set_secret "$key" "$value"
   done < "$VARS_FILE"
 else
-  for key in "${RESEND_KEYS[@]}"; do
+  for key in "${SECRET_KEYS[@]}"; do
     value="${!key:-}"
     [[ -z "$value" ]] && { echo "Error: $key not set (no .dev.vars and no env var)." >&2; exit 1; }
     set_secret "$key" "$value"
   done
 fi
 
-echo "All RESEND_* secrets uploaded."
+echo "All secrets uploaded."

@@ -143,19 +143,33 @@ Both cases render **`src/app/not-found.tsx`** — a root-level 404 page that inc
 
 ### Contact Form & Email
 
-The `/contact` page submits to `src/app/api/contact/route.ts` via `fetch`. The route handler:
+The `/contact` page submits to `src/app/api/contact/route.ts` via `fetch`. The route handler, in order:
 
-- Reads `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_TO`, and `RESEND_SUBJECT_PREFIX` from `getCloudflareContext().env` (never from `process.env` or the client bundle)
-- Validates the request body with Zod before touching any field
-- Sets the client's email as `replyTo` so the team can reply directly
+1. Rate-limits by IP (`env.CONTACT_RATE_LIMITER`, see "Bot & Abuse Protection" below) — checked first, before touching anything else.
+2. Reads `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_TO`, and `RESEND_SUBJECT_PREFIX` from `getCloudflareContext().env` (never from `process.env` or the client bundle).
+3. Validates the request body with Zod (including `turnstileToken`).
+4. Verifies `turnstileToken` server-side against Cloudflare's `siteverify` endpoint.
+5. Best-effort writes to D1, then sends via Resend, with the client's email as `replyTo`.
 
-Local secrets go in `.dev.vars` (loaded by both `bun dev` and `bun preview` via `initOpenNextCloudflareForDev`). Production secrets are pushed with `bun run set-cf-secrets` (`scripts/set-cf-secrets.sh`), which pipes each `RESEND_*` entry to `wrangler secret put` — reading them from `.dev.vars` locally, or from already-exported `RESEND_*` env vars when `.dev.vars` isn't present (e.g. in CI).
+Local secrets go in `.dev.vars` (loaded by both `bun dev` and `bun preview` via `initOpenNextCloudflareForDev`). Production secrets are pushed with `bun run set-cf-secrets` (`scripts/set-cf-secrets.sh`), which pipes each tracked key to `wrangler secret put` — reading them from `.dev.vars` locally, or from already-exported env vars when `.dev.vars` isn't present (e.g. in CI).
 
-**CI (`.github/workflows/deploy.yml`)** — triggers on `v*` tag pushes. It runs, in order: `bun run d1-migrate` (applies pending D1 migrations to the remote database), `bun run deploy`, then `bun run set-cf-secrets` with `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and all four `RESEND_*` values injected via `env:` from GitHub Actions repository secrets (Settings → Secrets and variables → Actions). Migrations run before the deploy step so new code depending on new schema never ships ahead of the schema itself. When adding a new secret-backed env var to `.dev.vars.example`, add a matching repo secret and an `env:` entry in that workflow step.
+**CI (`.github/workflows/deploy.yml`)** — triggers on `v*` tag pushes. It runs, in order: `bun run d1-migrate` (applies pending D1 migrations to the remote database), `bun run deploy` (with `NEXT_PUBLIC_TURNSTILE_SITE_KEY` in its `env:` — needed at build time, see below), then `bun run set-cf-secrets` with `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, all four `RESEND_*` values, and `TURNSTILE_SECRET_KEY` injected via `env:` from GitHub Actions repository secrets (Settings → Secrets and variables → Actions). Migrations run before the deploy step so new code depending on new schema never ships ahead of the schema itself. When adding a new secret-backed env var to `.dev.vars.example`, add a matching repo secret and an `env:` entry in that workflow step.
 
 `CLOUDFLARE_API_TOKEN` needs a **D1 Edit** permission (account-level) in addition to Workers Scripts/KV Storage Write, or the `d1-migrate` CI step will fail with a permissions error.
 
-`bun run set-gh-secrets` (`scripts/set-gh-secrets.sh`) pushes those repository secrets via `gh secret set`: `RESEND_*` values come from `.dev.vars`, while `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` (not present in `.dev.vars`) are read from the shell env if exported, otherwise prompted for interactively. Requires `gh auth login` first.
+`bun run set-gh-secrets` (`scripts/set-gh-secrets.sh`) pushes those repository secrets via `gh secret set`: tracked keys come from `.dev.vars`, while `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` (not present in `.dev.vars`) are read from the shell env if exported, otherwise prompted for interactively. Requires `gh auth login` first.
+
+### Bot & Abuse Protection (Contact Form)
+
+Three independent layers, checked in this order in `src/app/api/contact/route.ts`:
+
+1. **Rate limiting** — a Workers Rate Limiting binding (`ratelimits` in `wrangler.jsonc`, `env.CONTACT_RATE_LIMITER`), keyed by `cf-connecting-ip`, 5 requests per 60 seconds. Purely declarative — `namespace_id` is an arbitrary developer-chosen string, no external resource to provision (unlike D1). Returns 429 if exceeded. **Constraint:** `simple.period` must be exactly `10` or `60` seconds, no custom windows.
+2. **Cloudflare Turnstile** — a CAPTCHA widget in `src/components/contact-form.tsx` (loaded via `next/script`, rendered into a container ref, token captured via its `callback`), verified server-side against `https://challenges.cloudflare.com/turnstile/v0/siteverify`. Returns 403 on failure. These solve different problems — Turnstile checks "is this a real browser," rate limiting caps volume from anything that passes (including a human clicking repeatedly, or a paid solving service).
+3. **Duplicate-email confirmation** (UX only, not a security control) — `src/app/api/contact/check-email/route.ts` looks up whether an email already has a `contact_submissions` row; if so, the client shows a confirm/cancel prompt before actually sending. No Turnstile/rate-limit on this endpoint since it's read-only and sends nothing — it does let someone probe whether an arbitrary email has contacted before, an accepted minor tradeoff for this "basic" scope.
+
+**`NEXT_PUBLIC_TURNSTILE_SITE_KEY` needs special handling** — unlike `TURNSTILE_SECRET_KEY` (a normal runtime secret read via `getCloudflareContext().env`), this is a **public** value that must be inlined into the client bundle at _build_ time. Next.js's automatic `NEXT_PUBLIC_*` inlining doesn't work here because `initOpenNextCloudflareForDev()` only loads `.dev.vars` into the Cloudflare runtime context, never into Node's `process.env` — so `next.config.ts` reads `.dev.vars` directly (falling back to `process.env` in CI, where the value comes from the GitHub Actions step's `env:`) and bakes it into `nextConfig.env`, the same pattern already used for `APP_ROUTES`/`APP_VERSION` (see "Build-Time Filesystem Access" below).
+
+Local dev/testing uses Cloudflare's published always-pass test keypair (site key `1x00000000000000000000AA`, secret `1x0000000000000000000000000000000AA`) as the `.dev.vars` defaults — swap in the real widget's values (Cloudflare dashboard → Turnstile → create a widget for the production domain) via `.dev.vars` + `bun run set-gh-secrets` before/at a deploy; no code change needed.
 
 **SOP for changing a secret value:** treat GitHub Actions secrets as the source of truth, not Cloudflare directly.
 
