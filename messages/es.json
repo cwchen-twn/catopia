@@ -186,6 +186,7 @@
     "captchaErrorMessage": "La verificación captcha falló. Por favor, inténtalo de nuevo.",
     "rateLimitMessage": "Demasiadas solicitudes. Por favor, espera un momento e inténtalo de nuevo.",
     "duplicateMessage": "Parece que ya nos contactaste con este correo electrónico. ¿Deseas enviar otro mensaje?",
+    "ongoingInquiriesLabel": "Tus consultas en curso:",
     "confirmSend": "Sí, enviar",
     "cancel": "Cancelar"
   }

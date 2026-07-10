@@ -129,9 +129,20 @@ Three independent layers on the contact form, checked in this order in `src/app/
 
 1. **Rate limiting** — a Workers Rate Limiting binding (`ratelimits` in `wrangler.jsonc`), keyed by IP, 5 requests/60s. Purely declarative, no external resource to provision.
 2. **Cloudflare Turnstile** — a CAPTCHA widget verified server-side via `siteverify`. Complementary to rate limiting, not redundant: Turnstile checks "is this a real browser," rate limiting caps volume from anything that passes it (a human clicking repeatedly, a paid solving service, etc).
-3. **Duplicate-email confirmation** (UX, not security) — `src/app/api/contact/check-email/route.ts` checks if an email already has a submission on file; if so, the form asks the visitor to confirm before sending again.
+3. **Duplicate-email confirmation** (UX, not security) — `src/app/api/contact/check-email/route.ts` checks the `clients` table for a currently-`active` deal on that email; if found, the form shows a confirm/cancel prompt listing up to 5 recent inquiries so the visitor recognizes what's already in progress. This endpoint now returns real content (not just a boolean), so it also requires `turnstileToken` and shares the same rate limiter as the main route.
 
 `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is a public value that has to be inlined into the client bundle at _build_ time — Next's automatic `NEXT_PUBLIC_*` handling doesn't pick it up from `.dev.vars` here (that file only feeds the Cloudflare runtime context via `initOpenNextCloudflareForDev()`, not Node's `process.env`), so `next.config.ts` reads `.dev.vars` directly and bakes it into `nextConfig.env`, same as `APP_ROUTES`/`APP_VERSION`.
+
+## Client deal status (`clients` table)
+
+Separate from `contact_submissions` (an immutable message log), `clients` tracks the relationship with each email: `lead` (default, just reached out) → `active` (you're manually working a deal — the only status that triggers the duplicate-confirmation prompt) → `closed_won` / `closed_lost` / `closed_abandoned` (deal concluded — behaves like `lead` for the confirm check, just recorded for later reporting). Enforced with a DB-level `CHECK` constraint, not just app-side validation.
+
+No admin UI — manage it via:
+
+```bash
+bun run d1-clients                                 # list all clients + status
+bun run d1-set-status client@example.com active    # validated update (rejects anything outside the 5 statuses)
+```
 
 ## Contact submissions (D1)
 

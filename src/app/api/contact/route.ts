@@ -63,6 +63,16 @@ export async function POST(request: Request) {
     console.error("Failed to store contact submission in D1", err);
   }
 
+  try {
+    await env.DB.prepare(
+      "INSERT INTO clients (email) VALUES (?) ON CONFLICT(email) DO UPDATE SET updated_at = datetime('now')",
+    )
+      .bind(email)
+      .run();
+  } catch (err) {
+    console.error("Failed to upsert client record", err);
+  }
+
   const to = env.RESEND_TO ?? "catopia@chenantunez.com";
   const from = env.RESEND_FROM ?? "Catopia <noreply@catopia.chenantunez.com>";
   const prefix = env.RESEND_SUBJECT_PREFIX ?? "[CLIENT INQUIRY]";

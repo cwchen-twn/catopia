@@ -149,7 +149,7 @@ The `/contact` page submits to `src/app/api/contact/route.ts` via `fetch`. The r
 2. Reads `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_TO`, and `RESEND_SUBJECT_PREFIX` from `getCloudflareContext().env` (never from `process.env` or the client bundle).
 3. Validates the request body with Zod (including `turnstileToken`).
 4. Verifies `turnstileToken` server-side against Cloudflare's `siteverify` endpoint.
-5. Best-effort writes to D1, then sends via Resend, with the client's email as `replyTo`.
+5. Best-effort writes to `contact_submissions`, best-effort upserts a `clients` row (see "Client Deal Status" below), then sends via Resend, with the client's email as `replyTo`.
 
 Local secrets go in `.dev.vars` (loaded by both `bun dev` and `bun preview` via `initOpenNextCloudflareForDev`). Production secrets are pushed with `bun run set-cf-secrets` (`scripts/set-cf-secrets.sh`), which pipes each tracked key to `wrangler secret put` — reading them from `.dev.vars` locally, or from already-exported env vars when `.dev.vars` isn't present (e.g. in CI).
 
@@ -165,7 +165,22 @@ Three independent layers, checked in this order in `src/app/api/contact/route.ts
 
 1. **Rate limiting** — a Workers Rate Limiting binding (`ratelimits` in `wrangler.jsonc`, `env.CONTACT_RATE_LIMITER`), keyed by `cf-connecting-ip`, 5 requests per 60 seconds. Purely declarative — `namespace_id` is an arbitrary developer-chosen string, no external resource to provision (unlike D1). Returns 429 if exceeded. **Constraint:** `simple.period` must be exactly `10` or `60` seconds, no custom windows.
 2. **Cloudflare Turnstile** — a CAPTCHA widget in `src/components/contact-form.tsx` (loaded via `next/script`, rendered into a container ref, token captured via its `callback`), verified server-side against `https://challenges.cloudflare.com/turnstile/v0/siteverify`. Returns 403 on failure. These solve different problems — Turnstile checks "is this a real browser," rate limiting caps volume from anything that passes (including a human clicking repeatedly, or a paid solving service).
-3. **Duplicate-email confirmation** (UX only, not a security control) — `src/app/api/contact/check-email/route.ts` looks up whether an email already has a `contact_submissions` row; if so, the client shows a confirm/cancel prompt before actually sending. No Turnstile/rate-limit on this endpoint since it's read-only and sends nothing — it does let someone probe whether an arbitrary email has contacted before, an accepted minor tradeoff for this "basic" scope.
+3. **Duplicate-email confirmation** (UX only, not a security control) — `src/app/api/contact/check-email/route.ts` checks the **`clients`** table (not `contact_submissions` directly) for a row with `status = 'active'` for that email; if found, the client shows a confirm/cancel prompt — listing up to 5 recent inquiry subjects/dates so the visitor recognizes what's already in progress — before actually sending. Since this now returns real inquiry content (not just a boolean), `check-email` requires `turnstileToken` and shares `CONTACT_RATE_LIMITER` too, same as the main route.
+
+### Client Deal Status (`clients` table)
+
+A separate table from `contact_submissions` (the immutable message log) — `clients` tracks the _relationship_, keyed by `email` (`UNIQUE`, surrogate `id` primary key so a future multi-email-per-client scenario doesn't require redesigning anything that references a client). `status` is one of, enforced by a DB-level `CHECK` constraint:
+
+- `lead` — default for any new submitter (auto-upserted on every `/api/contact` submission); no deal, doesn't trigger the confirm prompt.
+- `active` — manually flagged as currently undergoing a deal. **The only status that triggers the confirm prompt.**
+- `closed_won` / `closed_lost` / `closed_abandoned` — deal concluded (successfully, unsuccessfully, or the record wasn't a genuine outcome — test/spam/gone-cold). All three behave like `lead` for the confirm check; they exist for later reporting, not because the confirm logic cares.
+
+No admin UI — manage status via:
+
+```bash
+bun run d1-clients                                  # list all clients + status
+bun run d1-set-status client@example.com active      # validated status update (also enforced by the CHECK constraint if bypassed)
+```
 
 **`NEXT_PUBLIC_TURNSTILE_SITE_KEY` needs special handling** — unlike `TURNSTILE_SECRET_KEY` (a normal runtime secret read via `getCloudflareContext().env`), this is a **public** value that must be inlined into the client bundle at _build_ time. Next.js's automatic `NEXT_PUBLIC_*` inlining doesn't work here because `initOpenNextCloudflareForDev()` only loads `.dev.vars` into the Cloudflare runtime context, never into Node's `process.env` — so `next.config.ts` reads `.dev.vars` directly (falling back to `process.env` in CI, where the value comes from the GitHub Actions step's `env:`) and bakes it into `nextConfig.env`, the same pattern already used for `APP_ROUTES`/`APP_VERSION` (see "Build-Time Filesystem Access" below).
 
