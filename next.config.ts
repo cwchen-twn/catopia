@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
-import { readdirSync, existsSync } from "fs";
+import { readdirSync, existsSync, readFileSync } from "fs";
 import { join } from "path";
 import { execSync } from "child_process";
 
@@ -33,10 +33,31 @@ function resolveVersion(): string {
   }
 }
 
+// NEXT_PUBLIC_* vars are normally inlined automatically from process.env at
+// build time, but initOpenNextCloudflareForDev() only loads .dev.vars into
+// the Cloudflare runtime context (getCloudflareContext().env), not Node's
+// process.env — so plain `process.env.NEXT_PUBLIC_X` never resolves here.
+// Read .dev.vars directly instead (CI has no .dev.vars, so it falls back to
+// the real process.env set by the GitHub Actions step).
+function readPublicVar(key: string): string {
+  if (process.env[key]) return process.env[key];
+  try {
+    const content = readFileSync(join(process.cwd(), ".dev.vars"), "utf8");
+    for (const line of content.split("\n")) {
+      const [k, ...rest] = line.split("=");
+      if (k.trim() === key) return rest.join("=").trim();
+    }
+  } catch {}
+  return "";
+}
+
 const nextConfig: NextConfig = {
   env: {
     APP_ROUTES: JSON.stringify(discoverRoutes()),
     APP_VERSION: resolveVersion(),
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: readPublicVar(
+      "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+    ),
   },
 };
 
