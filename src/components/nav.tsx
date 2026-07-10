@@ -18,10 +18,13 @@ const links = [
   { href: "/contact", key: "contact" },
 ] as const;
 
-export function Nav() {
+export function Nav({ hasBlogPosts }: { hasBlogPosts: boolean }) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const visibleLinks = links.filter(
+    (link) => link.key !== "blog" || hasBlogPosts,
+  );
 
   function close() {
     setOpen(false);
@@ -44,7 +47,7 @@ export function Nav() {
           className="hidden md:flex items-center gap-1 flex-1"
           aria-label="Main navigation"
         >
-          {links.map(({ href, key }) => {
+          {visibleLinks.map(({ href, key }) => {
             const active =
               href === "/" ? pathname === "/" : pathname.startsWith(href);
             return (
@@ -84,7 +87,7 @@ export function Nav() {
           className="md:hidden border-t border-foreground/10 px-4 py-2 flex flex-col"
           aria-label="Main navigation"
         >
-          {links.map(({ href, key }) => {
+          {visibleLinks.map(({ href, key }) => {
             const active =
               href === "/" ? pathname === "/" : pathname.startsWith(href);
             return (
