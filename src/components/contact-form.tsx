@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 declare global {
   interface Window {
@@ -18,9 +18,11 @@ declare global {
 
 type Status = "idle" | "checking" | "confirm" | "sending" | "success" | "error";
 type ErrorKind = "generic" | "captcha" | "rateLimit";
+type Inquiry = { subject: string; createdAt: string };
 
 export function ContactForm() {
   const t = useTranslations("contact");
+  const locale = useLocale();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -31,7 +33,19 @@ export function ContactForm() {
   const [errorKind, setErrorKind] = useState<ErrorKind>("generic");
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [ongoingInquiries, setOngoingInquiries] = useState<Inquiry[]>([]);
   const turnstileContainerRef = useRef<HTMLDivElement>(null);
+
+  function formatInquiryDate(createdAt: string) {
+    // D1's datetime('now') is UTC with no offset marker; append "Z" so it's
+    // parsed as UTC, then format with no explicit timeZone so it renders in
+    // the visitor's own local timezone (Intl.DateTimeFormat's default).
+    const date = new Date(createdAt.replace(" ", "T") + "Z");
+    return new Intl.DateTimeFormat(locale, {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(date);
+  }
 
   useEffect(() => {
     if (!scriptLoaded || !turnstileContainerRef.current || !window.turnstile)
@@ -89,10 +103,14 @@ export function ContactForm() {
       const checkRes = await fetch("/api/contact/check-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: form.email }),
+        body: JSON.stringify({ email: form.email, turnstileToken }),
       });
-      const checkData = (await checkRes.json()) as { exists?: boolean };
-      if (checkData.exists) {
+      const checkData = (await checkRes.json()) as {
+        hasActiveDeal?: boolean;
+        inquiries?: Inquiry[];
+      };
+      if (checkData.hasActiveDeal) {
+        setOngoingInquiries(checkData.inquiries ?? []);
         setStatus("confirm");
         return;
       }
@@ -118,6 +136,26 @@ export function ContactForm() {
     return (
       <div className="rounded-lg border border-foreground/20 px-6 py-8 flex flex-col gap-4">
         <p className="text-sm text-foreground/80">{t("duplicateMessage")}</p>
+        {ongoingInquiries.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <p className="text-xs font-medium text-foreground/60">
+              {t("ongoingInquiriesLabel")}
+            </p>
+            <ul className="flex flex-col gap-1.5">
+              {ongoingInquiries.map((inquiry, i) => (
+                <li
+                  key={i}
+                  className="flex items-baseline justify-between gap-3 text-sm text-foreground/70"
+                >
+                  <span className="truncate">{inquiry.subject}</span>
+                  <span className="shrink-0 text-xs text-foreground/45">
+                    {formatInquiryDate(inquiry.createdAt)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className="flex flex-col-reverse gap-3 sm:flex-row">
           <button
             type="button"

@@ -186,6 +186,7 @@
     "captchaErrorMessage": "Captcha verification failed. Please try again.",
     "rateLimitMessage": "Too many requests. Please wait a moment and try again.",
     "duplicateMessage": "It looks like you've already contacted us with this email. Would you like to send another message?",
+    "ongoingInquiriesLabel": "Your ongoing inquiries:",
     "confirmSend": "Yes, send",
     "cancel": "Cancel"
   }
