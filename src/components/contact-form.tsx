@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
+import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
+import { SERVICE_SLUGS } from "@/lib/services";
 
 declare global {
   interface Window {
@@ -22,13 +24,18 @@ type Inquiry = { subject: string; createdAt: string };
 
 export function ContactForm() {
   const t = useTranslations("contact");
+  const tServices = useTranslations("services");
   const locale = useLocale();
-  const [form, setForm] = useState({
+  const searchParams = useSearchParams();
+  const service = SERVICE_SLUGS.find(
+    (s) => s.slug === searchParams.get("service"),
+  );
+  const [form, setForm] = useState(() => ({
     name: "",
     email: "",
-    subject: "",
-    message: "",
-  });
+    subject: service ? tServices(`${service.key}.title`) : "",
+    message: service ? tServices(`${service.key}.quoteTemplate`) : "",
+  }));
   const [status, setStatus] = useState<Status>("idle");
   const [errorKind, setErrorKind] = useState<ErrorKind>("generic");
   const [scriptLoaded, setScriptLoaded] = useState(false);
@@ -183,6 +190,16 @@ export function ContactForm() {
         strategy="afterInteractive"
         onLoad={() => setScriptLoaded(true)}
       />
+
+      {service && (
+        <p className="text-sm text-foreground/60">
+          {t("inquiringAboutLabel")}{" "}
+          <span className="font-medium text-foreground">
+            {tServices(`${service.key}.title`)}
+          </span>
+        </p>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-medium" htmlFor="name">

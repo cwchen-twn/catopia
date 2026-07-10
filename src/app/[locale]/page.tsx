@@ -1,14 +1,15 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Globe, Code2, Bot, HeartPulse } from "lucide-react";
+import { Code2, Bot, HeartPulse, Wrench } from "lucide-react";
+import { SERVICE_SLUGS, type ServiceKey } from "@/lib/services";
 
-const services = [
-  { key: "business", icon: Globe },
-  { key: "software", icon: Code2 },
-  { key: "ai", icon: Bot },
-  { key: "healthcare", icon: HeartPulse },
-] as const;
+const ICONS: Record<ServiceKey, typeof Code2> = {
+  software: Code2,
+  ai: Bot,
+  healthcare: HeartPulse,
+  consulting: Wrench,
+};
 
 export const dynamic = "force-static";
 
@@ -62,18 +63,22 @@ export default async function Home({
 
       {/* Services preview */}
       <section className="border-t border-foreground/10 py-16 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {services.map(({ key, icon: Icon }) => (
-          <div
-            key={key}
-            className="flex flex-col gap-3 p-6 rounded-xl border border-foreground/10 hover:border-foreground/20 transition-colors"
-          >
-            <Icon size={24} className="text-foreground/40" />
-            <h2 className="font-semibold">{t(`services.${key}.title`)}</h2>
-            <p className="text-sm text-foreground/60 leading-relaxed">
-              {t(`services.${key}.description`)}
-            </p>
-          </div>
-        ))}
+        {SERVICE_SLUGS.map(({ slug, key }) => {
+          const Icon = ICONS[key];
+          return (
+            <Link
+              key={slug}
+              href={`/services/${slug}`}
+              className="flex flex-col gap-3 p-6 rounded-xl border border-foreground/10 hover:border-foreground/20 transition-colors"
+            >
+              <Icon size={24} className="text-foreground/40" />
+              <h2 className="font-semibold">{t(`services.${key}.title`)}</h2>
+              <p className="text-sm text-foreground/60 leading-relaxed">
+                {t(`services.${key}.description`)}
+              </p>
+            </Link>
+          );
+        })}
       </section>
 
       {/* About blurb */}

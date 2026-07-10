@@ -30,7 +30,7 @@ const localeMeta = {
     keywords: [
       "custom software development Paraguay",
       "software development company Asuncion",
-      "business website development Paraguay",
+      "AI workflow automation Paraguay",
       "healthcare software development",
       "business automation solutions",
       "custom web application development",
@@ -46,7 +46,7 @@ const localeMeta = {
     keywords: [
       "desarrollo de software a medida Paraguay",
       "empresa de desarrollo de software Asunción",
-      "desarrollo de sitios web para empresas Paraguay",
+      "automatización de flujos de trabajo con IA Paraguay",
       "desarrollo de software para salud",
       "soluciones de automatización empresarial",
       "desarrollo de aplicaciones web a medida",
@@ -62,7 +62,7 @@ const localeMeta = {
     keywords: [
       "desenvolvimento de software sob medida Paraguai",
       "empresa de desenvolvimento de software Assunção",
-      "desenvolvimento de sites para empresas Paraguai",
+      "automação de fluxos de trabalho com IA Paraguai",
       "desenvolvimento de software para saúde",
       "soluções de automação empresarial",
       "desenvolvimento de aplicações web sob medida",
