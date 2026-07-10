@@ -9,7 +9,7 @@
   "home": {
     "hero": {
       "title": "Construindo soluções digitais confiáveis para empresas em crescimento.",
-      "description": "A Catopia ajuda empresas a transformar ideias e desafios operacionais em software prático — de sites profissionais a plataformas de negócio personalizadas e sistemas de automação.",
+      "description": "A Catopia ajuda empresas a transformar ideias e desafios operacionais em software prático — de plataformas de negócio personalizadas e automação com IA a sistemas de saúde e suporte de engenharia especializado.",
       "subDescription": "Com experiência na construção de sistemas de informação hospitalar e plataformas backend escaláveis, focamos em criar software seguro, sustentável e pensado para necessidades reais.",
       "primaryCta": "Fale sobre o seu projeto",
       "secondaryCta": "Ver nossos serviços"
@@ -20,25 +20,8 @@
   "services": {
     "title": "Serviços",
     "subtitle": "O que construímos para você",
-    "business": {
-      "title": "Sites para Empresas",
-      "description": "Sites profissionais projetados para ajudar empresas a atrair clientes e construir credibilidade online. Criamos sites rápidos, responsivos e otimizados para buscadores que representam sua marca e ajudam clientes a encontrar, entender e contatar você.",
-      "includes": [
-        "Design de site personalizado",
-        "Experiência otimizada para dispositivos móveis",
-        "Otimização básica para buscadores (SEO)",
-        "Formulários de contato e integrações",
-        "Otimização de performance",
-        "Suporte multi-idioma"
-      ],
-      "idealFor": [
-        "Pequenas empresas",
-        "Serviços profissionais",
-        "Restaurantes",
-        "Clínicas",
-        "Startups"
-      ]
-    },
+    "getQuoteCta": "Solicitar Orçamento",
+    "learnMore": "Saiba mais",
     "software": {
       "title": "Software Empresarial Sob Medida",
       "description": "Transforme seus processos de negócio em fluxos de trabalho digitais eficientes. Projetamos e desenvolvemos aplicações sob medida que automatizam operações, reduzem trabalho manual e melhoram a produtividade — construídas com práticas de engenharia profissional para confiabilidade de longo prazo.",
@@ -48,7 +31,8 @@
         "Plataformas de gestão de dados",
         "Ferramentas de automação de negócio",
         "Integrações de sistemas"
-      ]
+      ],
+      "quoteTemplate": "Conte-nos sobre o seu projeto:\n\n- Qual processo de negócio você deseja melhorar ou automatizar?\n- Com quais ferramentas ou sistemas ele precisa funcionar?\n- Você tem algum prazo em mente?"
     },
     "ai": {
       "title": "Integração de Agentes de IA",
@@ -58,7 +42,8 @@
         "Chatbots para atendimento ao cliente",
         "Pipelines de relatórios automatizados",
         "Orquestração de fluxos de trabalho com IA"
-      ]
+      ],
+      "quoteTemplate": "Conte-nos sobre seus objetivos de automação:\n\n- Qual tarefa ou fluxo de trabalho repetitivo você gostaria que um agente de IA cuidasse?\n- A quais sistemas ou dados ele precisaria ter acesso?\n- Você tem algum prazo em mente?"
     },
     "healthcare": {
       "title": "Soluções de Software para Saúde",
@@ -69,7 +54,30 @@
         "Operações hospitalares",
         "Gestão de dados",
         "Desafios de integração"
-      ]
+      ],
+      "quoteTemplate": "Conte-nos sobre suas necessidades de software para saúde:\n\n- Qual(is) sistema(s) você usa atualmente?\n- Qual fluxo de trabalho ou processo precisa melhorar?\n- Você tem requisitos de conformidade ou interoperabilidade (por exemplo, HL7 FHIR)?",
+      "expanded": {
+        "title": "Experiência Profunda em Saúde",
+        "emrTitle": "Prontuário Eletrônico para Internação e Ambulatório",
+        "emrBody": "Construímos sistemas de prontuário eletrônico que oferecem suporte tanto aos fluxos de internação quanto de atendimento ambulatorial em uma única plataforma, mantendo os dados clínicos consistentes à medida que os pacientes transitam entre a internação hospitalar e o atendimento ambulatorial contínuo.",
+        "patientAppTitle": "Aplicativo Centrado no Paciente com Serviços de Agendamento",
+        "patientAppBody": "Projetamos aplicativos voltados para o paciente que facilitam marcar, remarcar e gerenciar consultas — reduzindo a carga de trabalho da recepção e dando aos pacientes uma via mais direta para o seu atendimento.",
+        "interoperabilityTitle": "Integração e Interoperabilidade",
+        "interoperabilityBody": "Temos experiência prática com o padrão HL7 FHIR, permitindo troca segura de dados com laboratórios, sistemas de imagem e outros provedores de saúde sem comprometer a estabilidade em produção.",
+        "caseStudyCta": "Veja nosso trabalho em saúde"
+      }
+    },
+    "consulting": {
+      "title": "Consultoria em Engenharia de Software",
+      "description": "Orientação técnica para empresas que precisam de suporte de engenharia experiente. Seja para melhorar uma aplicação existente ou planejar um novo sistema, oferecemos soluções de engenharia práticas.",
+      "includes": [
+        "Revisões de arquitetura",
+        "Otimização de banco de dados",
+        "Melhorias de infraestrutura em nuvem",
+        "Resolução de problemas de performance",
+        "Modernização de software"
+      ],
+      "quoteTemplate": "Conte-nos no que você precisa de ajuda:\n\n- Qual é o sistema ou desafio atual?\n- Você está buscando uma revisão pontual ou suporte contínuo?\n- Você tem algum prazo em mente?"
     }
   },
   "caseStudies": {
@@ -107,10 +115,10 @@
       "title": "O Que Fazemos",
       "intro": "Ajudamos as empresas a:",
       "items": [
-        "Estabelecer uma presença profissional online",
-        "Automatizar fluxos de trabalho repetitivos",
-        "Construir ferramentas internas sob medida",
-        "Integrar sistemas e serviços existentes",
+        "Construir software sob medida e ferramentas internas",
+        "Automatizar fluxos de trabalho com agentes de IA",
+        "Apoiar necessidades tecnológicas específicas da área da saúde",
+        "Oferecer orientação especializada em engenharia para sistemas existentes",
         "Melhorar a eficiência operacional por meio do software"
       ]
     },
@@ -177,6 +185,9 @@
     "email": "E-mail",
     "subject": "Assunto",
     "message": "Mensagem",
+    "inquiringAboutLabel": "Consultando sobre:",
+    "localeChangeWarning": "Mudar de idioma vai apagar o que você digitou no formulário de contato. Continuar?",
+    "localeChangeConfirm": "Continuar",
     "send": "Enviar mensagem",
     "sending": "Enviando…",
     "hint": "Entraremos em contato em breve.",

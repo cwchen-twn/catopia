@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ContactForm } from "@/components/contact-form";
 
@@ -31,7 +32,9 @@ export default async function Contact({
         <p className="text-foreground/60">{t("subtitle")}</p>
       </div>
 
-      <ContactForm />
+      <Suspense fallback={null}>
+        <ContactForm />
+      </Suspense>
     </div>
   );
 }

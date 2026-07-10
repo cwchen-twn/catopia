@@ -91,7 +91,8 @@ Both preferences are persisted in `localStorage` and restored before hydration v
 - **`src/components/theme-restorer.tsx`** — Client component using `useLayoutEffect` + `usePathname`. Re-applies both theme class and font size from `localStorage` before each paint on route change (React reconciliation clears externally-set attributes during soft navigation).
 - **`src/components/theme-toggle.tsx`** — `useSyncExternalStore` watching a `MutationObserver` on `document.documentElement` class; writes to `localStorage` on click.
 - **`src/components/font-size-control.tsx`** — same pattern, watching `style` attribute; three `A` buttons (fixed `px` display sizes so the control stays visually consistent regardless of current root size).
-- **`src/components/locale-switch.tsx`** — `appearance-none` `<select>` with `bg-background`/`text-foreground` and a `ChevronDown` icon overlay; uses `useRouter`/`usePathname` from `@/i18n/navigation` for locale-aware switching.
+- **`src/components/locale-switch.tsx`** — `appearance-none` `<select>` with `bg-background`/`text-foreground` and a `ChevronDown` icon overlay; uses `useRouter`/`usePathname` from `@/i18n/navigation` for locale-aware switching. On `/contact`, switching locale opens the shared `Dialog` (below) to confirm first, since the page remounts on locale-prefixed navigation and would otherwise silently clear typed form content.
+- **`src/components/dialog.tsx`** — generic, reusable modal: centered overlay with `backdrop-blur-sm` and a pop-in animation (`dialog-overlay-in`/`dialog-pop-in` keyframes in `globals.css`), closes on backdrop click or Escape. Takes `open`, `onClose`, and arbitrary `children` — no built-in message/buttons, so callers compose their own content. Intentionally not `window.confirm()` — this project has no other modal system, so any future confirmation/alert need should reuse this rather than re-inventing overlay markup.
 
 ### Rendering Strategy
 
@@ -136,10 +137,19 @@ Both cases render **`src/app/not-found.tsx`** — a root-level 404 page that inc
 
 **Do not use `export const dynamicParams = false`** in `[locale]/layout.tsx`. It interferes with OpenNext's request routing and causes valid locale paths (e.g. `/en`) to return 404 in `bun preview` and the deployed Worker. Use the explicit `notFound()` guard instead.
 
+### Services Pages
+
+`/services` is a lightweight index (icon + title + one-line description + "Learn more") linking to a dedicated page per service — `src/app/[locale]/services/[slug]/page.tsx` — rather than one combined page, for distinct per-service SEO metadata.
+
+- **`src/lib/services.ts`** — the single source of truth: `SERVICE_SLUGS` maps each `slug` (URL segment) to its `key` (the `messages/*.json` `services.<key>` namespace). Deliberately has no icon/React imports so `sitemap.ts` can import it without pulling in UI code. Every UI file (homepage preview, services index, `[slug]` page) pairs this with its own local icon lookup keyed by `key`.
+- Adding, removing, or reordering a service is a one-line change to `SERVICE_SLUGS` (plus the corresponding `messages/*.json` content) — the homepage, services index, `[slug]` page, and sitemap all derive from it, nothing else to update.
+- **Healthcare gets extra depth** (`services.healthcare.expanded.*` in `messages/*.json`) — patient management, clinical workflows, and HL7 FHIR interoperability, plus a link to `/case-studies`. This is the one service page with a second content block; conditional on `key === "healthcare"` in the `[slug]` page.
+- **"Get a Quote" flow**: each service page links to `/contact?service=<slug>`. Since `/contact` is `force-static`, reading that query param **must** happen client-side — `contact-form.tsx` (already `"use client"`) uses `useSearchParams()` from `next/navigation`, not a server-side `searchParams` prop (which wouldn't see the real query string on a statically-generated page). `src/app/[locale]/contact/page.tsx` wraps `<ContactForm />` in `<Suspense>`, which Next.js requires for any component calling `useSearchParams()` during static rendering. The matched service's `title`/`quoteTemplate` translations pre-fill the subject/message fields — still fully editable, not locked.
+
 ### SEO
 
 - **`public/robots.txt`** — static file served before Next.js routing. Allows all crawlers, disallows `/_next/` (build artifacts), and references the sitemap. Using a static file is critical: without it, `/robots.txt` is matched by the `[locale]` dynamic segment with locale `"robots.txt"`, rendering the app instead of a valid robots file.
-- **`src/app/sitemap.ts`** — generates `/sitemap.xml` at build time (`force-static`). Routes are auto-discovered via `process.env.APP_ROUTES` (see below). Locales come from `routing.locales`.
+- **`src/app/sitemap.ts`** — generates `/sitemap.xml` at build time (`force-static`). Routes are auto-discovered via `process.env.APP_ROUTES` (see below) plus `/services/<slug>` for each entry in `SERVICE_SLUGS` (dynamic `[slug]` routes aren't covered by the `APP_ROUTES` directory scan, so they're added explicitly from the same source of truth the pages use). Locales come from `routing.locales`.
 
 ### Contact Form & Email
 
@@ -147,8 +157,8 @@ The `/contact` page submits to `src/app/api/contact/route.ts` via `fetch`. The r
 
 1. Rate-limits by IP (`env.CONTACT_RATE_LIMITER`, see "Bot & Abuse Protection" below) — checked first, before touching anything else.
 2. Reads `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_TO`, and `RESEND_SUBJECT_PREFIX` from `getCloudflareContext().env` (never from `process.env` or the client bundle).
-3. Validates the request body with Zod (including `turnstileToken`).
-4. Verifies `turnstileToken` server-side against Cloudflare's `siteverify` endpoint.
+3. Validates the request body with Zod (`turnstileToken` is optional in the schema — see "Bot & Abuse Protection" below for why).
+4. In production only, verifies `turnstileToken` server-side against Cloudflare's `siteverify` endpoint.
 5. Best-effort writes to `contact_submissions`, best-effort upserts a `clients` row (see "Client Deal Status" below), then sends via Resend, with the client's email as `replyTo`.
 
 Local secrets go in `.dev.vars` (loaded by both `bun dev` and `bun preview` via `initOpenNextCloudflareForDev`). Production secrets are pushed with `bun run set-cf-secrets` (`scripts/set-cf-secrets.sh`), which pipes each tracked key to `wrangler secret put` — reading them from `.dev.vars` locally, or from already-exported env vars when `.dev.vars` isn't present (e.g. in CI).
@@ -165,7 +175,8 @@ Three independent layers, checked in this order in `src/app/api/contact/route.ts
 
 1. **Rate limiting** — a Workers Rate Limiting binding (`ratelimits` in `wrangler.jsonc`, `env.CONTACT_RATE_LIMITER`), keyed by `cf-connecting-ip`, 5 requests per 60 seconds. Purely declarative — `namespace_id` is an arbitrary developer-chosen string, no external resource to provision (unlike D1). Returns 429 if exceeded. **Constraint:** `simple.period` must be exactly `10` or `60` seconds, no custom windows.
 2. **Cloudflare Turnstile** — a CAPTCHA widget in `src/components/contact-form.tsx` (loaded via `next/script`, rendered into a container ref, token captured via its `callback`), verified server-side against `https://challenges.cloudflare.com/turnstile/v0/siteverify`. Returns 403 on failure. These solve different problems — Turnstile checks "is this a real browser," rate limiting caps volume from anything that passes (including a human clicking repeatedly, or a paid solving service).
-3. **Duplicate-email confirmation** (UX only, not a security control) — `src/app/api/contact/check-email/route.ts` checks the **`clients`** table (not `contact_submissions` directly) for a row with `status = 'active'` for that email; if found, the client shows a confirm/cancel prompt — listing up to 5 recent inquiry subjects/dates so the visitor recognizes what's already in progress — before actually sending. Since this now returns real inquiry content (not just a boolean), `check-email` requires `turnstileToken` and shares `CONTACT_RATE_LIMITER` too, same as the main route.
+   - **Only active in production builds.** `contact-form.tsx` gates the widget script/render behind `TURNSTILE_ENABLED = process.env.NODE_ENV === "production"`, and both `route.ts`/`check-email/route.ts` gate the `siteverify` call behind the same `process.env.NODE_ENV === "production"` check. This needs no separate env var to stay in sync client/server: Next.js inlines `NODE_ENV` as a compile-time literal, and `next build` (used by both `bun preview` and `bun run deploy`) always inlines `"production"` regardless of target, while `bun dev` (`next dev`) always inlines `"development"`. Under `bun dev`, no Turnstile script loads and `turnstileToken` is simply omitted from requests — the Zod schema treats it as optional so this doesn't fail validation.
+3. **Duplicate-email confirmation** (UX only, not a security control) — `src/app/api/contact/check-email/route.ts` checks the **`clients`** table (not `contact_submissions` directly) for a row with `status = 'active'` for that email; if found, the client shows a confirm/cancel prompt — listing up to 5 recent inquiry subjects/dates so the visitor recognizes what's already in progress — before actually sending. Since this now returns real inquiry content (not just a boolean), `check-email` requires `turnstileToken` in production and shares `CONTACT_RATE_LIMITER` too, same as the main route.
 
 ### Client Deal Status (`clients` table)
 
@@ -184,7 +195,7 @@ bun run d1-set-status client@example.com active      # validated status update (
 
 **`NEXT_PUBLIC_TURNSTILE_SITE_KEY` needs special handling** — unlike `TURNSTILE_SECRET_KEY` (a normal runtime secret read via `getCloudflareContext().env`), this is a **public** value that must be inlined into the client bundle at _build_ time. Next.js's automatic `NEXT_PUBLIC_*` inlining doesn't work here because `initOpenNextCloudflareForDev()` only loads `.dev.vars` into the Cloudflare runtime context, never into Node's `process.env` — so `next.config.ts` reads `.dev.vars` directly (falling back to `process.env` in CI, where the value comes from the GitHub Actions step's `env:`) and bakes it into `nextConfig.env`, the same pattern already used for `APP_ROUTES`/`APP_VERSION` (see "Build-Time Filesystem Access" below).
 
-Local dev/testing uses Cloudflare's published always-pass test keypair (site key `1x00000000000000000000AA`, secret `1x0000000000000000000000000000000AA`) as the `.dev.vars` defaults — swap in the real widget's values (Cloudflare dashboard → Turnstile → create a widget for the production domain) via `.dev.vars` + `bun run set-gh-secrets` before/at a deploy; no code change needed.
+`bun dev` never loads Turnstile at all (see "Bot & Abuse Protection" above), so the site/secret key pair only matters for `bun preview` (which runs a real production build against the Workers runtime). Cloudflare's published always-pass test keypair (site key `1x00000000000000000000AA`, secret `1x0000000000000000000000000000000AA`) is the `.dev.vars` default for that case — swap in the real widget's values (Cloudflare dashboard → Turnstile → create a widget for the production domain) via `.dev.vars` + `bun run set-gh-secrets` before/at a deploy; no code change needed.
 
 **SOP for changing a secret value:** treat GitHub Actions secrets as the source of truth, not Cloudflare directly.
 

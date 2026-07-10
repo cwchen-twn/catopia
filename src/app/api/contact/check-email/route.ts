@@ -4,7 +4,8 @@ import { z } from "zod";
 
 const checkEmailSchema = z.object({
   email: z.email(),
-  turnstileToken: z.string().min(1),
+  // Only required in production — see TURNSTILE_ENABLED in contact-form.tsx.
+  turnstileToken: z.string().min(1).optional(),
 });
 
 interface InquiryRow {
@@ -28,24 +29,34 @@ export async function POST(request: Request) {
 
   const { email, turnstileToken } = parsed.data;
 
-  const turnstileRes = await fetch(
-    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        secret: env.TURNSTILE_SECRET_KEY,
-        response: turnstileToken,
-        remoteip: ip,
-      }),
-    },
-  );
-  const turnstileResult = (await turnstileRes.json()) as { success: boolean };
-  if (!turnstileResult.success)
-    return NextResponse.json(
-      { error: "Captcha verification failed" },
-      { status: 403 },
+  if (process.env.NODE_ENV === "production") {
+    if (!turnstileToken)
+      return NextResponse.json(
+        { error: "Captcha verification failed" },
+        { status: 403 },
+      );
+
+    const turnstileRes = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          secret: env.TURNSTILE_SECRET_KEY,
+          response: turnstileToken,
+          remoteip: ip,
+        }),
+      },
     );
+    const turnstileResult = (await turnstileRes.json()) as {
+      success: boolean;
+    };
+    if (!turnstileResult.success)
+      return NextResponse.json(
+        { error: "Captcha verification failed" },
+        { status: 403 },
+      );
+  }
 
   const client = await env.DB.prepare(
     "SELECT 1 FROM clients WHERE email = ? AND status = 'active' LIMIT 1",
