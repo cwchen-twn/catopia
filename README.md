@@ -83,7 +83,7 @@ open-next.config.ts  # OpenNext/Cloudflare adapter config
 
 ## Contact form
 
-The `/contact` page posts to `src/app/api/contact/route.ts`. In order: rate-limit check, Zod validation, Turnstile verification, best-effort D1 write, then an email via Resend with the client's address as `Reply-To`.
+The `/contact` page posts to `src/app/api/contact/route.ts`. In order: rate-limit check, Zod validation, Turnstile verification (production only — see "Bot & abuse protection" below), best-effort D1 write, then an email via Resend with the client's address as `Reply-To`.
 
 Secrets are read from `getCloudflareContext().env` — never from the client bundle.
 
@@ -98,7 +98,7 @@ TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
 ```
 
-(The Turnstile values above are Cloudflare's published always-pass test keypair — safe for local dev. Create a real widget at Cloudflare dashboard → Turnstile before deploying.)
+(`bun dev` never loads Turnstile at all — see "Bot & abuse protection" below — so these values only matter for `bun preview`, which runs a real production build. The values above are Cloudflare's published always-pass test keypair — safe for that case. Create a real widget at Cloudflare dashboard → Turnstile before deploying.)
 
 **Scripts:**
 
@@ -132,7 +132,7 @@ Requires the [`gh` CLI](https://cli.github.com/) authenticated (`gh auth login`)
 Three independent layers on the contact form, checked in this order in `src/app/api/contact/route.ts`:
 
 1. **Rate limiting** — a Workers Rate Limiting binding (`ratelimits` in `wrangler.jsonc`), keyed by IP, 5 requests/60s. Purely declarative, no external resource to provision.
-2. **Cloudflare Turnstile** — a CAPTCHA widget verified server-side via `siteverify`. Complementary to rate limiting, not redundant: Turnstile checks "is this a real browser," rate limiting caps volume from anything that passes it (a human clicking repeatedly, a paid solving service, etc).
+2. **Cloudflare Turnstile** — a CAPTCHA widget verified server-side via `siteverify`. Complementary to rate limiting, not redundant: Turnstile checks "is this a real browser," rate limiting caps volume from anything that passes it (a human clicking repeatedly, a paid solving service, etc). **Production only** — gated behind `process.env.NODE_ENV === "production"` on both client (`contact-form.tsx`) and server (`route.ts`/`check-email/route.ts`); `next build` (used by `bun preview` and `bun run deploy`) always inlines `"production"`, `bun dev` always inlines `"development"`, so the widget simply doesn't load under `bun dev` and `turnstileToken` is omitted from requests (the Zod schema treats it as optional).
 3. **Duplicate-email confirmation** (UX, not security) — `src/app/api/contact/check-email/route.ts` checks the `clients` table for a currently-`active` deal on that email; if found, the form shows a confirm/cancel prompt listing up to 5 recent inquiries so the visitor recognizes what's already in progress. This endpoint now returns real content (not just a boolean), so it also requires `turnstileToken` and shares the same rate limiter as the main route.
 
 `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is a public value that has to be inlined into the client bundle at _build_ time — Next's automatic `NEXT_PUBLIC_*` handling doesn't pick it up from `.dev.vars` here (that file only feeds the Cloudflare runtime context via `initOpenNextCloudflareForDev()`, not Node's `process.env`), so `next.config.ts` reads `.dev.vars` directly and bakes it into `nextConfig.env`, same as `APP_ROUTES`/`APP_VERSION`.

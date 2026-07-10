@@ -22,6 +22,12 @@ type Status = "idle" | "checking" | "confirm" | "sending" | "success" | "error";
 type ErrorKind = "generic" | "captcha" | "rateLimit";
 type Inquiry = { subject: string; createdAt: string };
 
+// Turnstile is only loaded/enforced in production builds — `next build` always
+// inlines NODE_ENV as "production" regardless of target (bun preview, deploy),
+// while `bun dev` (next dev) inlines "development", so this never needs a
+// separate env var to stay in sync with the server-side check.
+const TURNSTILE_ENABLED = process.env.NODE_ENV === "production";
+
 export function ContactForm() {
   const t = useTranslations("contact");
   const tServices = useTranslations("services");
@@ -55,7 +61,12 @@ export function ContactForm() {
   }
 
   useEffect(() => {
-    if (!scriptLoaded || !turnstileContainerRef.current || !window.turnstile)
+    if (
+      !TURNSTILE_ENABLED ||
+      !scriptLoaded ||
+      !turnstileContainerRef.current ||
+      !window.turnstile
+    )
       return;
     window.turnstile.render(turnstileContainerRef.current, {
       sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
@@ -77,7 +88,9 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, turnstileToken }),
+        body: JSON.stringify(
+          TURNSTILE_ENABLED ? { ...form, turnstileToken } : form,
+        ),
       });
       if (!res.ok) {
         setErrorKind(
@@ -100,7 +113,7 @@ export function ContactForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!turnstileToken) {
+    if (TURNSTILE_ENABLED && !turnstileToken) {
       setErrorKind("captcha");
       setStatus("error");
       return;
@@ -110,7 +123,11 @@ export function ContactForm() {
       const checkRes = await fetch("/api/contact/check-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: form.email, turnstileToken }),
+        body: JSON.stringify(
+          TURNSTILE_ENABLED
+            ? { email: form.email, turnstileToken }
+            : { email: form.email },
+        ),
       });
       const checkData = (await checkRes.json()) as {
         hasActiveDeal?: boolean;
@@ -185,11 +202,13 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-        strategy="afterInteractive"
-        onLoad={() => setScriptLoaded(true)}
-      />
+      {TURNSTILE_ENABLED && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          strategy="afterInteractive"
+          onLoad={() => setScriptLoaded(true)}
+        />
+      )}
 
       {service && (
         <p className="text-sm text-foreground/60">
@@ -261,7 +280,7 @@ export function ContactForm() {
         />
       </div>
 
-      <div ref={turnstileContainerRef} />
+      {TURNSTILE_ENABLED && <div ref={turnstileContainerRef} />}
 
       {status === "error" && (
         <p className="text-sm text-red-500">
