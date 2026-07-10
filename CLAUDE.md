@@ -136,10 +136,19 @@ Both cases render **`src/app/not-found.tsx`** — a root-level 404 page that inc
 
 **Do not use `export const dynamicParams = false`** in `[locale]/layout.tsx`. It interferes with OpenNext's request routing and causes valid locale paths (e.g. `/en`) to return 404 in `bun preview` and the deployed Worker. Use the explicit `notFound()` guard instead.
 
+### Services Pages
+
+`/services` is a lightweight index (icon + title + one-line description + "Learn more") linking to a dedicated page per service — `src/app/[locale]/services/[slug]/page.tsx` — rather than one combined page, for distinct per-service SEO metadata.
+
+- **`src/lib/services.ts`** — the single source of truth: `SERVICE_SLUGS` maps each `slug` (URL segment) to its `key` (the `messages/*.json` `services.<key>` namespace). Deliberately has no icon/React imports so `sitemap.ts` can import it without pulling in UI code. Every UI file (homepage preview, services index, `[slug]` page) pairs this with its own local icon lookup keyed by `key`.
+- Adding, removing, or reordering a service is a one-line change to `SERVICE_SLUGS` (plus the corresponding `messages/*.json` content) — the homepage, services index, `[slug]` page, and sitemap all derive from it, nothing else to update.
+- **Healthcare gets extra depth** (`services.healthcare.expanded.*` in `messages/*.json`) — patient management, clinical workflows, and HL7 FHIR interoperability, plus a link to `/case-studies`. This is the one service page with a second content block; conditional on `key === "healthcare"` in the `[slug]` page.
+- **"Get a Quote" flow**: each service page links to `/contact?service=<slug>`. Since `/contact` is `force-static`, reading that query param **must** happen client-side — `contact-form.tsx` (already `"use client"`) uses `useSearchParams()` from `next/navigation`, not a server-side `searchParams` prop (which wouldn't see the real query string on a statically-generated page). `src/app/[locale]/contact/page.tsx` wraps `<ContactForm />` in `<Suspense>`, which Next.js requires for any component calling `useSearchParams()` during static rendering. The matched service's `title`/`quoteTemplate` translations pre-fill the subject/message fields — still fully editable, not locked.
+
 ### SEO
 
 - **`public/robots.txt`** — static file served before Next.js routing. Allows all crawlers, disallows `/_next/` (build artifacts), and references the sitemap. Using a static file is critical: without it, `/robots.txt` is matched by the `[locale]` dynamic segment with locale `"robots.txt"`, rendering the app instead of a valid robots file.
-- **`src/app/sitemap.ts`** — generates `/sitemap.xml` at build time (`force-static`). Routes are auto-discovered via `process.env.APP_ROUTES` (see below). Locales come from `routing.locales`.
+- **`src/app/sitemap.ts`** — generates `/sitemap.xml` at build time (`force-static`). Routes are auto-discovered via `process.env.APP_ROUTES` (see below) plus `/services/<slug>` for each entry in `SERVICE_SLUGS` (dynamic `[slug]` routes aren't covered by the `APP_ROUTES` directory scan, so they're added explicitly from the same source of truth the pages use). Locales come from `routing.locales`.
 
 ### Contact Form & Email
 
