@@ -3,9 +3,10 @@
 # Locally, reads them from .dev.vars. In CI (no .dev.vars present), reads
 # them from already-exported environment variables instead.
 #
-# NEXT_PUBLIC_TURNSTILE_SITE_KEY is intentionally NOT pushed here — it's a
-# public value baked into the client bundle at build time (see deploy.yml's
-# "Build and deploy" step), not a Worker runtime secret.
+# NEXT_PUBLIC_TURNSTILE_SITE_KEY and NEXT_PUBLIC_UMAMI_WEBSITE_ID are
+# intentionally NOT pushed here — both are public values baked into the
+# client bundle at build time (see deploy.yml's "Build and deploy" step),
+# not Worker runtime secrets.
 set -euo pipefail
 
 VARS_FILE=".dev.vars"
