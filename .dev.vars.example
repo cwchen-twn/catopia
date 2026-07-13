@@ -13,3 +13,8 @@ RESEND_TO=xxx@xxx.xxx
 # (Cloudflare dashboard -> Turnstile -> create a widget for your domain).
 TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
+
+# Umami analytics (self-hosted). Script only loads in production builds
+# (NODE_ENV === "production"), see [locale]/layout.tsx. Get the website ID
+# from your Umami dashboard -> Settings -> Websites.
+NEXT_PUBLIC_UMAMI_WEBSITE_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx

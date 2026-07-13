@@ -2,17 +2,18 @@
 # Pushes the secrets used by .github/workflows/deploy.yml to this repo's
 # GitHub Actions secrets via `gh secret set`.
 #
-# RESEND_*/TURNSTILE_SECRET_KEY/NEXT_PUBLIC_TURNSTILE_SITE_KEY values are
-# read from .dev.vars. CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID aren't
-# stored in .dev.vars, so they're read from already-exported environment
-# variables if present, otherwise prompted for.
+# RESEND_*/TURNSTILE_SECRET_KEY/NEXT_PUBLIC_TURNSTILE_SITE_KEY/
+# NEXT_PUBLIC_UMAMI_WEBSITE_ID values are read from .dev.vars.
+# CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID aren't stored in .dev.vars,
+# so they're read from already-exported environment variables if present,
+# otherwise prompted for.
 set -euo pipefail
 
 command -v gh >/dev/null 2>&1 || { echo "Error: gh CLI not found." >&2; exit 1; }
 gh auth status >/dev/null 2>&1 || { echo "Error: not logged in to gh. Run 'gh auth login' first." >&2; exit 1; }
 
 VARS_FILE=".dev.vars"
-DEV_VARS_KEYS=(RESEND_API_KEY RESEND_FROM RESEND_SUBJECT_PREFIX RESEND_TO TURNSTILE_SECRET_KEY NEXT_PUBLIC_TURNSTILE_SITE_KEY)
+DEV_VARS_KEYS=(RESEND_API_KEY RESEND_FROM RESEND_SUBJECT_PREFIX RESEND_TO TURNSTILE_SECRET_KEY NEXT_PUBLIC_TURNSTILE_SITE_KEY NEXT_PUBLIC_UMAMI_WEBSITE_ID)
 
 set_secret() {
   echo "Setting GitHub secret: $1"

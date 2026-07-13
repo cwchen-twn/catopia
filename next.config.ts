@@ -104,6 +104,7 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: readPublicVar(
       "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
     ),
+    NEXT_PUBLIC_UMAMI_WEBSITE_ID: readPublicVar("NEXT_PUBLIC_UMAMI_WEBSITE_ID"),
   },
 };
 
